@@ -1,0 +1,221 @@
+\documentclass[review]{elsarticle}
+
+\usepackage{lineno,hyperref}
+\modulolinenumbers[5]
+\usepackage{booktabs}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
+
+
+\journal{International Journal of Forecasting}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%% Elsevier bibliography styles
+%%%%%%%%%%%%%%%%%%%%%%%
+%% To change the style, put a % in front of the second line of the current style and
+%% remove the % from the second line of the style you would like to use.
+%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Numbered
+%\bibliographystyle{model1-num-names}
+
+%% Numbered without titles
+%\bibliographystyle{model1a-num-names}
+
+%% Harvard
+%\bibliographystyle{model2-names.bst}\biboptions{authoryear}
+
+%% Vancouver numbered
+%\usepackage{numcompress}\bibliographystyle{model3-num-names}
+
+%% Vancouver name/year
+%\usepackage{numcompress}\bibliographystyle{model4-names}\biboptions{authoryear}
+
+%% APA style
+%\bibliographystyle{model5-names}\biboptions{authoryear}
+
+%% AMA style
+%\usepackage{numcompress}\bibliographystyle{model6-num-names}
+
+%% `Elsevier LaTeX' style
+\bibliographystyle{elsarticle-num}
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Prediction interval using quantile regression and mean variance based on ANN}
+\tnotetext[mytitlenote]{Fully documented templates are available in the elsarticle package on \href{http://www.ctan.org/tex-archive/macros/latex/contrib/elsarticle}{CTAN}.}
+
+%% Group authors per affiliation:
+% \author{Pornchai Chaweewat\fnref{myfootnote}}
+\author{Pornchai Chaweewat\fnref{myfootnote}}
+
+\address{AIT}
+% \fntext[myfootnote]{Since 1880.}
+
+% %% or include affiliations in footnotes:
+% \author[mymainaddress,mysecondaryaddress]{Elsevier Inc}
+% \ead[url]{www.elsevier.com}
+%
+% \author[mysecondaryaddress]{Global Customer Service\corref{mycorrespondingauthor}}
+% \cortext[mycorrespondingauthor]{Corresponding author}
+% \ead{support@elsevier.com}
+%
+% \address[mymainaddress]{1600 John F Kennedy Boulevard, Philadelphia}
+% \address[mysecondaryaddress]{360 Park Avenue South, New York}
+
+\begin{abstract}
+Here is abstract
+\end{abstract}
+
+\begin{keyword}
+Here are keywords
+\end{keyword}
+
+\end{frontmatter}
+
+\linenumbers
+
+\section{Introduction}
+
+  Since the transformation of the deregulation of modern power systems, electricty price forecasting has become more important process to energy market's participants at planning and operation levels.
+
+  (talk about point of forecating, 1 method, 2 measurement, 3 problems) Over the past few decades, many powerful forecasting algorithms have been developed (for a recent comprehensive review, see \cite{Weron2014}). The majority of emprical studies are on point forecasting (or call expected value of the spot price).
+
+  (mention about problems of poing of forecasting, introduct to interval forecasting)
+
+  (mention on used of deep residual neural network and why we use this method)
+  Deep residual network is modified from deep Feed Forward Neural Networks (FFNNs) with extra connections (or called skip connections), passing input from one layer to a late layer as well as the next layer as shown in figure~\ref{Fig:Basic_DRN}. DRN is widely used in computer vision and pattern reconigtion. There are few used on deep residual neural network.
+
+  \begin{figure}[t]
+    \caption{Basis DRN}
+    \label{Fig:Basic_DRN}
+    \includegraphics[width=5cm]{basic_DRN}
+  \centering
+  \end{figure}
+
+
+  (proposeal) Therefore, this paper seeks to apply
+
+  (structure) The remainder of the paper is organized as follows. First, the problem formulation is presented in brief in section 2. The, the main features of the ANN algorithm are presented in section 3. Next, the results after prediction in different cases of proposed method  are discussed in section 4. Finally, conclusions are drawn in the last section of this paper.
+
+\section{Problem formulation}
+
+  \subsection{Interval forecasting}
+
+  \subsection{Measurement}
+    The performance of the proposed model need to be assessed in term of the quaility of of prediction interval, namely converage probability and PI width. First,  PI converage probility (PICP) refers to the ability of the constructed PIs to capture the actual target variables. PICP can be methematically stated as
+
+    \begin{equation}
+      PICP = \frac{1}{N} \sum_{i=1}^{N} C_{i}
+      \label{eq.PICP}
+    \end{equation}
+
+    where
+
+    \begin{equation}
+      C_{i} =
+      \begin{cases}
+        1, if t_{i} \in [L_{i},U_{i}] \\
+        0, if t_{i} \not\in [L_{i},U_{i}]
+      \end{cases}
+      \label{eq.Ci}
+    \end{equation}
+
+    where $N$ is the number of samples in the test set, $t_{i}$ represents the actual target, and $L_{i}$ and $U_{i}$ are lower and upper bounds of hte $i$th PI, repestively. The range of PICP lies between 0$\%$ (wher none of hte targets are enclosed by PI) to 100$\%$ (when all targets are enclosed by PI). Ideally, PICP should be very close or larger than the norminal confidence level associated to the PIs.
+    PICP has a direct relationship with the width of PIs. A satisfactorily large PICP can be easily achieved by widening PIs from either side. However, such PIs are too conservative and less useful in practice, as they do not show the variation of the targetes. Therefore, a measure is resquired to check how wide the PIs are. Mean PI Width (MPIW) quantifies this aspect of PIs \cite{Khosravi2010}.
+
+    \begin{equation}
+      MPIW = \frac{1}{N} \sum_{i=1}^{N} (U_{i}-L_{i})
+      \label{eq.MPIW}
+    \end{equation}
+
+    Secondrly, MPIW shows the average width of PIs. Normalizing MPIW by the range of the underlying target, $R$, allows us to compare PIs constructed for different datasets repectively (the new measure is called NMPIW),
+    \begin{equation}
+      NMPIW = \frac{NMPIW}{R}
+      \label{eq.NMPIW}
+    \end{equation}
+
+    Both PICP and NMPIW, are representing quality and width of PIs, evaluate the quality of PIS from one aspect. A combined index is required for the comprehensive assessment of PIs from both coverage probility and width perspectives. The new measure should give a higher priority to PICP, as it is the key feature of PIs determining whether constructed PIs are theoretically correcty or not. The Coverage Width-baed Criterion (CWC) evalutes PIs from both coverage probility and width perspectives.
+
+    Where, $\eta$ and $\mu$ are two hyperparameters controlling the location and amount of CWC jump. These measures can be easily determined based on the level of confidence associated with PIs. $\mu$ correspomds to the nominal confidence level associated with PIs and can be set to 1-$\alpha$. The design of CWC is based on two principles:
+
+    \begin{itemize}
+      \item if PICP is less than the nominal confidence level, (1-$\alpha$)$\%$, CWC should be large regardless of the width of PIs (measures by NMIPW),
+      \item if PICP is greater than or equal to its corresponding confidence level, then NMPIW should be the influential factor. $\gamma$(PICP), eliminates the exponential term of CWC when PICP is greater or equal to the nominal confidence level.
+    \end{itemize}
+
+  \subsection{Data description}
+    All data in this paper is provided in Global Energy Forecasting Competition 2014 (see \cite{Hong2016}). The aim of this competition is to forecast 15 tasks of electricity prices in term of probabilistic distribution (in quantiles). Hourly data of locational marginal price (LMP), zonal load forecast and system load forecast are provided. The participants receive historical data and forecast for next day electricty price. In total, the price forecasting track involves about three years of locational marginal price, zonal and system load forecast. Where, table~\ref{table:GEFCOm2014} summarizes top four team's method.
+
+    \begin{table}[]
+      \caption{Summary of the methods used by the top four teams of the price forecasting track. Techniques}
+      \label{table:GEFCOm2014}
+      \begin{tabular}{p{2cm}p{5cm}p{3cm}p{3cm}}
+      \hline
+                             & Techniques                                                                                                                                                                  & Spike preprocessing                                                                                     & Forecast combination \\ \hline
+      Tololo                 & (1) Quantile regression, generalized additive models; (2) autoregressive models, random forest regression, gradient boosting machine; (3) Kernel based quantile regression. & Preprocessed spikes for some of the models.                                                             & ML-Poly aggregation  \\
+      Team Poland            & Autoregressive models with exogenous variables; filtering; quantile regression; judgmental forecasting                                                                      & Three filtering methods: day type filtering, similar load profile filtering and expected bias filtering & Arithmetic average   \\
+      GMD                    & Feed forward neural network                                                                                                                                                 & None                                                                                                    & None                 \\
+      C3 Green Team          & Quantile regression; radial basis function network; k-means algorithm; alternating direction method of multipliers; Autoregressive models with exogenous variables          & None                                                                                                    & None                 \\ \hline
+      \end{tabular}
+
+    \end{table}
+
+\section{Proposed probabilisitic deep residual network}
+  As mention eariler,
+
+  \begin{figure}[t]
+    \caption{Upper and lower bound and mean and variance estimation}
+    \label{Fig:UB_LB_MV_PDRN}
+    \includegraphics[width=12cm]{UB_LB_MV_PDRN}
+  \centering
+  \end{figure}
+
+  \begin{figure}[t]
+    \caption{Proposed probabilistic deep residual network}
+    \label{Fig:proposed_PDRN}
+    \includegraphics[width=12cm]{proposed_PDRN}
+  \centering
+  \end{figure}
+
+% \section{The Elsevier article class}
+%
+% \paragraph{Installation} If the document class \emph{elsarticle} is not available on your computer, you can download and install the system package \emph{texlive-publishers} (Linux) or install the \LaTeX\ package \emph{elsarticle} using the package manager of your \TeX\ installation, which is typically \TeX\ Live or Mik\TeX.
+%
+% \paragraph{Usage} Once the package is properly installed, you can use the document class \emph{elsarticle} to create a manuscript. Please make sure that your manuscript follows the guidelines in the Guide for Authors of the relevant journal. It is not necessary to typeset your manuscript in exactly the same way as an article, unless you are submitting to a camera-ready copy (CRC) journal.
+%
+% \paragraph{Functionality} The Elsevier article class is based on the standard article class and supports almost all of the functionality of that class. In addition, it features commands and options to format the
+% \begin{itemize}
+% \item document style
+% \item baselineskip
+% \item front matter
+% \item keywords and MSC codes
+% \item theorems, definitions and proofs
+% \item lables of enumerations
+% \item citation style and labeling.
+% \end{itemize}
+%
+% \section{Front matter}
+%
+% The author names and affiliations could be formatted in two ways:
+% \begin{enumerate}[(1)]
+% \item Group the authors per affiliation.
+% \item Use footnotes to indicate the affiliations.
+% \end{enumerate}
+% See the front matter of this document for examples. You are recommended to conform your choice to the journal you are submitting to.
+%
+% \section{Bibliography styles}
+%
+% There are various bibliography styles available. You can select the style of your choice in the preamble of this document. These styles are Elsevier styles based on standard styles like Harvard and Vancouver. Please use Bib\TeX\ to generate your bibliography and include DOIs whenever available.
+%
+% Here are two sample references: .
+
+\section*{References}
+
+\bibliography{mybibfile}
+
+\end{document}

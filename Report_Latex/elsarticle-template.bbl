@@ -1,0 +1,33 @@
+\begin{thebibliography}{1}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \def\href#1#2{#2} \def\path#1{#1}\fi
+
+\bibitem{Weron2014}
+R.~Weron,
+  \href{https://www.sciencedirect.com/science/article/pii/S0169207014001083}{{Electricity
+  price forecasting: A review of the state-of-the-art with a look into the
+  future}}, International Journal of Forecasting 30~(4) (2014) 1030--1081.
+\newblock \href {http://dx.doi.org/10.1016/J.IJFORECAST.2014.08.008}
+  {\path{doi:10.1016/J.IJFORECAST.2014.08.008}}.
+\newline\urlprefix\url{https://www.sciencedirect.com/science/article/pii/S0169207014001083}
+
+\bibitem{Khosravi2010}
+A.~Khosravi, S.~Nahavandi, D.~Creighton, Construction of optimal prediction
+  intervals for load forecasting problems, IEEE Transactions on Power Systems
+  25~(3) (2010) 1496--1503.
+\newblock \href {http://dx.doi.org/10.1109/TPWRS.2010.2042309}
+  {\path{doi:10.1109/TPWRS.2010.2042309}}.
+
+\bibitem{Hong2016}
+T.~Hong, P.~Pinson, S.~Fan, H.~Zareipour, A.~Troccoli, R.~J. Hyndman,
+  \href{http://dx.doi.org/10.1016/j.ijforecast.2016.02.001}{{Probabilistic
+  energy forecasting: Global Energy Forecasting Competition 2014 and beyond}},
+  International Journal of Forecasting 32~(3) (2016) 896--913.
+\newblock \href {http://dx.doi.org/10.1016/j.ijforecast.2016.02.001}
+  {\path{doi:10.1016/j.ijforecast.2016.02.001}}.
+\newline\urlprefix\url{http://dx.doi.org/10.1016/j.ijforecast.2016.02.001}
+
+\end{thebibliography}
