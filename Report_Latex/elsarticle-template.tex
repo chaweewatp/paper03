@@ -4,6 +4,7 @@
 \modulolinenumbers[5]
 \usepackage{booktabs}
 \usepackage{graphicx}
+\usepackage{float}
 \graphicspath{ {./images/} }
 
 
@@ -68,7 +69,9 @@
 % \address[mysecondaryaddress]{360 Park Avenue South, New York}
 
 \begin{abstract}
-Here is abstract
+What we do? - This paper proposes a electricity price forecasting approach based on a novel residual neural network for probabilistic electricity price forecasting under price spike environment for GEFCom2014.
+
+
 \end{abstract}
 
 \begin{keyword}
@@ -90,7 +93,7 @@ Here are keywords
   (mention on used of deep residual neural network and why we use this method)
   Deep residual network is modified from deep Feed Forward Neural Networks (FFNNs) with extra connections (or called skip connections), passing input from one layer to a late layer as well as the next layer as shown in figure~\ref{Fig:Basic_DRN}. DRN is widely used in computer vision and pattern reconigtion. There are few used on deep residual neural network.
 
-  \begin{figure}[t]
+  \begin{figure}[H]
     \caption{Basis DRN}
     \label{Fig:Basic_DRN}
     \includegraphics[width=5cm]{basic_DRN}
@@ -151,7 +154,7 @@ Here are keywords
   \subsection{Data description}
     All data in this paper is provided in Global Energy Forecasting Competition 2014 (see \cite{Hong2016}). The aim of this competition is to forecast 15 tasks of electricity prices in term of probabilistic distribution (in quantiles). Hourly data of locational marginal price (LMP), zonal load forecast and system load forecast are provided. The participants receive historical data and forecast for next day electricty price. In total, the price forecasting track involves about three years of locational marginal price, zonal and system load forecast. Where, table~\ref{table:GEFCOm2014} summarizes top four team's method.
 
-    \begin{table}[]
+    \begin{table}[H]
       \caption{Summary of the methods used by the top four teams of the price forecasting track. Techniques}
       \label{table:GEFCOm2014}
       \begin{tabular}{p{2cm}p{5cm}p{3cm}p{3cm}}
@@ -168,19 +171,23 @@ Here are keywords
 \section{Proposed probabilisitic deep residual network}
   As mention eariler,
 
-  \begin{figure}[t]
+  \begin{figure}[H]
     \caption{Upper and lower bound and mean and variance estimation}
     \label{Fig:UB_LB_MV_PDRN}
     \includegraphics[width=12cm]{UB_LB_MV_PDRN}
   \centering
   \end{figure}
 
-  \begin{figure}[t]
+  \begin{figure}[H]
     \caption{Proposed probabilistic deep residual network}
     \label{Fig:proposed_PDRN}
     \includegraphics[width=12cm]{proposed_PDRN}
   \centering
   \end{figure}
+
+
+\section{Conclusions}
+This paper proposes a novel application of residual neural network based approach to probabilistic electricity price forecasting.
 
 % \section{The Elsevier article class}
 %

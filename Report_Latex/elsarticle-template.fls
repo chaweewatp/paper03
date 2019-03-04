@@ -1,4 +1,4 @@
-PWD /Users/pornchaichaweewat/Documents/AIT/Doctor/Thesis/Progressive 3/Elsevier_paper
+PWD /Users/pornchaichaweewat/Documents/GitHub/paper03/Report_Latex
 INPUT /usr/local/texlive/2017/texmf.cnf
 INPUT /usr/local/texlive/2017/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt
@@ -67,6 +67,8 @@ INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/booktabs/booktabs.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/booktabs/booktabs.sty
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/float/float.sty
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/float/float.sty
 INPUT elsarticle-template.aux
 INPUT elsarticle-template.aux
 OUTPUT elsarticle-template.aux
@@ -102,10 +104,10 @@ INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmti8.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmss8.tfm
-INPUT ./images/basic_DRN.png
-INPUT ./images/basic_DRN.png
-INPUT ./images/basic_DRN.png
 INPUT /usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map
+INPUT ./images/basic_DRN.png
+INPUT ./images/basic_DRN.png
+INPUT ./images/basic_DRN.png
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
 INPUT ./images/UB_LB_MV_PDRN.png
