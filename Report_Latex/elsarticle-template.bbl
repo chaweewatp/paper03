@@ -5,6 +5,33 @@
 \expandafter\ifx\csname href\endcsname\relax
   \def\href#1#2{#2} \def\path#1{#1}\fi
 
+\bibitem{He2016}
+D.~He, W.~P. Chen, A real-time electricity price forecasting based on the spike
+  clustering analysis, in: 2016 IEEE/PES Transmission and Distribution
+  Conference and Exposition (T D), 2016, pp. 1--5.
+\newblock \href {http://dx.doi.org/10.1109/TDC.2016.7519941}
+  {\path{doi:10.1109/TDC.2016.7519941}}.
+
+\bibitem{SINGHAL2011550}
+D.~Singhal, K.~Swarup,
+  \href{http://www.sciencedirect.com/science/article/pii/S0142061510002231}{Electricity
+  price forecasting using artificial neural networks}, International Journal of
+  Electrical Power & Energy Systems 33~(3) (2011) 550 -- 555.
+\newblock \href
+  {http://dx.doi.org/https://doi.org/10.1016/j.ijepes.2010.12.009}
+  {\path{doi:https://doi.org/10.1016/j.ijepes.2010.12.009}}.
+\newline\urlprefix\url{http://www.sciencedirect.com/science/article/pii/S0142061510002231}
+
+\bibitem{GONZALEZSOTRES2017338}
+L.~González-Sotres, P.~Frías, C.~Mateo,
+  \href{http://www.sciencedirect.com/science/article/pii/S0378779617302419}{Techno-economic
+  assessment of forecasting and communication on centralized voltage control
+  with high pv penetration}, Electric Power Systems Research 151 (2017) 338 --
+  347.
+\newblock \href {http://dx.doi.org/https://doi.org/10.1016/j.epsr.2017.05.034}
+  {\path{doi:https://doi.org/10.1016/j.epsr.2017.05.034}}.
+\newline\urlprefix\url{http://www.sciencedirect.com/science/article/pii/S0378779617302419}
+
 \bibitem{Weron2014}
 R.~Weron,
   \href{https://www.sciencedirect.com/science/article/pii/S0169207014001083}{{Electricity
