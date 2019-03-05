@@ -30,4 +30,32 @@ T.~Hong, P.~Pinson, S.~Fan, H.~Zareipour, A.~Troccoli, R.~J. Hyndman,
   {\path{doi:10.1016/j.ijforecast.2016.02.001}}.
 \newline\urlprefix\url{http://dx.doi.org/10.1016/j.ijforecast.2016.02.001}
 
+\bibitem{Dudek2016}
+G.~Dudek, \href{http://dx.doi.org/10.1016/j.ijforecast.2015.11.009}{{Multilayer
+  perceptron for GEFCom2014 probabilistic electricity price forecasting}},
+  International Journal of Forecasting 32~(3) (2016) 1057--1060.
+\newblock \href {http://dx.doi.org/10.1016/j.ijforecast.2015.11.009}
+  {\path{doi:10.1016/j.ijforecast.2015.11.009}}.
+\newline\urlprefix\url{http://dx.doi.org/10.1016/j.ijforecast.2015.11.009}
+
+\bibitem{Juban2016}
+R.~Juban, H.~Ohlsson, M.~Maasoumy, L.~Poirier, J.~Z. Kolter,
+  \href{http://dx.doi.org/10.1016/j.ijforecast.2015.12.002}{{A multiple
+  quantile regression approach to the wind, solar, and price tracks of
+  GEFCom2014}}, International Journal of Forecasting 32~(3) (2016) 1094--1102.
+\newblock \href {http://arxiv.org/abs/arXiv:1807.07747v1}
+  {\path{arXiv:arXiv:1807.07747v1}}, \href
+  {http://dx.doi.org/10.1016/j.ijforecast.2015.12.002}
+  {\path{doi:10.1016/j.ijforecast.2015.12.002}}.
+\newline\urlprefix\url{http://dx.doi.org/10.1016/j.ijforecast.2015.12.002}
+
+\bibitem{Maciejowska2016}
+K.~Maciejowska, J.~Nowotarski,
+  \href{http://dx.doi.org/10.1016/j.ijforecast.2015.11.008}{{A hybrid model for
+  GEFCom2014 probabilistic electricity price forecasting}}, International
+  Journal of Forecasting 32~(3) (2016) 1051--1056.
+\newblock \href {http://dx.doi.org/10.1016/j.ijforecast.2015.11.008}
+  {\path{doi:10.1016/j.ijforecast.2015.11.008}}.
+\newline\urlprefix\url{http://dx.doi.org/10.1016/j.ijforecast.2015.11.008}
+
 \end{thebibliography}

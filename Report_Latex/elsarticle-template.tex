@@ -158,21 +158,52 @@ Residual neural network, GEFCom2014
     \end{itemize}
 
   \subsection{Data description}
-    All data in this paper is provided in Global Energy Forecasting Competition 2014 (see \cite{Hong2016}). The aim of this competition is to forecast 15 tasks of electricity prices in term of probabilistic distribution (in quantiles). Hourly data of locational marginal price (LMP), zonal load forecast and system load forecast are provided. The participants receive historical data and forecast for next day electricty price. In total, the price forecasting track involves about three years of locational marginal price, zonal and system load forecast. Where, table~\ref{table:GEFCOm2014} summarizes top four team's method.
+    All data in this paper is provided in Global Energy Forecasting Competition 2014 (see \cite{Hong2016}). The aim of this competition is to forecast 15 tasks of electricity prices in term of probabilistic distribution (in quantiles). Hourly data of locational marginal price (LMP), zonal load forecast and system load forecast are provided. The participants receive historical data and forecast for next day electricty price. In total, the price forecasting track involves about three years of locational marginal price, zonal and system load forecast. The summarized solution data set of 15 tasks is shown in table~\ref{table:price_data_set}.
 
-    \begin{table}[H]
-      \caption{Summary of the methods used by the top four teams of the price forecasting track. Techniques}
-      \label{table:GEFCOm2014}
-      \begin{tabular}{p{2cm}p{5cm}p{3cm}p{3cm}}
+    \begin{table}[htbp]
+      \caption{GEFcom2014 task solution}
+      \begin{center}
+      \begin{tabular}{|c|c|c|c|c|c|c|}
       \hline
-                             & Techniques                                                                                                                                                                  & Spike preprocessing                                                                                     & Forecast combination \\ \hline
-      Tololo                 & (1) Quantile regression, generalized additive models; (2) autoregressive models, random forest regression, gradient boosting machine; (3) Kernel based quantile regression. & Preprocessed spikes for some of the models.                                                             & ML-Poly aggregation  \\
-      Team Poland            & Autoregressive models with exogenous variables; filtering; quantile regression; judgmental forecasting                                                                      & Three filtering methods: day type filtering, similar load profile filtering and expected bias filtering & Arithmetic average   \\
-      GMD                    & Feed forward neural network                                                                                                                                                 & None                                                                                                    & None                 \\
-      C3 Green Team          & Quantile regression; radial basis function network; k-means algorithm; alternating direction method of multipliers; Autoregressive models with exogenous variables          & None                                                                                                    & None                 \\ \hline
+      Task & Day & Holiday & Season & Normal price & High price & Spike price\\
+      \hline
+      1 & Sun & Yes & Summer & 24 & - & -\\
+      2 & Mon & No & Summer & 24 & - & -\\
+      3 & Mon & No & Summer & 22 & 2 & -\\
+      4 & Thu & No & Summer & 24 & - & -\\
+      5 & Tue & No & Summer & 22 & 2 & -\\
+      6 & Sat & Yes & Summer & 24 & - & -\\
+      7 & Tue & No & Summer & 16 & 8 & -\\
+      8 & Thu & No & Summer & 12 & 8 & 4\\
+      9 & Fri & No & Summer & 13 & 6 & 5\\
+      10 & Sat & Yes & Summer & 18 & 6 & -\\
+      11 & Wed & No & Summer & 24 & - & -\\
+      12 & Thu & No & Summer & 24 & - & -\\
+      13 & Sat & Yes & Authumn & 24 & - & -\\
+      14 & Sun & Yes & Authumn & 24 & - & -\\
+      15 & Tue & No & Authumn & 15 & 9 & -\\
+      \hline
       \end{tabular}
-
+      \label{table:price_data_set}
+      \end{center}
     \end{table}
+
+
+    The participation teams in GEFCom2014 perform electricity price forecasting method i.e.; linear regression (IR)\cite{Dudek2016}, multilayer perceptron (MLP)\cite{Dudek2016},  multiple quantile regression\cite{Juban2016}, hybrid quantile estimation with pre-and-post processes\cite{Maciejowska2016}.
+    % Where, table~\ref{table:GEFCOm2014} summarizes top four team's method.
+    % \begin{table}[H]
+    %   \caption{Summary of the methods used by the top four teams of the price forecasting track. Techniques}
+    %   \label{table:GEFCOm2014}
+    %   \begin{tabular}{p{2cm}p{5cm}p{3cm}p{3cm}}
+    %   \hline
+    %                          & Techniques                                                                                                                                                                  & Spike preprocessing                                                                                     & Forecast combination \\ \hline
+    %   Tololo                 & (1) Quantile regression, generalized additive models; (2) autoregressive models, random forest regression, gradient boosting machine; (3) Kernel based quantile regression. & Preprocessed spikes for some of the models.                                                             & ML-Poly aggregation  \\
+    %   Team Poland            & Autoregressive models with exogenous variables; filtering; quantile regression; judgmental forecasting                                                                      & Three filtering methods: day type filtering, similar load profile filtering and expected bias filtering & Arithmetic average   \\
+    %   GMD                    & Feed forward neural network                                                                                                                                                 & None                                                                                                    & None                 \\
+    %   C3 Green Team          & Quantile regression; radial basis function network; k-means algorithm; alternating direction method of multipliers; Autoregressive models with exogenous variables          & None                                                                                                    & None                 \\ \hline
+    %   \end{tabular}
+    %
+    % \end{table}
 
 \section{Proposed probabilisitic deep residual neural network}
   As mention eariler,
