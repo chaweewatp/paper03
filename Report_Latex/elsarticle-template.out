@@ -1,7 +1,8 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.2}{Problem formulation}{}% 2
-\BOOKMARK [2][-]{subsection.2.1}{Interval forecasting}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.1}{Proposed probabilisitic deep residual neural network on interval forecasting}{section.2}% 3
 \BOOKMARK [2][-]{subsection.2.2}{Measurement}{section.2}% 4
 \BOOKMARK [2][-]{subsection.2.3}{Data description}{section.2}% 5
-\BOOKMARK [1][-]{section.3}{Proposed probabilisitic deep residual neural network}{}% 6
-\BOOKMARK [1][-]{section.4}{Conclusions}{}% 7
+\BOOKMARK [2][-]{subsection.2.4}{Input features selection}{section.2}% 6
+\BOOKMARK [1][-]{section.3}{Results}{}% 7
+\BOOKMARK [1][-]{section.4}{Conclusions}{}% 8

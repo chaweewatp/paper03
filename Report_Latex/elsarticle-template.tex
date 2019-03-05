@@ -115,7 +115,23 @@ Residual neural network, GEFCom2014
 
 \section{Problem formulation}
 
-  \subsection{Interval forecasting}
+  \subsection{Proposed probabilisitic deep residual neural network on interval forecasting}
+
+  As mention eariler,
+
+  \begin{figure}[H]
+    \caption{Upper and lower bound and mean and variance estimation}
+    \label{Fig:UB_LB_MV_PDRN}
+    \includegraphics[width=12cm]{UB_LB_MV_PDRN}
+  \centering
+  \end{figure}
+
+  \begin{figure}[H]
+    \caption{Proposed probabilistic deep residual network}
+    \label{Fig:proposed_PDRN}
+    \includegraphics[width=12cm]{proposed_PDRN}
+  \centering
+  \end{figure}
 
   \subsection{Measurement}
     The performance of the proposed model need to be assessed in term of the quaility of of prediction interval, namely converage probability and PI width. First,  PI converage probility (PICP) refers to the ability of the constructed PIs to capture the actual target variables. PICP can be methematically stated as
@@ -162,7 +178,7 @@ Residual neural network, GEFCom2014
   \subsection{Data description}
     All data in this paper is provided in Global Energy Forecasting Competition 2014 (see \cite{Hong2016}). The aim of this competition is to forecast 15 tasks of electricity prices in term of probabilistic distribution (in quantiles). Hourly data of locational marginal price (LMP), zonal load forecast and system load forecast are provided. The participants receive historical data and forecast for next day electricty price. In total, the price forecasting track involves about three years of locational marginal price, zonal and system load forecast. The summarized solution data set of 15 tasks is shown in table~\ref{table:price_data_set}.
 
-    \begin{table}[htbp]
+    \begin{table}[H]
       \caption{GEFcom2014 task solution}
       \begin{center}
       \begin{tabular}{|c|c|c|c|c|c|c|}
@@ -207,22 +223,17 @@ Residual neural network, GEFCom2014
     %
     % \end{table}
 
-\section{Proposed probabilisitic deep residual neural network}
-  As mention eariler,
+  \subsection{Input features selection}
+    model-1- Hourl of day
+    model-2- Hourl of day + day of week
+    model-3- Hourl of day + day of week + Holiday
+    model-3- Hourl of day + day of week + Holiday + Seasonal
 
-  \begin{figure}[H]
-    \caption{Upper and lower bound and mean and variance estimation}
-    \label{Fig:UB_LB_MV_PDRN}
-    \includegraphics[width=12cm]{UB_LB_MV_PDRN}
-  \centering
-  \end{figure}
 
-  \begin{figure}[H]
-    \caption{Proposed probabilistic deep residual network}
-    \label{Fig:proposed_PDRN}
-    \includegraphics[width=12cm]{proposed_PDRN}
-  \centering
-  \end{figure}
+
+\section{Results}
+What is comparision? benchmark is provided from GEFCom2014, task4-\cite{Dudek2016}
+
 
 
 \section{Conclusions}
