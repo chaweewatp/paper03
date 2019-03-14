@@ -6,8 +6,10 @@
 \usepackage{graphicx}
 \usepackage{float}
 \graphicspath{ {./images/} }
+\usepackage{adjustbox}
 
-
+\usepackage{threeparttable}
+\usepackage{amsmath}
 
 \journal{International Journal of Forecasting}
 
@@ -73,15 +75,14 @@ What we do? - This paper proposes a electricity price forecasting approach based
 
 Why I do this? - The electricity price, in deregulation electricity market, has become more fluctuated and generally unanticipated price spike. The use of prediction interval or probabilistic forecasting has become much more common due to it help market participants to submit effective bid with low risks.
 
-How I do this? - A new model is developed from novel deep residual neural network approach. It consists of two major part. First is spike prediction. Interval's value forecasting is another which is formulated into two methods; upper-lower bounds and mean-variance method. The proposed methodology is test with GEFCom2014 dataset where there are 15 tasks for electricity price forecasting which high and spike price are include.
-The novel method is tested with non-price spike electricity price foreasting model as benchmark.
+How I do this? - A new model is developed from novel deep residual neural network approach. It consists of two parts. First is spike prediction. Interval's value forecasting is another which is formulated into two methods; upper-lower bounds and mean-variance method. The proposed methodology is test with GEFCom2014 dataset where there are 15 tasks for electricity price forecasting which high and spike price are include. The results are compared with benchmarkes provided by GEFcom2014.
 
-What is the result? - The overall results show that the proposed method with confidence levels at 90$\%$ and 80$\%$ can imporve reliability and narrow width of prediction interval under non and high number of high and spike price tasks. The model can handle in spike price occurances environment where it is realistic globally.
+What is the result? - The performance of forecasting models is evaluated in accuracy and reliablity metrics using Pinball Loss Function and Coverage Width-baed Criterion (CWC), respectively. The significant outcome of this paper is forecasting method cooperated with price spike prediction imporved the forecasting's performance in term of quaility and quantity. Moreover, increasing confidence level could improve CWC values in order to ensure reliability's satification.
 
 \end{abstract}
 
 \begin{keyword}
-Residual neural network, GEFCom2014
+Electricity price forecasting, Residual neural network, GEFCom2014
 \end{keyword}
 
 \end{frontmatter}
@@ -105,139 +106,184 @@ Residual neural network, GEFCom2014
     \caption{Basis DRN}
     \label{Fig:Basic_DRN}
     \includegraphics[width=5cm]{basic_DRN}
-  \centering
+    \centering
   \end{figure}
 
 
   (proposeal) Therefore, this paper seeks to apply
 
   (structure) The remainder of the paper is organized as follows. First, the problem formulation is presented in brief in section 2. The, the main features of the ANN algorithm are presented in section 3. Next, the results after prediction in different cases of proposed method  are discussed in section 4. Finally, conclusions are drawn in the last section of this paper.
-
 \section{Problem formulation}
 
   \subsection{Proposed probabilisitic deep residual neural network on interval forecasting}
 
-  As mention eariler,
+    As mention eariler,
 
-  \begin{figure}[H]
-    \caption{Upper and lower bound and mean and variance estimation}
-    \label{Fig:UB_LB_MV_PDRN}
-    \includegraphics[width=12cm]{UB_LB_MV_PDRN}
-  \centering
-  \end{figure}
+    \begin{figure}[H]
+      \caption{Upper and lower bound and mean and variance estimation}
+      \label{Fig:UB_LB_MV_PDRN}
+      \includegraphics[width=12cm]{UB_LB_MV_PDRN}
+    \centering
+    \end{figure}
 
-  \begin{figure}[H]
-    \caption{Proposed probabilistic deep residual network}
-    \label{Fig:proposed_PDRN}
-    \includegraphics[width=12cm]{proposed_PDRN}
-  \centering
-  \end{figure}
+    \begin{figure}[H]
+      \caption{Proposed probabilistic deep residual network}
+      \label{Fig:proposed_PDRN}
+      \includegraphics[width=12cm]{proposed_PDRN}
+    \centering
+    \end{figure}
 
-  \subsection{Measurement}
-    The performance of the proposed model need to be assessed in term of the quaility of of prediction interval, namely converage probability and PI width. First,  PI converage probility (PICP) refers to the ability of the constructed PIs to capture the actual target variables. PICP can be methematically stated as
+  \subsection{Evaluation metrics}
+    This section will descrip evaluation metrics in accuracy and reliable point of view. In term of accuracy metric, the forecasting results will be analyzied using pinball function. The Coverage Width-baed Criterion (CWC) will take care of reliability point of view.
 
-    \begin{equation}
-      PICP = \frac{1}{N} \sum_{i=1}^{N} C_{i}
-      \label{eq.PICP}
-    \end{equation}
+    \subsubsection{Accuracy}
+      The widely used measurement of forecasting's accuracy is mean absoulute error (MAE) which is simply and generalized method. MAE work well of point of forecasting (single value). However, this problem is to formulate upper and lower bound of forecasting which is cooperated with confidence value. Hence, general MAE is not satisfied in this case.
+      Pinball loss function are proposed in \cite{Maciejowska2016}, also be benchmark of this paper, which returns the value that can be interpreted as accuracy of mean-varience and quantile regression forecasting models. The pinball loss function is formulated as below.
+      \begin{equation}
+        L_{\tau}(y,z) =
+        \begin{cases}
+          (y-z)\tau if y>=z \\
+          (z-y)(1-\tau) if z>y
+        \end{cases}
+        \label{eq.pinball}
+      \end{equation}
+      where $L_{\tau}(y,z)$ is pinball loss function at $\tau$ confidence level, $y$ is forecasted electricity price and $z$ is actual electricty price. The final score of pinball loss function was computed as average $L_{\tau}$ across 24 hours for each task. The $\tau$ in this paper is 0.05, 0.10, 0.15, 0.20 and 0.25 which are represent 5$\%$, 10$\%$, 15$\%$, 20$\%$ and 25$\%$ confidence levels.
+      The important results of pinball loss function is that the lower pinball loss, the more accurate forecasting model.
 
-    where
+    \subsubsection{Reliability}
+      In term of reliability measurement, the performance of forecasting model is measured to ensure that the ranges of forecasting can cover the observation values both quality and quantity.
+      First,  PI converage probility (PICP) refers to the ability of the constructed PIs to capture the actual target variables. PICP can be methematically stated as
+      \begin{equation}
+        PICP = \frac{1}{N} \sum_{i=1}^{N} C_{i}
+        \label{eq.PICP}
+      \end{equation}
+      where
+      \begin{equation}
+        C_{i} =
+        \begin{cases}
+          1, if t_{i} \in [L_{i},U_{i}] \\
+          0, if t_{i} \not\in [L_{i},U_{i}]
+        \end{cases}
+        \label{eq.Ci}
+      \end{equation}
 
-    \begin{equation}
-      C_{i} =
-      \begin{cases}
-        1, if t_{i} \in [L_{i},U_{i}] \\
-        0, if t_{i} \not\in [L_{i},U_{i}]
-      \end{cases}
-      \label{eq.Ci}
-    \end{equation}
+      where $N$ is the number of samples in the test set, $t_{i}$ represents the actual target, and $L_{i}$ and $U_{i}$ are lower and upper bounds of hte $i$th PI, repestively. The range of PICP lies between 0$\%$ (wher none of hte targets are enclosed by PI) to 100$\%$ (when all targets are enclosed by PI). Ideally, PICP should be very close or larger than the norminal confidence level associated to the PIs.
+      PICP has a direct relationship with the width of PIs. A satisfactorily large PICP can be easily achieved by widening PIs from either side. However, such PIs are too conservative and less useful in practice, as they do not show the variation of the targetes. Therefore, a measure is resquired to check how wide the PIs are. Mean PI Width (MPIW) quantifies this aspect of PIs \cite{Khosravi2010}.
 
-    where $N$ is the number of samples in the test set, $t_{i}$ represents the actual target, and $L_{i}$ and $U_{i}$ are lower and upper bounds of hte $i$th PI, repestively. The range of PICP lies between 0$\%$ (wher none of hte targets are enclosed by PI) to 100$\%$ (when all targets are enclosed by PI). Ideally, PICP should be very close or larger than the norminal confidence level associated to the PIs.
-    PICP has a direct relationship with the width of PIs. A satisfactorily large PICP can be easily achieved by widening PIs from either side. However, such PIs are too conservative and less useful in practice, as they do not show the variation of the targetes. Therefore, a measure is resquired to check how wide the PIs are. Mean PI Width (MPIW) quantifies this aspect of PIs \cite{Khosravi2010}.
+      \begin{equation}
+        MPIW = \frac{1}{N} \sum_{i=1}^{N} (U_{i}-L_{i})
+        \label{eq.MPIW}
+      \end{equation}
 
-    \begin{equation}
-      MPIW = \frac{1}{N} \sum_{i=1}^{N} (U_{i}-L_{i})
-      \label{eq.MPIW}
-    \end{equation}
+      Secondrly, MPIW shows the average width of PIs. Normalizing MPIW by the range of the underlying target, $R$, allows us to compare PIs constructed for different datasets repectively (the new measure is called NMPIW),
+      \begin{equation}
+        NMPIW = \frac{NMPIW}{R}
+        \label{eq.NMPIW}
+      \end{equation}
 
-    Secondrly, MPIW shows the average width of PIs. Normalizing MPIW by the range of the underlying target, $R$, allows us to compare PIs constructed for different datasets repectively (the new measure is called NMPIW),
-    \begin{equation}
-      NMPIW = \frac{NMPIW}{R}
-      \label{eq.NMPIW}
-    \end{equation}
+      Both PICP and NMPIW, are representing quality and width of PIs, evaluate the quality of PIS from one aspect. A combined index is required for the comprehensive assessment of PIs from both coverage probility and width perspectives. The new measure should give a higher priority to PICP, as it is the key feature of PIs determining whether constructed PIs are theoretically correcty or not. The Coverage Width-baed Criterion (CWC) evalutes PIs from both coverage probility and width perspectives.
 
-    Both PICP and NMPIW, are representing quality and width of PIs, evaluate the quality of PIS from one aspect. A combined index is required for the comprehensive assessment of PIs from both coverage probility and width perspectives. The new measure should give a higher priority to PICP, as it is the key feature of PIs determining whether constructed PIs are theoretically correcty or not. The Coverage Width-baed Criterion (CWC) evalutes PIs from both coverage probility and width perspectives.
+      Where, $\eta$ and $\mu$ are two hyperparameters controlling the location and amount of CWC jump. These measures can be easily determined based on the level of confidence associated with PIs. $\mu$ correspomds to the nominal confidence level associated with PIs and can be set to 1-$\alpha$. The design of CWC is based on two principles:
 
-    Where, $\eta$ and $\mu$ are two hyperparameters controlling the location and amount of CWC jump. These measures can be easily determined based on the level of confidence associated with PIs. $\mu$ correspomds to the nominal confidence level associated with PIs and can be set to 1-$\alpha$. The design of CWC is based on two principles:
-
-    \begin{itemize}
-      \item if PICP is less than the nominal confidence level, (1-$\alpha$)$\%$, CWC should be large regardless of the width of PIs (measures by NMIPW),
-      \item if PICP is greater than or equal to its corresponding confidence level, then NMPIW should be the influential factor. $\gamma$(PICP), eliminates the exponential term of CWC when PICP is greater or equal to the nominal confidence level.
-    \end{itemize}
+      \begin{itemize}
+        \item if PICP is less than the nominal confidence level, (1-$\alpha$)$\%$, CWC should be large regardless of the width of PIs (measures by NMIPW),
+        \item if PICP is greater than or equal to its corresponding confidence level, then NMPIW should be the influential factor. $\gamma$(PICP), eliminates the exponential term of CWC when PICP is greater or equal to the nominal confidence level.
+      \end{itemize}
 
   \subsection{Data description}
     All data in this paper is provided in Global Energy Forecasting Competition 2014 (see \cite{Hong2016}). The aim of this competition is to forecast 15 tasks of electricity prices in term of probabilistic distribution (in quantiles). Hourly data of locational marginal price (LMP), zonal load forecast and system load forecast are provided. The participants receive historical data and forecast for next day electricty price. In total, the price forecasting track involves about three years of locational marginal price, zonal and system load forecast. The summarized solution data set of 15 tasks is shown in table~\ref{table:price_data_set}.
 
     \begin{table}[H]
-      \caption{GEFcom2014 task solution}
       \begin{center}
-      \begin{tabular}{|c|c|c|c|c|c|c|}
-      \hline
-      Task & Day & Holiday & Season & Normal price & High price & Spike price\\
-      \hline
-      1 & Sun & Yes & Summer & 24 & - & -\\
-      2 & Mon & No & Summer & 24 & - & -\\
-      3 & Mon & No & Summer & 22 & 2 & -\\
-      4 & Thu & No & Summer & 24 & - & -\\
-      5 & Tue & No & Summer & 22 & 2 & -\\
-      6 & Sat & Yes & Summer & 24 & - & -\\
-      7 & Tue & No & Summer & 16 & 8 & -\\
-      8 & Thu & No & Summer & 12 & 8 & 4\\
-      9 & Fri & No & Summer & 13 & 6 & 5\\
-      10 & Sat & Yes & Summer & 18 & 6 & -\\
-      11 & Wed & No & Summer & 24 & - & -\\
-      12 & Thu & No & Summer & 24 & - & -\\
-      13 & Sat & Yes & Authumn & 24 & - & -\\
-      14 & Sun & Yes & Authumn & 24 & - & -\\
-      15 & Tue & No & Authumn & 15 & 9 & -\\
-      \hline
-      \end{tabular}
+      \caption{GEFcom2014 task solution}
+      \begin{adjustbox}{width=\textwidth}
+        \begin{tabular}{|c|c|c|c|c|c|c|}
+          \hline
+          Task & Day & Holiday & Season & Normal price & High price & Spike price\\
+          \hline
+          1 & Sun & Yes & Summer & 24 & - & -\\
+          2 & Mon & No & Summer & 24 & - & -\\
+          3 & Mon & No & Summer & 22 & 2 & -\\
+          4 & Thu & No & Summer & 24 & - & -\\
+          5 & Tue & No & Summer & 22 & 2 & -\\
+          6 & Sat & Yes & Summer & 24 & - & -\\
+          7 & Tue & No & Summer & 16 & 8 & -\\
+          8 & Thu & No & Summer & 12 & 8 & 4\\
+          9 & Fri & No & Summer & 13 & 6 & 5\\
+          10 & Sat & Yes & Summer & 18 & 6 & -\\
+          11 & Wed & No & Summer & 24 & - & -\\
+          12 & Thu & No & Summer & 24 & - & -\\
+          13 & Sat & Yes & Authumn & 24 & - & -\\
+          14 & Sun & Yes & Authumn & 24 & - & -\\
+          15 & Tue & No & Authumn & 15 & 9 & -\\
+          \hline
+        \end{tabular}
+      \end{adjustbox}
       \label{table:price_data_set}
       \end{center}
     \end{table}
 
-
     The participation teams in GEFCom2014 perform electricity price forecasting method i.e.; linear regression (IR)\cite{Dudek2016}, multilayer perceptron (MLP)\cite{Dudek2016},  multiple quantile regression\cite{Juban2016}, hybrid quantile estimation with pre-and-post processes\cite{Maciejowska2016}.
-    % Where, table~\ref{table:GEFCOm2014} summarizes top four team's method.
-    % \begin{table}[H]
-    %   \caption{Summary of the methods used by the top four teams of the price forecasting track. Techniques}
-    %   \label{table:GEFCOm2014}
-    %   \begin{tabular}{p{2cm}p{5cm}p{3cm}p{3cm}}
-    %   \hline
-    %                          & Techniques                                                                                                                                                                  & Spike preprocessing                                                                                     & Forecast combination \\ \hline
-    %   Tololo                 & (1) Quantile regression, generalized additive models; (2) autoregressive models, random forest regression, gradient boosting machine; (3) Kernel based quantile regression. & Preprocessed spikes for some of the models.                                                             & ML-Poly aggregation  \\
-    %   Team Poland            & Autoregressive models with exogenous variables; filtering; quantile regression; judgmental forecasting                                                                      & Three filtering methods: day type filtering, similar load profile filtering and expected bias filtering & Arithmetic average   \\
-    %   GMD                    & Feed forward neural network                                                                                                                                                 & None                                                                                                    & None                 \\
-    %   C3 Green Team          & Quantile regression; radial basis function network; k-means algorithm; alternating direction method of multipliers; Autoregressive models with exogenous variables          & None                                                                                                    & None                 \\ \hline
-    %   \end{tabular}
-    %
-    % \end{table}
-
-  \subsection{Input features selection}
-    model-1- Hourl of day
-    model-2- Hourl of day + day of week
-    model-3- Hourl of day + day of week + Holiday
-    model-3- Hourl of day + day of week + Holiday + Seasonal
-
-
 
 \section{Results}
-What is comparision? benchmark is provided from GEFCom2014, task4-\cite{Dudek2016}
+  What is comparision? benchmark is provided from GEFCom2014, task4-\cite{Dudek2016}
 
 
+  In accuracy point of view, the results are summarized in ~\ref{table:result_pinball}.
+
+  \begin{table}[H]
+    \caption{The results of probabilistic electricity price forecasting compared to benchmarks}
+    \begin{adjustbox}{width=\textwidth}
+    \begin{threeparttable}
+      \begin{center}
+        \begin{tabular}{ccccccccccccc}
+          \hline
+          Method & Task 4 & Task 5& Task 6 & Task 7& Task 8 & Task 9& Task 10 & Task 11& Task 12 & Task 13 & Task 14 & Task 15\\
+          \hline
+          Benchmark 1 \tnote{a} & 4.03 & 7.97 & 5.70 & 22.32 & 38.34 & 44.23 & 18.22 & 31.57 & 42.95 & 2.86 & 3.20 & 22.38\\
+          Benchmark 2 \tnote{b} & 1.00 & 1.82 & 1.19 & 2.82 & 7.56 & 4.21 & 2.60 & 1.05 & 1.24 & 4.06 & 1.08 & 3.07 \\
+          \hline
+          MV without spike price & 4.19 & 4.33 & 4.18 & 10.48 & 31.57 & 33.35 & 6.28 & 4.28 & 4.25 & 4.06 & 4.05 & 13.02\\
+          QR without spike price & 2.57 & 4.03 & 2.55 & 12.96 & 34.76 & 36.24 & 8.83 & 2.51 & 2.49 & 2.47 & 2.62 & 16.81\\
+          MV with spike price & 2.45 & 3.36 & 2.39 & 5.79 & 8.79 & 6.95 & 5.80 & 2.41 & 2.41 & 2.34 & 2.43 & 11.02 \\
+          QR with spike price & 2.11& 3.47& 1.93 & 6.14 & 9.41 & 7.63 & 6.38 & 1.88 & 1.91 & 2.01 & 2.22 &11.70 \\
+          \hline
+        \end{tabular}
+        \begin{tablenotes}
+          Notes: The numbers are calculated according to the pinball function
+          \item[a] provided by GEFcom2014
+          \item[b] provided in \cite{Maciejowska2016}.
+        \end{tablenotes}
+        \end{center}
+    \end{threeparttable}
+    \end{adjustbox}
+    \label{table:result_pinball}
+  \end{table}
+
+
+  \begin{figure}[H]
+    \includegraphics[width=12cm]{CWC}
+    \caption{CWC result}
+    \label{Fig:CWC}
+  \centering
+  \end{figure}
+
+  \begin{figure}[H]
+    \includegraphics[width=12cm]{compare_between_non-spike_and_spike}
+    \caption{Task 9 between spike and non spike model}
+    \label{Fig:compare_spike_and_non_spike_model}
+  \centering
+  \end{figure}
+
+  \begin{figure}[H]
+    \includegraphics[width=15cm]{All_task_with_spike_price_QR_005}
+    \caption{All task with quantile regression with 5$\%$ confidence level}
+    \label{Fig:all_task_QR_005}
+  \centering
+  \end{figure}
 
 \section{Conclusions}
-This paper proposes a novel application of residual neural network based approach to probabilistic electricity price forecasting.
+  This paper proposes a novel application of residual neural network based approach to probabilistic electricity price forecasting.
 
 % \section{The Elsevier article class}
 %

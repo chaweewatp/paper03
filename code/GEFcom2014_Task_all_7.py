@@ -53,7 +53,8 @@ list_task_file=['Task1_P','Task2_P','Task3_P','Task4_P','Task5_P','Task6_P','Tas
 list_task_folder=['Task 1','Task 2','Task 3','Task 4','Task 5','Task 6','Task 7','Task 8','Task 9','Task 10','Task 11','Task 12','Task 13','Task 14','Task 15']
 # list_method=['mean_std_005','mean_std_01','QR_005','QR_01','QR_025']
 
-list_method=['QR_025','QR_01']
+list_method=['mean_std_005', 'mean_std_01', 'mean_std_015', 'mean_std_020', 'mean_std_025', 'QR_005', 'QR_01', 'QR_015', 'QR_020', 'QR_025']
+# list_method=['mean_std_005']
 
 for num_task in list(np.arange(0,len(list_task),1)):
 
@@ -98,25 +99,87 @@ for num_task in list(np.arange(0,len(list_task),1)):
     # print(actual_price)
     for model in list(np.arange(2,6,1)):
         print(model)
-        for method in list_method:
-            print(method)
-            lower_bound = firebase.get('/GEFcom2014_spike/{}/results/model-{}/{}'.format(list_task[num_task], model,method), 'lower_bound')
-            upper_bound = firebase.get('/GEFcom2014_spike/{}/results/model-{}/{}'.format(list_task[num_task], model,method), 'upper_bound')
-            if method == 'mean_std_005':
-                mu = 0.9
-            elif method == 'mean_std_01':
-                mu = 0.8
-            elif method == 'QR_005':
-                mu = 0.9
-            elif method == 'QR_01':
-                mu = 0.8
-            elif method == 'QR_025':
-                mu=0.5
-            PI_df_02, PICP, MPIW, NPIW, CWC= cal_PI(upper_bound, lower_bound, actual_price, r, mu)
-            firebase.put('GEFcom2014_spike/{}/results/model-{}/{}'.format(task, model,method), 'PICP', PICP)
-            firebase.put('GEFcom2014_spike/{}/results/model-{}/{}'.format(task, model, method), 'MPIW', MPIW)
-            firebase.put('GEFcom2014_spike/{}/results/model-{}/{}'.format(task, model, method), 'NPIW', NPIW)
-            firebase.put('GEFcom2014_spike/{}/results/model-{}/{}'.format(task, model, method), 'CWC', CWC)
+        if model==2:
+            for method in list_method:
+                print(method)
+                # lower_bound = firebase.get('/GEFcom2014/{}/results/model-{}/{}'.format(list_task[num_task], model,method), 'lower_bound')
+                # upper_bound = firebase.get('/GEFcom2014/{}/results/model-{}/{}'.format(list_task[num_task], model,method), 'upper_bound')
+                lower_bound = firebase.get(
+                    '/GEFcom2014_spike/{}/results/model-{}/{}'.format(list_task[num_task], model, method),
+                    'lower_bound')
+                upper_bound = firebase.get(
+                    '/GEFcom2014_spike/{}/results/model-{}/{}'.format(list_task[num_task], model, method),
+                    'upper_bound')
+
+                if method == 'mean_std_005':
+                    mu = 0.9
+                    tou= 0.95
+                elif method == 'mean_std_01':
+                    mu = 0.8
+                    tou= 0.9
+
+                elif method == 'mean_std_015':
+                    mu = 0.7
+                    tou= 0.85
+
+                elif method == 'mean_std_02':
+                    mu = 0.6
+                    tou= 0.80
+
+                elif method == 'mean_std_025':
+                    mu = 0.5
+                    tou= 0.75
+
+                elif method == 'QR_005':
+                    mu = 0.9
+                    tou= 0.95
+
+                elif method == 'QR_01':
+                    mu = 0.8
+                    tou= 0.9
+
+                elif method == 'QR_015':
+                    mu = 0.7
+                    tou= 0.85
+
+                elif method == 'QR_020':
+                    mu = 0.6
+                    tou= 0.8
+
+                elif method == 'QR_025':
+                    mu=0.5
+                    tou= 0.75
+
+                PI_df_02, PICP, MPIW, NPIW, CWC= cal_PI(upper_bound, lower_bound, actual_price, r, mu)
+                list_pinball = []
+                for UB, LB, AC in zip(upper_bound, lower_bound, actual_price):
+                    if AC < LB:
+                        pinball = (LB - AC) * (1 - tou)
+                    elif AC > UB:
+                        pinball = (AC - UB) * tou
+                    else:
+
+                        if AC > (UB + LB) / 2:
+                            pinball = (AC - (UB + LB) / 2) * tou
+                        else:
+                            pinball = ((UB + LB) / 2 - AC) * (1 - tou)
+                        # pinball = 0
+                    list_pinball.append(pinball)
+                avg_pinball_val=np.array(list_pinball).mean()
+                # firebase.put('GEFcom2014/{}/results/model-{}/{}'.format(task, model,method), 'PICP', PICP)
+                # firebase.put('GEFcom2014/{}/results/model-{}/{}'.format(task, model, method), 'MPIW', MPIW)
+                # firebase.put('GEFcom2014/{}/results/model-{}/{}'.format(task, model, method), 'NPIW', NPIW)
+                # firebase.put('GEFcom2014/{}/results/model-{}/{}'.format(task, model, method), 'CWC', CWC)
+                # firebase.put('GEFcom2014/{}/results/model-{}/{}'.format(task, model, method), 'avg_pinball', avg_pinball_val)
+                firebase.put('GEFcom2014_spike/{}/results/model-{}/{}'.format(task, model, method), 'PICP', PICP)
+                firebase.put('GEFcom2014_spike/{}/results/model-{}/{}'.format(task, model, method), 'MPIW', MPIW)
+                firebase.put('GEFcom2014_spike/{}/results/model-{}/{}'.format(task, model, method), 'NPIW', NPIW)
+                firebase.put('GEFcom2014_spike/{}/results/model-{}/{}'.format(task, model, method), 'CWC', CWC)
+                firebase.put('GEFcom2014_spike/{}/results/model-{}/{}'.format(task, model, method), 'avg_pinball',
+                             avg_pinball_val)
+
+                # calculate pinball loss function
+
     print('finish {}'.format(task))
 print('finish')
 

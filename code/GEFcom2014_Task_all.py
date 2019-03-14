@@ -319,91 +319,76 @@ for num_task in list(np.arange(0,len(list_task),1)):
 
     #model-II
     model = 2
-    a=0.05
-    q1=0.05
-    q2=0.95
-    list_upper_01=[]
-    list_lower_01=[]
-    start_time = time.time()  # taking current time as starting time
-
-    for hour in list(np.arange(0,24,1)):
-        print(hour)
-        df2=df1.drop(list(set(np.where(df1['Hour']!=hour)[0]))).copy() #drop column which day_type not equal to 0 or select only day_type =0
-        df2=df2.reset_index(drop=True)
-        # df2=df2.drop(list(set(np.where(df2['day_type'] != 0)[0])))
-        # df2=df2.reset_index(drop=True)
-        input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
-                                                  df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
-        net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
-        err = net.train(input1, target1, epochs=500, show=10, goal=0.01)
-
-        input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
-        var_mean, var_std = get_sim_data(net, input2, df2['Zonal Price'].max())
-        upper, lower = PI_consutruct_mean_var(var_mean, var_std, a)
-        list_upper_01.append(upper[0])
-        list_lower_01.append(lower[0])
-    elapsed_time = time.time() - start_time  # again taking current time - starting time
-    r = get_range_target_value(df2)
-    PI_df_01, PICP, MPIW, NPIW = cal_PI(list_upper_01, list_lower_01, actual_price,r )
-
-
-    firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'mean_std_005',{'lower_bound':list_lower_01, 'upper_bound':list_upper_01, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
-
-    # fig, ax = subplots()
-    # ax.plot(list(np.arange(0, 24, 1)), list_upper_01, '-r*', alpha=0.8, label='upper')
-    # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
-    # ax.plot(list(np.arange(0, 24, 1)), list_lower_01, '-r*', alpha=0.8, label='lower')
-    # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_01, list_lower_01, facecolor='magenta', alpha=0.05)
-    # ax.legend(loc='best')
-    # ax.set_xlabel('Hours')
-    # ax.set_ylabel('$/MWhr')
-    # plt.title('Interval prediction Model-{} using Mean and variance estimation with a at {}'.format(model,a))
-    # plt.show()
-
-    #quantile method
-    list_upper_02=[]
-    list_lower_02=[]
-    start_time = time.time()  # taking current time as starting time
-    for hour in list(np.arange(0,24,1)):
-        print(hour)
-        df2=df1.drop(list(set(np.where(df1['Hour']!=hour)[0]))).copy() #drop column which day_type not equal to 0 or select only day_type =0
-        df2=df2.reset_index(drop=True)
-        # df2=df2.drop(list(set(np.where(df2['day_type'] != 0)[0])))
-        # df2=df2.reset_index(drop=True)
-        input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
-                                                  df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
-        net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
-        err = net.train(input1, target2, epochs=500, show=10, goal=0.01)
-
-        input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
-        lower_bound, upper_bound = get_sim_data(net, input2, df2['Zonal Price'].max())
-        lower, upper = PI_construct_quantile(lower_bound, upper_bound)
-        list_upper_02.append(upper[0])
-        list_lower_02.append(lower[0])
-    elapsed_time = time.time() - start_time  # again taking current time - starting time
-    r = get_range_target_value(df2)
-    PI_df_02, PICP, MPIW, NPIW = cal_PI(list_upper_02, list_lower_02, actual_price,r)
-
-
-    firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'QR_005',{'lower_bound':list_lower_02, 'upper_bound':list_upper_02, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
-
-
-    # fig, ax = subplots()
-    # ax.plot(list(np.arange(0, 24, 1)), list_upper_02, '-r*', alpha=0.8, label='upper')
-    # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
-    # ax.plot(list(np.arange(0, 24, 1)), list_lower_02, '-r*', alpha=0.8, label='lower')
-    # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_02, list_lower_02, facecolor='magenta', alpha=0.05)
-    # ax.legend(loc='best')
-    # ax.set_xlabel('Hours')
-    # ax.set_ylabel('$/MWhr')
-    # plt.title('Interval prediction Model-{} using Quantile regression with Quantile at {} to {}'.format(model,q1, 1-q2))
-    # plt.show()
+    # a=0.05
+    # q1=0.05
+    # q2=0.95
+    # list_upper_01=[]
+    # list_lower_01=[]
+    # start_time = time.time()  # taking current time as starting time
+    #
+    # for hour in list(np.arange(0,24,1)):
+    #     print(hour)
+    #     df2=df1.drop(list(set(np.where(df1['Hour']!=hour)[0]))).copy() #drop column which day_type not equal to 0 or select only day_type =0
+    #     df2=df2.reset_index(drop=True)
+    #     # df2=df2.drop(list(set(np.where(df2['day_type'] != 0)[0])))
+    #     # df2=df2.reset_index(drop=True)
+    #     input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
+    #                                               df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
+    #     net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
+    #     err = net.train(input1, target1, epochs=500, show=10, goal=0.01)
+    #
+    #     input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
+    #     var_mean, var_std = get_sim_data(net, input2, df2['Zonal Price'].max())
+    #     upper, lower = PI_consutruct_mean_var(var_mean, var_std, a)
+    #     list_upper_01.append(upper[0])
+    #     list_lower_01.append(lower[0])
+    # elapsed_time = time.time() - start_time  # again taking current time - starting time
+    # r = get_range_target_value(df2)
+    # PI_df_01, PICP, MPIW, NPIW = cal_PI(list_upper_01, list_lower_01, actual_price,r )
+    #
+    #
+    # firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'mean_std_005',{'lower_bound':list_lower_01, 'upper_bound':list_upper_01, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
+    #
+    #
+    #
+    #
+    #
+    # a=0.1
+    # q1=0.1
+    # q2=0.9
+    # list_upper_01=[]
+    # list_lower_01=[]
+    # start_time = time.time()  # taking current time as starting time
+    #
+    # for hour in list(np.arange(0,24,1)):
+    #     print(hour)
+    #     df2=df1.drop(list(set(np.where(df1['Hour']!=hour)[0]))).copy() #drop column which day_type not equal to 0 or select only day_type =0
+    #     df2=df2.reset_index(drop=True)
+    #     # df2=df2.drop(list(set(np.where(df2['day_type'] != 0)[0])))
+    #     # df2=df2.reset_index(drop=True)
+    #     input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
+    #                                               df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
+    #     net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
+    #     err = net.train(input1, target1, epochs=500, show=10, goal=0.01)
+    #
+    #     input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
+    #     var_mean, var_std = get_sim_data(net, input2, df2['Zonal Price'].max())
+    #     upper, lower = PI_consutruct_mean_var(var_mean, var_std, a)
+    #     list_upper_01.append(upper[0])
+    #     list_lower_01.append(lower[0])
+    # elapsed_time = time.time() - start_time  # again taking current time - starting time
+    # r = get_range_target_value(df2)
+    # PI_df_01, PICP, MPIW, NPIW = cal_PI(list_upper_01, list_lower_01, actual_price,r)
+    #
+    # firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'mean_std_01',{'lower_bound':list_lower_01, 'upper_bound':list_upper_01, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
 
 
 
-    a=0.1
-    q1=0.1
-    q2=0.9
+
+
+    a=0.15
+    q1=0.15
+    q2=0.85
     list_upper_01=[]
     list_lower_01=[]
     start_time = time.time()  # taking current time as starting time
@@ -428,23 +413,18 @@ for num_task in list(np.arange(0,len(list_task),1)):
     r = get_range_target_value(df2)
     PI_df_01, PICP, MPIW, NPIW = cal_PI(list_upper_01, list_lower_01, actual_price,r)
 
-    firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'mean_std_01',{'lower_bound':list_lower_01, 'upper_bound':list_upper_01, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
+    firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'mean_std_015',{'lower_bound':list_lower_01, 'upper_bound':list_upper_01, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
 
-    # fig, ax = subplots()
-    # ax.plot(list(np.arange(0, 24, 1)), list_upper_01, '-r*', alpha=0.8, label='upper')
-    # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
-    # ax.plot(list(np.arange(0, 24, 1)), list_lower_01, '-r*', alpha=0.8, label='lower')
-    # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_01, list_lower_01, facecolor='magenta', alpha=0.05)
-    # ax.legend(loc='best')
-    # ax.set_xlabel('Hours')
-    # ax.set_ylabel('$/MWhr')
-    # plt.title('Interval prediction Model-{} using Mean and variance estimation with a at {}'.format(model,a))
-    # plt.show()
 
-    #quantile method
-    list_upper_02=[]
-    list_lower_02=[]
+
+
+    a=0.2
+    q1=0.2
+    q2=0.8
+    list_upper_01=[]
+    list_lower_01=[]
     start_time = time.time()  # taking current time as starting time
+
     for hour in list(np.arange(0,24,1)):
         print(hour)
         df2=df1.drop(list(set(np.where(df1['Hour']!=hour)[0]))).copy() #drop column which day_type not equal to 0 or select only day_type =0
@@ -454,124 +434,25 @@ for num_task in list(np.arange(0,len(list_task),1)):
         input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
                                                   df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
         net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
-        err = net.train(input1, target2, epochs=500, show=10, goal=0.01)
-
-        input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
-        lower_bound, upper_bound = get_sim_data(net, input2, df2['Zonal Price'].max())
-        lower, upper = PI_construct_quantile(lower_bound, upper_bound)
-        list_upper_02.append(upper[0])
-        list_lower_02.append(lower[0])
-    elapsed_time = time.time() - start_time  # again taking current time - starting time
-    r = get_range_target_value(df2)
-
-    PI_df_02, PICP, MPIW, NPIW = cal_PI(list_upper_02, list_lower_02, actual_price,r)
-
-
-    firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'QR_01',{'lower_bound':list_lower_02, 'upper_bound':list_upper_02, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
-
-
-    # fig, ax = subplots()
-    # ax.plot(list(np.arange(0, 24, 1)), list_upper_02, '-r*', alpha=0.8, label='upper')
-    # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
-    # ax.plot(list(np.arange(0, 24, 1)), list_lower_02, '-r*', alpha=0.8, label='lower')
-    # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_02, list_lower_02, facecolor='magenta', alpha=0.05)
-    # ax.legend(loc='best')
-    # ax.set_xlabel('Hours')
-    # ax.set_ylabel('$/MWhr')
-    # plt.title('Interval prediction Model-{} using Quantile regression with Quantile at {} to {}'.format(model,q1, 1-q2))
-    # plt.show()
-
-
-
-
-    #model-III
-    model = 3
-
-    a=0.05
-    q1=0.05
-    q2=0.95
-    #mean + std method
-    list_upper_01=[]
-    list_lower_01=[]
-    start_time = time.time()  # taking current time as starting time
-
-    for hour in list(np.arange(0,24,1)):
-        print(hour)
-        df2=df1.drop(list(set(np.where(df1['Hour']!=hour)[0]))).copy() #drop column which day_type not equal to 0 or select only day_type =0
-        df2=df2.reset_index(drop=True)
-        df2=df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
-        df2=df2.reset_index(drop=True)
-
-        input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
-                                                  df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
-        net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
         err = net.train(input1, target1, epochs=500, show=10, goal=0.01)
 
         input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
         var_mean, var_std = get_sim_data(net, input2, df2['Zonal Price'].max())
-        a=0.05
         upper, lower = PI_consutruct_mean_var(var_mean, var_std, a)
         list_upper_01.append(upper[0])
         list_lower_01.append(lower[0])
     elapsed_time = time.time() - start_time  # again taking current time - starting time
     r = get_range_target_value(df2)
     PI_df_01, PICP, MPIW, NPIW = cal_PI(list_upper_01, list_lower_01, actual_price,r)
-    firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'mean_std_005',{'lower_bound':list_lower_01, 'upper_bound':list_upper_01, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
 
-    # fig, ax = subplots()
-    # ax.plot(list(np.arange(0, 24, 1)), list_upper_01, '-r*', alpha=0.8, label='upper')
-    # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
-    # ax.plot(list(np.arange(0, 24, 1)), list_lower_01, '-r*', alpha=0.8, label='lower')
-    # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_01, list_lower_01, facecolor='magenta', alpha=0.05)
-    # ax.legend(loc='best')
-    # ax.set_xlabel('Hours')
-    # ax.set_ylabel('$/MWhr')
-    # plt.title('Interval prediction Model-{} using Mean and variance estimation with a at {}'.format(model,a))
-    # plt.show()
+    firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'mean_std_020',{'lower_bound':list_lower_01, 'upper_bound':list_upper_01, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
 
-    #quantile method
-    list_upper_02=[]
-    list_lower_02=[]
-    start_time = time.time()  # taking current time as starting time
 
-    for hour in list(np.arange(0,24,1)):
-        print(hour)
-        df2=df1.drop(list(set(np.where(df1['Hour']!=hour)[0]))).copy() #drop column which day_type not equal to 0 or select only day_type =0
-        df2=df2.reset_index(drop=True)
-        df2=df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
-        df2=df2.reset_index(drop=True)
-        input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
-                                                  df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
-        net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
-        err = net.train(input1, target2, epochs=500, show=10, goal=0.01)
 
-        input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
-        lower_bound, upper_bound = get_sim_data(net, input2, df2['Zonal Price'].max())
-        lower, upper = PI_construct_quantile(lower_bound, upper_bound)
-        list_upper_02.append(upper[0])
-        list_lower_02.append(lower[0])
-    elapsed_time = time.time() - start_time  # again taking current time - starting time
-    r = get_range_target_value(df2)
 
-    PI_df_02, PICP, MPIW, NPIW = cal_PI(list_upper_02, list_lower_02, actual_price,r)
-
-    firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'QR_005',{'lower_bound':list_lower_02, 'upper_bound':list_upper_02, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
-
-    # fig, ax = subplots()
-    # ax.plot(list(np.arange(0, 24, 1)), list_upper_02, '-r*', alpha=0.8, label='upper')
-    # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
-    # ax.plot(list(np.arange(0, 24, 1)), list_lower_02, '-r*', alpha=0.8, label='lower')
-    # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_02, list_lower_02, facecolor='magenta', alpha=0.05)
-    # ax.legend(loc='best')
-    # ax.set_xlabel('Hours')
-    # ax.set_ylabel('$/MWhr')
-    # plt.title('Interval prediction Model-{} using Quantile regression with Quantile at {} to {}'.format(model,q1, 1-q2))
-    # plt.show()
-
-    a=0.1
-    q1=0.1
-    q2=0.9
-    #mean + std method
+    a=0.25
+    q1=0.25
+    q2=0.75
     list_upper_01=[]
     list_lower_01=[]
     start_time = time.time()  # taking current time as starting time
@@ -580,9 +461,8 @@ for num_task in list(np.arange(0,len(list_task),1)):
         print(hour)
         df2=df1.drop(list(set(np.where(df1['Hour']!=hour)[0]))).copy() #drop column which day_type not equal to 0 or select only day_type =0
         df2=df2.reset_index(drop=True)
-        df2=df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
-        df2=df2.reset_index(drop=True)
-
+        # df2=df2.drop(list(set(np.where(df2['day_type'] != 0)[0])))
+        # df2=df2.reset_index(drop=True)
         input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
                                                   df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
         net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
@@ -590,419 +470,100 @@ for num_task in list(np.arange(0,len(list_task),1)):
 
         input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
         var_mean, var_std = get_sim_data(net, input2, df2['Zonal Price'].max())
-        a=0.05
-        upper, lower = PI_consutruct_mean_var(var_mean, var_std, a)
-        list_upper_01.append(upper[0])
-        list_lower_01.append(lower[0])
-    elapsed_time = time.time() - start_time  # again taking current time - starting time
-    r = get_range_target_value(df2)
-
-    PI_df_01, PICP, MPIW, NPIW = cal_PI(list_upper_01, list_lower_01, actual_price, r)
-
-
-    firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'mean_std_01',{'lower_bound':list_lower_01, 'upper_bound':list_upper_01, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
-
-    # fig, ax = subplots()
-    # ax.plot(list(np.arange(0, 24, 1)), list_upper_01, '-r*', alpha=0.8, label='upper')
-    # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
-    # ax.plot(list(np.arange(0, 24, 1)), list_lower_01, '-r*', alpha=0.8, label='lower')
-    # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_01, list_lower_01, facecolor='magenta', alpha=0.05)
-    # ax.legend(loc='best')
-    # ax.set_xlabel('Hours')
-    # ax.set_ylabel('$/MWhr')
-    # plt.title('Interval prediction Model-{} using Mean and variance estimation with a at {}'.format(model,a))
-    #
-    # plt.show()
-
-    #quantile method
-    list_upper_02=[]
-    list_lower_02=[]
-    start_time = time.time()  # taking current time as starting time
-
-    for hour in list(np.arange(0,24,1)):
-        print(hour)
-        df2=df1.drop(list(set(np.where(df1['Hour']!=hour)[0]))).copy() #drop column which day_type not equal to 0 or select only day_type =0
-        df2=df2.reset_index(drop=True)
-        df2=df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
-        df2=df2.reset_index(drop=True)
-        input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
-                                                  df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
-        net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
-        err = net.train(input1, target2, epochs=500, show=10, goal=0.01)
-
-        input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
-        lower_bound, upper_bound = get_sim_data(net, input2, df2['Zonal Price'].max())
-        lower, upper = PI_construct_quantile(lower_bound, upper_bound)
-        list_upper_02.append(upper[0])
-        list_lower_02.append(lower[0])
-    elapsed_time = time.time() - start_time  # again taking current time - starting time
-    r = get_range_target_value(df2)
-
-    PI_df_02, PICP, MPIW, NPIW = cal_PI(list_upper_02, list_lower_02, actual_price,r)
-
-    firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'QR_01',{'lower_bound':list_lower_02, 'upper_bound':list_upper_02, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
-
-
-    # fig, ax = subplots()
-    # ax.plot(list(np.arange(0, 24, 1)), list_upper_02, '-r*', alpha=0.8, label='upper')
-    # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
-    # ax.plot(list(np.arange(0, 24, 1)), list_lower_02, '-r*', alpha=0.8, label='lower')
-    # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_02, list_lower_02, facecolor='magenta', alpha=0.05)
-    # ax.legend(loc='best')
-    # ax.set_xlabel('Hours')
-    # ax.set_ylabel('$/MWhr')
-    # plt.title('Interval prediction Model-{} using Quantile regression with Quantile at {} to {}'.format(model,q1, 1-q2))
-    # plt.show()
-
-
-
-
-    #model-IV
-    model = 4
-    a=0.05
-    q1=0.05
-    q2=0.95
-    #mean + std method
-    list_upper_01=[]
-    list_lower_01=[]
-    start_time = time.time()  # taking current time as starting time
-
-    for hour in list(np.arange(0,24,1)):
-        print(hour)
-        df2=df1.drop(list(set(np.where(df1['Hour']!=hour)[0]))).copy() #drop column which day_type not equal to 0 or select only day_type =0
-        df2=df2.reset_index(drop=True)
-        df2=df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
-        df2=df2.reset_index(drop=True)
-        df2=df2.drop(list(set(np.where(df2['holiday']!= is_holiday)[0])))
-        df2=df2.reset_index(drop=True)
-
-        input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
-                                                  df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
-        net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
-        err = net.train(input1, target1, epochs=500, show=10, goal=0.01)
-
-        input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
-        var_mean, var_std = get_sim_data(net, input2, df2['Zonal Price'].max())
-        # a=0.05
         upper, lower = PI_consutruct_mean_var(var_mean, var_std, a)
         list_upper_01.append(upper[0])
         list_lower_01.append(lower[0])
     elapsed_time = time.time() - start_time  # again taking current time - starting time
     r = get_range_target_value(df2)
     PI_df_01, PICP, MPIW, NPIW = cal_PI(list_upper_01, list_lower_01, actual_price,r)
-    firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'mean_std_005',{'lower_bound':list_lower_01, 'upper_bound':list_upper_01, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
 
-    # fig, ax = subplots()
-    # ax.plot(list(np.arange(0, 24, 1)), list_upper_01, '-r*', alpha=0.8, label='upper')
-    # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
-    # ax.plot(list(np.arange(0, 24, 1)), list_lower_01, '-r*', alpha=0.8, label='lower')
-    # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_01, list_lower_01, facecolor='magenta', alpha=0.05)
-    # ax.legend(loc='best')
-    # ax.set_xlabel('Hours')
-    # ax.set_ylabel('$/MWhr')
-    # plt.title('Interval prediction Model-{} using Mean and variance estimation with a at {}'.format(model,a))
-    # plt.show()
+    firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'mean_std_025',{'lower_bound':list_lower_01, 'upper_bound':list_upper_01, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
 
-    #quantile method
-    list_upper_02=[]
-    list_lower_02=[]
-    start_time = time.time()  # taking current time as starting time
-
-    for hour in list(np.arange(0,24,1)):
-        print(hour)
-        df2 = df1.drop(list(set(np.where(df1['Hour'] != hour)[
-                                    0]))).copy()  # drop column which day_type not equal to 0 or select only day_type =0
-        df2 = df2.reset_index(drop=True)
-        df2 = df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
-        df2 = df2.reset_index(drop=True)
-        df2 = df2.drop(list(set(np.where(df2['holiday'] != is_holiday)[0])))
-        df2 = df2.reset_index(drop=True)
-
-        input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
-                                                  df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
-        net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
-        err = net.train(input1, target2, epochs=500, show=10, goal=0.01)
-
-        input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
-        lower_bound, upper_bound = get_sim_data(net, input2, df2['Zonal Price'].max())
-        lower, upper = PI_construct_quantile(lower_bound, upper_bound)
-        list_upper_02.append(upper[0])
-        list_lower_02.append(lower[0])
-    elapsed_time = time.time() - start_time  # again taking current time - starting time
-    r = get_range_target_value(df2)
-
-    PI_df_02, PICP, MPIW, NPIW = cal_PI(list_upper_02, list_lower_02, actual_price,r)
-
-    firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'QR_005',{'lower_bound':list_lower_02, 'upper_bound':list_upper_02, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
-
-    # fig, ax = subplots()
-    # ax.plot(list(np.arange(0, 24, 1)), list_upper_02, '-r*', alpha=0.8, label='upper')
-    # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
-    # ax.plot(list(np.arange(0, 24, 1)), list_lower_02, '-r*', alpha=0.8, label='lower')
-    # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_02, list_lower_02, facecolor='magenta', alpha=0.05)
-    # ax.legend(loc='best')
-    # ax.set_xlabel('Hours')
-    # ax.set_ylabel('$/MWhr')
-    # plt.title('Interval prediction Model-{} using Quantile regression with Quantile at {} to {}'.format(model,q1, 1-q2))
-    # plt.show()
-
-    a=0.1
-    q1=0.1
-    q2=0.9
-    #mean + std method
-    list_upper_01=[]
-    list_lower_01=[]
-    start_time = time.time()  # taking current time as starting time
-
-    for hour in list(np.arange(0,24,1)):
-        print(hour)
-        df2 = df1.drop(list(set(np.where(df1['Hour'] != hour)[
-                                    0]))).copy()  # drop column which day_type not equal to 0 or select only day_type =0
-        df2 = df2.reset_index(drop=True)
-        df2 = df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
-        df2 = df2.reset_index(drop=True)
-        df2 = df2.drop(list(set(np.where(df2['holiday'] != is_holiday)[0])))
-        df2 = df2.reset_index(drop=True)
-
-        input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
-                                                  df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
-        net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
-        err = net.train(input1, target1, epochs=500, show=10, goal=0.01)
-
-        input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
-        var_mean, var_std = get_sim_data(net, input2, df2['Zonal Price'].max())
-        # a=0.05
-        upper, lower = PI_consutruct_mean_var(var_mean, var_std, a)
-        list_upper_01.append(upper[0])
-        list_lower_01.append(lower[0])
-    elapsed_time = time.time() - start_time  # again taking current time - starting time
-    r = get_range_target_value(df2)
-
-    PI_df_01, PICP, MPIW, NPIW = cal_PI(list_upper_01, list_lower_01, actual_price, r)
-
-
-    firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'mean_std_01',{'lower_bound':list_lower_01, 'upper_bound':list_upper_01, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
-
-    # fig, ax = subplots()
-    # ax.plot(list(np.arange(0, 24, 1)), list_upper_01, '-r*', alpha=0.8, label='upper')
-    # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
-    # ax.plot(list(np.arange(0, 24, 1)), list_lower_01, '-r*', alpha=0.8, label='lower')
-    # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_01, list_lower_01, facecolor='magenta', alpha=0.05)
-    # ax.legend(loc='best')
-    # ax.set_xlabel('Hours')
-    # ax.set_ylabel('$/MWhr')
-    # plt.title('Interval prediction Model-{} using Mean and variance estimation with a at {}'.format(model,a))
+    # #quantile method
+    # a = 0.05
+    # q1 = 0.05
+    # q2 = 0.95
+    # list_upper_02=[]
+    # list_lower_02=[]
+    # start_time = time.time()  # taking current time as starting time
+    # for hour in list(np.arange(0,24,1)):
+    #     print(hour)
+    #     df2=df1.drop(list(set(np.where(df1['Hour']!=hour)[0]))).copy() #drop column which day_type not equal to 0 or select only day_type =0
+    #     df2=df2.reset_index(drop=True)
+    #     # df2=df2.drop(list(set(np.where(df2['day_type'] != 0)[0])))
+    #     # df2=df2.reset_index(drop=True)
+    #     input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
+    #                                               df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
+    #     net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
+    #     err = net.train(input1, target2, epochs=500, show=10, goal=0.01)
     #
-    # plt.show()
-
-    #quantile method
-    list_upper_02=[]
-    list_lower_02=[]
-    start_time = time.time()  # taking current time as starting time
-
-    for hour in list(np.arange(0,24,1)):
-        print(hour)
-        df2 = df1.drop(list(set(np.where(df1['Hour'] != hour)[
-                                    0]))).copy()  # drop column which day_type not equal to 0 or select only day_type =0
-        df2 = df2.reset_index(drop=True)
-        df2 = df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
-        df2 = df2.reset_index(drop=True)
-        df2 = df2.drop(list(set(np.where(df2['holiday'] != is_holiday)[0])))
-        df2 = df2.reset_index(drop=True)
-        input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
-                                                  df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
-        net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
-        err = net.train(input1, target2, epochs=500, show=10, goal=0.01)
-
-        input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
-        lower_bound, upper_bound = get_sim_data(net, input2, df2['Zonal Price'].max())
-        lower, upper = PI_construct_quantile(lower_bound, upper_bound)
-        list_upper_02.append(upper[0])
-        list_lower_02.append(lower[0])
-    elapsed_time = time.time() - start_time  # again taking current time - starting time
-    r = get_range_target_value(df2)
-
-    PI_df_02, PICP, MPIW, NPIW = cal_PI(list_upper_02, list_lower_02, actual_price,r)
-
-    firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'QR_01',{'lower_bound':list_lower_02, 'upper_bound':list_upper_02, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
-
+    #     input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
+    #     lower_bound, upper_bound = get_sim_data(net, input2, df2['Zonal Price'].max())
+    #     lower, upper = PI_construct_quantile(lower_bound, upper_bound)
+    #     list_upper_02.append(upper[0])
+    #     list_lower_02.append(lower[0])
+    # elapsed_time = time.time() - start_time  # again taking current time - starting time
+    # r = get_range_target_value(df2)
+    # PI_df_02, PICP, MPIW, NPIW = cal_PI(list_upper_02, list_lower_02, actual_price,r)
     #
-    # fig, ax = subplots()
-    # ax.plot(list(np.arange(0, 24, 1)), list_upper_02, '-r*', alpha=0.8, label='upper')
-    # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
-    # ax.plot(list(np.arange(0, 24, 1)), list_lower_02, '-r*', alpha=0.8, label='lower')
-    # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_02, list_lower_02, facecolor='magenta', alpha=0.05)
-    # ax.legend(loc='best')
-    # ax.set_xlabel('Hours')
-    # ax.set_ylabel('$/MWhr')
-    # plt.title('Interval prediction Model-{} using Quantile regression with Quantile at {} to {}'.format(model,q1, 1-q2))
-    # plt.show()
-
-
-    #model-V
-    model = 5
-    a=0.05
-    q1=0.05
-    q2=0.95
-    #mean + std method
-    list_upper_01=[]
-    list_lower_01=[]
-    start_time = time.time()  # taking current time as starting time
-
-    for hour in list(np.arange(0,24,1)):
-        print(hour)
-        df2=df1.drop(list(set(np.where(df1['Hour']!=hour)[0]))).copy() #drop column which day_type not equal to 0 or select only day_type =0
-        df2=df2.reset_index(drop=True)
-        df2=df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
-        df2=df2.reset_index(drop=True)
-        df2=df2.drop(list(set(np.where(df2['holiday']!= is_holiday)[0])))
-        df2 = df2.reset_index(drop=True)
-        df2=df2.drop(list(set(np.where(df2['season']!= season)[0])))
-        df2 = df2.reset_index(drop=True)
-
-        input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
-                                                  df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
-        net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
-        err = net.train(input1, target1, epochs=500, show=10, goal=0.01)
-
-        input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
-        var_mean, var_std = get_sim_data(net, input2, df2['Zonal Price'].max())
-        a=0.05
-        upper, lower = PI_consutruct_mean_var(var_mean, var_std, a)
-        list_upper_01.append(upper[0])
-        list_lower_01.append(lower[0])
-    elapsed_time = time.time() - start_time  # again taking current time - starting time
-    r = get_range_target_value(df2)
-    PI_df_01, PICP, MPIW, NPIW = cal_PI(list_upper_01, list_lower_01, actual_price,r)
-    firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'mean_std_005',{'lower_bound':list_lower_01, 'upper_bound':list_upper_01, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
-
-    # fig, ax = subplots()
-    # ax.plot(list(np.arange(0, 24, 1)), list_upper_01, '-r*', alpha=0.8, label='upper')
-    # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
-    # ax.plot(list(np.arange(0, 24, 1)), list_lower_01, '-r*', alpha=0.8, label='lower')
-    # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_01, list_lower_01, facecolor='magenta', alpha=0.05)
-    # ax.legend(loc='best')
-    # ax.set_xlabel('Hours')
-    # ax.set_ylabel('$/MWhr')
-    # plt.title('Interval prediction Model-{} using Mean and variance estimation with a at {}'.format(model,a))
-    # plt.show()
-
-    #quantile method
-    list_upper_02=[]
-    list_lower_02=[]
-    start_time = time.time()  # taking current time as starting time
-
-    for hour in list(np.arange(0,24,1)):
-        print(hour)
-        df2 = df1.drop(list(set(np.where(df1['Hour'] != hour)[
-                                    0]))).copy()  # drop column which day_type not equal to 0 or select only day_type =0
-        df2 = df2.reset_index(drop=True)
-        df2 = df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
-        df2 = df2.reset_index(drop=True)
-        df2 = df2.drop(list(set(np.where(df2['holiday'] != is_holiday)[0])))
-        df2 = df2.reset_index(drop=True)
-        df2=df2.drop(list(set(np.where(df2['season']!= season)[0])))
-        df2 = df2.reset_index(drop=True)
-        input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
-                                                  df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
-        net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
-        err = net.train(input1, target2, epochs=500, show=10, goal=0.01)
-
-        input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
-        lower_bound, upper_bound = get_sim_data(net, input2, df2['Zonal Price'].max())
-        lower, upper = PI_construct_quantile(lower_bound, upper_bound)
-        list_upper_02.append(upper[0])
-        list_lower_02.append(lower[0])
-    elapsed_time = time.time() - start_time  # again taking current time - starting time
-    r = get_range_target_value(df2)
-
-    PI_df_02, PICP, MPIW, NPIW = cal_PI(list_upper_02, list_lower_02, actual_price,r)
-
-    firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'QR_005',{'lower_bound':list_lower_02, 'upper_bound':list_upper_02, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
-
-    # fig, ax = subplots()
-    # ax.plot(list(np.arange(0, 24, 1)), list_upper_02, '-r*', alpha=0.8, label='upper')
-    # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
-    # ax.plot(list(np.arange(0, 24, 1)), list_lower_02, '-r*', alpha=0.8, label='lower')
-    # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_02, list_lower_02, facecolor='magenta', alpha=0.05)
-    # ax.legend(loc='best')
-    # ax.set_xlabel('Hours')
-    # ax.set_ylabel('$/MWhr')
-    # plt.title('Interval prediction Model-{} using Quantile regression with Quantile at {} to {}'.format(model,q1, 1-q2))
-    # plt.show()
-
-    a=0.1
-    q1=0.1
-    q2=0.9
-    #mean + std method
-    list_upper_01=[]
-    list_lower_01=[]
-    start_time = time.time()  # taking current time as starting time
-
-    for hour in list(np.arange(0,24,1)):
-        print(hour)
-        df2 = df1.drop(list(set(np.where(df1['Hour'] != hour)[
-                                    0]))).copy()  # drop column which day_type not equal to 0 or select only day_type =0
-        df2 = df2.reset_index(drop=True)
-        df2 = df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
-        df2 = df2.reset_index(drop=True)
-        df2 = df2.drop(list(set(np.where(df2['holiday'] != is_holiday)[0])))
-        df2 = df2.reset_index(drop=True)
-        df2=df2.drop(list(set(np.where(df2['season']!= season)[0])))
-        df2 = df2.reset_index(drop=True)
-        input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
-                                                  df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
-        net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
-        err = net.train(input1, target1, epochs=500, show=10, goal=0.01)
-
-        input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
-        var_mean, var_std = get_sim_data(net, input2, df2['Zonal Price'].max())
-        a=0.05
-        upper, lower = PI_consutruct_mean_var(var_mean, var_std, a)
-        list_upper_01.append(upper[0])
-        list_lower_01.append(lower[0])
-    elapsed_time = time.time() - start_time  # again taking current time - starting time
-    r = get_range_target_value(df2)
-
-    PI_df_01, PICP, MPIW, NPIW = cal_PI(list_upper_01, list_lower_01, actual_price, r)
-
-
-    firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'mean_std_01',{'lower_bound':list_lower_01, 'upper_bound':list_upper_01, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
-
-    # fig, ax = subplots()
-    # ax.plot(list(np.arange(0, 24, 1)), list_upper_01, '-r*', alpha=0.8, label='upper')
-    # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
-    # ax.plot(list(np.arange(0, 24, 1)), list_lower_01, '-r*', alpha=0.8, label='lower')
-    # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_01, list_lower_01, facecolor='magenta', alpha=0.05)
-    # ax.legend(loc='best')
-    # ax.set_xlabel('Hours')
-    # ax.set_ylabel('$/MWhr')
-    # plt.title('Interval prediction Model-{} using Mean and variance estimation with a at {}'.format(model,a))
     #
-    # plt.show()
+    # firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'QR_005',{'lower_bound':list_lower_02, 'upper_bound':list_upper_02, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
+    #
+    #
+    #
+    #
+    # #quantile method
+    # a = 0.1
+    # q1 = 0.1
+    # q2 = 0.9
+    # list_upper_02=[]
+    # list_lower_02=[]
+    # start_time = time.time()  # taking current time as starting time
+    # for hour in list(np.arange(0,24,1)):
+    #     print(hour)
+    #     df2=df1.drop(list(set(np.where(df1['Hour']!=hour)[0]))).copy() #drop column which day_type not equal to 0 or select only day_type =0
+    #     df2=df2.reset_index(drop=True)
+    #     # df2=df2.drop(list(set(np.where(df2['day_type'] != 0)[0])))
+    #     # df2=df2.reset_index(drop=True)
+    #     input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
+    #                                               df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
+    #     net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
+    #     err = net.train(input1, target2, epochs=500, show=10, goal=0.01)
+    #
+    #     input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
+    #     lower_bound, upper_bound = get_sim_data(net, input2, df2['Zonal Price'].max())
+    #     lower, upper = PI_construct_quantile(lower_bound, upper_bound)
+    #     list_upper_02.append(upper[0])
+    #     list_lower_02.append(lower[0])
+    # elapsed_time = time.time() - start_time  # again taking current time - starting time
+    # r = get_range_target_value(df2)
+    #
+    # PI_df_02, PICP, MPIW, NPIW = cal_PI(list_upper_02, list_lower_02, actual_price,r)
+    #
+    #
+    # firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'QR_01',{'lower_bound':list_lower_02, 'upper_bound':list_upper_02, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
 
-    #quantile method
-    list_upper_02=[]
-    list_lower_02=[]
+    # quantile method
+    a = 0.15
+    q1 = 0.15
+    q2 = 0.85
+    list_upper_02 = []
+    list_lower_02 = []
     start_time = time.time()  # taking current time as starting time
-
-    for hour in list(np.arange(0,24,1)):
+    for hour in list(np.arange(0, 24, 1)):
         print(hour)
         df2 = df1.drop(list(set(np.where(df1['Hour'] != hour)[
                                     0]))).copy()  # drop column which day_type not equal to 0 or select only day_type =0
         df2 = df2.reset_index(drop=True)
-        df2 = df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
-        df2 = df2.reset_index(drop=True)
-        df2 = df2.drop(list(set(np.where(df2['holiday'] != is_holiday)[0])))
-        df2 = df2.reset_index(drop=True)
-        df2=df2.drop(list(set(np.where(df2['season']!= season)[0])))
-        df2 = df2.reset_index(drop=True)
+        # df2=df2.drop(list(set(np.where(df2['day_type'] != 0)[0])))
+        # df2=df2.reset_index(drop=True)
         input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
-                                                  df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
+                                                  df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(), q1, q2)
         net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
         err = net.train(input1, target2, epochs=500, show=10, goal=0.01)
 
-        input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
+        input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(),
+                               df2['Forecasted Zonal Load'].max())
         lower_bound, upper_bound = get_sim_data(net, input2, df2['Zonal Price'].max())
         lower, upper = PI_construct_quantile(lower_bound, upper_bound)
         list_upper_02.append(upper[0])
@@ -1012,8 +573,77 @@ for num_task in list(np.arange(0,len(list_task),1)):
 
     PI_df_02, PICP, MPIW, NPIW = cal_PI(list_upper_02, list_lower_02, actual_price, r)
 
-    firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'QR_01',{'lower_bound':list_lower_02, 'upper_bound':list_upper_02, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
+    firebase.put('GEFcom2014/{}/results/model-{}'.format(task, model), 'QR_015',
+                 {'lower_bound': list_lower_02, 'upper_bound': list_upper_02, 'PICP': PICP, 'MPIW': MPIW, 'NPIW': NPIW,
+                  'training_time': elapsed_time})
 
+    # quantile method
+    a = 0.2
+    q1 = 0.2
+    q2 = 0.8
+    list_upper_02 = []
+    list_lower_02 = []
+    start_time = time.time()  # taking current time as starting time
+    for hour in list(np.arange(0, 24, 1)):
+        print(hour)
+        df2 = df1.drop(list(set(np.where(df1['Hour'] != hour)[
+                                    0]))).copy()  # drop column which day_type not equal to 0 or select only day_type =0
+        df2 = df2.reset_index(drop=True)
+        # df2=df2.drop(list(set(np.where(df2['day_type'] != 0)[0])))
+        # df2=df2.reset_index(drop=True)
+        input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
+                                                  df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(), q1, q2)
+        net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
+        err = net.train(input1, target2, epochs=500, show=10, goal=0.01)
+
+        input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(),
+                               df2['Forecasted Zonal Load'].max())
+        lower_bound, upper_bound = get_sim_data(net, input2, df2['Zonal Price'].max())
+        lower, upper = PI_construct_quantile(lower_bound, upper_bound)
+        list_upper_02.append(upper[0])
+        list_lower_02.append(lower[0])
+    elapsed_time = time.time() - start_time  # again taking current time - starting time
+    r = get_range_target_value(df2)
+
+    PI_df_02, PICP, MPIW, NPIW = cal_PI(list_upper_02, list_lower_02, actual_price, r)
+
+    firebase.put('GEFcom2014/{}/results/model-{}'.format(task, model), 'QR_020',
+                 {'lower_bound': list_lower_02, 'upper_bound': list_upper_02, 'PICP': PICP, 'MPIW': MPIW, 'NPIW': NPIW,
+                  'training_time': elapsed_time})
+
+    # quantile method
+    a = 0.25
+    q1 = 0.25
+    q2 = 0.75
+    list_upper_02 = []
+    list_lower_02 = []
+    start_time = time.time()  # taking current time as starting time
+    for hour in list(np.arange(0, 24, 1)):
+        print(hour)
+        df2 = df1.drop(list(set(np.where(df1['Hour'] != hour)[
+                                    0]))).copy()  # drop column which day_type not equal to 0 or select only day_type =0
+        df2 = df2.reset_index(drop=True)
+        # df2=df2.drop(list(set(np.where(df2['day_type'] != 0)[0])))
+        # df2=df2.reset_index(drop=True)
+        input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
+                                                  df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(), q1, q2)
+        net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
+        err = net.train(input1, target2, epochs=500, show=10, goal=0.01)
+
+        input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(),
+                               df2['Forecasted Zonal Load'].max())
+        lower_bound, upper_bound = get_sim_data(net, input2, df2['Zonal Price'].max())
+        lower, upper = PI_construct_quantile(lower_bound, upper_bound)
+        list_upper_02.append(upper[0])
+        list_lower_02.append(lower[0])
+    elapsed_time = time.time() - start_time  # again taking current time - starting time
+    r = get_range_target_value(df2)
+
+    PI_df_02, PICP, MPIW, NPIW = cal_PI(list_upper_02, list_lower_02, actual_price, r)
+
+    firebase.put('GEFcom2014/{}/results/model-{}'.format(task, model), 'QR_025',
+                 {'lower_bound': list_lower_02, 'upper_bound': list_upper_02, 'PICP': PICP, 'MPIW': MPIW, 'NPIW': NPIW,
+                  'training_time': elapsed_time})
 
     # fig, ax = subplots()
     # ax.plot(list(np.arange(0, 24, 1)), list_upper_02, '-r*', alpha=0.8, label='upper')
@@ -1025,5 +655,550 @@ for num_task in list(np.arange(0,len(list_task),1)):
     # ax.set_ylabel('$/MWhr')
     # plt.title('Interval prediction Model-{} using Quantile regression with Quantile at {} to {}'.format(model,q1, 1-q2))
     # plt.show()
+
+
+
+
+    # #model-III
+    # model = 3
+    #
+    # a=0.05
+    # q1=0.05
+    # q2=0.95
+    # #mean + std method
+    # list_upper_01=[]
+    # list_lower_01=[]
+    # start_time = time.time()  # taking current time as starting time
+    #
+    # for hour in list(np.arange(0,24,1)):
+    #     print(hour)
+    #     df2=df1.drop(list(set(np.where(df1['Hour']!=hour)[0]))).copy() #drop column which day_type not equal to 0 or select only day_type =0
+    #     df2=df2.reset_index(drop=True)
+    #     df2=df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
+    #     df2=df2.reset_index(drop=True)
+    #
+    #     input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
+    #                                               df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
+    #     net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
+    #     err = net.train(input1, target1, epochs=500, show=10, goal=0.01)
+    #
+    #     input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
+    #     var_mean, var_std = get_sim_data(net, input2, df2['Zonal Price'].max())
+    #     a=0.05
+    #     upper, lower = PI_consutruct_mean_var(var_mean, var_std, a)
+    #     list_upper_01.append(upper[0])
+    #     list_lower_01.append(lower[0])
+    # elapsed_time = time.time() - start_time  # again taking current time - starting time
+    # r = get_range_target_value(df2)
+    # PI_df_01, PICP, MPIW, NPIW = cal_PI(list_upper_01, list_lower_01, actual_price,r)
+    # firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'mean_std_005',{'lower_bound':list_lower_01, 'upper_bound':list_upper_01, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
+    #
+    # # fig, ax = subplots()
+    # # ax.plot(list(np.arange(0, 24, 1)), list_upper_01, '-r*', alpha=0.8, label='upper')
+    # # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
+    # # ax.plot(list(np.arange(0, 24, 1)), list_lower_01, '-r*', alpha=0.8, label='lower')
+    # # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_01, list_lower_01, facecolor='magenta', alpha=0.05)
+    # # ax.legend(loc='best')
+    # # ax.set_xlabel('Hours')
+    # # ax.set_ylabel('$/MWhr')
+    # # plt.title('Interval prediction Model-{} using Mean and variance estimation with a at {}'.format(model,a))
+    # # plt.show()
+    #
+    # #quantile method
+    # list_upper_02=[]
+    # list_lower_02=[]
+    # start_time = time.time()  # taking current time as starting time
+    #
+    # for hour in list(np.arange(0,24,1)):
+    #     print(hour)
+    #     df2=df1.drop(list(set(np.where(df1['Hour']!=hour)[0]))).copy() #drop column which day_type not equal to 0 or select only day_type =0
+    #     df2=df2.reset_index(drop=True)
+    #     df2=df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
+    #     df2=df2.reset_index(drop=True)
+    #     input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
+    #                                               df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
+    #     net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
+    #     err = net.train(input1, target2, epochs=500, show=10, goal=0.01)
+    #
+    #     input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
+    #     lower_bound, upper_bound = get_sim_data(net, input2, df2['Zonal Price'].max())
+    #     lower, upper = PI_construct_quantile(lower_bound, upper_bound)
+    #     list_upper_02.append(upper[0])
+    #     list_lower_02.append(lower[0])
+    # elapsed_time = time.time() - start_time  # again taking current time - starting time
+    # r = get_range_target_value(df2)
+    #
+    # PI_df_02, PICP, MPIW, NPIW = cal_PI(list_upper_02, list_lower_02, actual_price,r)
+    #
+    # firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'QR_005',{'lower_bound':list_lower_02, 'upper_bound':list_upper_02, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
+    #
+    # # fig, ax = subplots()
+    # # ax.plot(list(np.arange(0, 24, 1)), list_upper_02, '-r*', alpha=0.8, label='upper')
+    # # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
+    # # ax.plot(list(np.arange(0, 24, 1)), list_lower_02, '-r*', alpha=0.8, label='lower')
+    # # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_02, list_lower_02, facecolor='magenta', alpha=0.05)
+    # # ax.legend(loc='best')
+    # # ax.set_xlabel('Hours')
+    # # ax.set_ylabel('$/MWhr')
+    # # plt.title('Interval prediction Model-{} using Quantile regression with Quantile at {} to {}'.format(model,q1, 1-q2))
+    # # plt.show()
+    #
+    # a=0.1
+    # q1=0.1
+    # q2=0.9
+    # #mean + std method
+    # list_upper_01=[]
+    # list_lower_01=[]
+    # start_time = time.time()  # taking current time as starting time
+    #
+    # for hour in list(np.arange(0,24,1)):
+    #     print(hour)
+    #     df2=df1.drop(list(set(np.where(df1['Hour']!=hour)[0]))).copy() #drop column which day_type not equal to 0 or select only day_type =0
+    #     df2=df2.reset_index(drop=True)
+    #     df2=df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
+    #     df2=df2.reset_index(drop=True)
+    #
+    #     input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
+    #                                               df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
+    #     net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
+    #     err = net.train(input1, target1, epochs=500, show=10, goal=0.01)
+    #
+    #     input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
+    #     var_mean, var_std = get_sim_data(net, input2, df2['Zonal Price'].max())
+    #     a=0.05
+    #     upper, lower = PI_consutruct_mean_var(var_mean, var_std, a)
+    #     list_upper_01.append(upper[0])
+    #     list_lower_01.append(lower[0])
+    # elapsed_time = time.time() - start_time  # again taking current time - starting time
+    # r = get_range_target_value(df2)
+    #
+    # PI_df_01, PICP, MPIW, NPIW = cal_PI(list_upper_01, list_lower_01, actual_price, r)
+    #
+    #
+    # firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'mean_std_01',{'lower_bound':list_lower_01, 'upper_bound':list_upper_01, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
+    #
+    # # fig, ax = subplots()
+    # # ax.plot(list(np.arange(0, 24, 1)), list_upper_01, '-r*', alpha=0.8, label='upper')
+    # # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
+    # # ax.plot(list(np.arange(0, 24, 1)), list_lower_01, '-r*', alpha=0.8, label='lower')
+    # # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_01, list_lower_01, facecolor='magenta', alpha=0.05)
+    # # ax.legend(loc='best')
+    # # ax.set_xlabel('Hours')
+    # # ax.set_ylabel('$/MWhr')
+    # # plt.title('Interval prediction Model-{} using Mean and variance estimation with a at {}'.format(model,a))
+    # #
+    # # plt.show()
+    #
+    # #quantile method
+    # list_upper_02=[]
+    # list_lower_02=[]
+    # start_time = time.time()  # taking current time as starting time
+    #
+    # for hour in list(np.arange(0,24,1)):
+    #     print(hour)
+    #     df2=df1.drop(list(set(np.where(df1['Hour']!=hour)[0]))).copy() #drop column which day_type not equal to 0 or select only day_type =0
+    #     df2=df2.reset_index(drop=True)
+    #     df2=df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
+    #     df2=df2.reset_index(drop=True)
+    #     input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
+    #                                               df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
+    #     net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
+    #     err = net.train(input1, target2, epochs=500, show=10, goal=0.01)
+    #
+    #     input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
+    #     lower_bound, upper_bound = get_sim_data(net, input2, df2['Zonal Price'].max())
+    #     lower, upper = PI_construct_quantile(lower_bound, upper_bound)
+    #     list_upper_02.append(upper[0])
+    #     list_lower_02.append(lower[0])
+    # elapsed_time = time.time() - start_time  # again taking current time - starting time
+    # r = get_range_target_value(df2)
+    #
+    # PI_df_02, PICP, MPIW, NPIW = cal_PI(list_upper_02, list_lower_02, actual_price,r)
+    #
+    # firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'QR_01',{'lower_bound':list_lower_02, 'upper_bound':list_upper_02, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
+    #
+    #
+    # # fig, ax = subplots()
+    # # ax.plot(list(np.arange(0, 24, 1)), list_upper_02, '-r*', alpha=0.8, label='upper')
+    # # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
+    # # ax.plot(list(np.arange(0, 24, 1)), list_lower_02, '-r*', alpha=0.8, label='lower')
+    # # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_02, list_lower_02, facecolor='magenta', alpha=0.05)
+    # # ax.legend(loc='best')
+    # # ax.set_xlabel('Hours')
+    # # ax.set_ylabel('$/MWhr')
+    # # plt.title('Interval prediction Model-{} using Quantile regression with Quantile at {} to {}'.format(model,q1, 1-q2))
+    # # plt.show()
+    #
+    #
+    #
+    #
+    # #model-IV
+    # model = 4
+    # a=0.05
+    # q1=0.05
+    # q2=0.95
+    # #mean + std method
+    # list_upper_01=[]
+    # list_lower_01=[]
+    # start_time = time.time()  # taking current time as starting time
+    #
+    # for hour in list(np.arange(0,24,1)):
+    #     print(hour)
+    #     df2=df1.drop(list(set(np.where(df1['Hour']!=hour)[0]))).copy() #drop column which day_type not equal to 0 or select only day_type =0
+    #     df2=df2.reset_index(drop=True)
+    #     df2=df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
+    #     df2=df2.reset_index(drop=True)
+    #     df2=df2.drop(list(set(np.where(df2['holiday']!= is_holiday)[0])))
+    #     df2=df2.reset_index(drop=True)
+    #
+    #     input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
+    #                                               df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
+    #     net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
+    #     err = net.train(input1, target1, epochs=500, show=10, goal=0.01)
+    #
+    #     input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
+    #     var_mean, var_std = get_sim_data(net, input2, df2['Zonal Price'].max())
+    #     # a=0.05
+    #     upper, lower = PI_consutruct_mean_var(var_mean, var_std, a)
+    #     list_upper_01.append(upper[0])
+    #     list_lower_01.append(lower[0])
+    # elapsed_time = time.time() - start_time  # again taking current time - starting time
+    # r = get_range_target_value(df2)
+    # PI_df_01, PICP, MPIW, NPIW = cal_PI(list_upper_01, list_lower_01, actual_price,r)
+    # firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'mean_std_005',{'lower_bound':list_lower_01, 'upper_bound':list_upper_01, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
+    #
+    # # fig, ax = subplots()
+    # # ax.plot(list(np.arange(0, 24, 1)), list_upper_01, '-r*', alpha=0.8, label='upper')
+    # # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
+    # # ax.plot(list(np.arange(0, 24, 1)), list_lower_01, '-r*', alpha=0.8, label='lower')
+    # # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_01, list_lower_01, facecolor='magenta', alpha=0.05)
+    # # ax.legend(loc='best')
+    # # ax.set_xlabel('Hours')
+    # # ax.set_ylabel('$/MWhr')
+    # # plt.title('Interval prediction Model-{} using Mean and variance estimation with a at {}'.format(model,a))
+    # # plt.show()
+    #
+    # #quantile method
+    # list_upper_02=[]
+    # list_lower_02=[]
+    # start_time = time.time()  # taking current time as starting time
+    #
+    # for hour in list(np.arange(0,24,1)):
+    #     print(hour)
+    #     df2 = df1.drop(list(set(np.where(df1['Hour'] != hour)[
+    #                                 0]))).copy()  # drop column which day_type not equal to 0 or select only day_type =0
+    #     df2 = df2.reset_index(drop=True)
+    #     df2 = df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
+    #     df2 = df2.reset_index(drop=True)
+    #     df2 = df2.drop(list(set(np.where(df2['holiday'] != is_holiday)[0])))
+    #     df2 = df2.reset_index(drop=True)
+    #
+    #     input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
+    #                                               df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
+    #     net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
+    #     err = net.train(input1, target2, epochs=500, show=10, goal=0.01)
+    #
+    #     input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
+    #     lower_bound, upper_bound = get_sim_data(net, input2, df2['Zonal Price'].max())
+    #     lower, upper = PI_construct_quantile(lower_bound, upper_bound)
+    #     list_upper_02.append(upper[0])
+    #     list_lower_02.append(lower[0])
+    # elapsed_time = time.time() - start_time  # again taking current time - starting time
+    # r = get_range_target_value(df2)
+    #
+    # PI_df_02, PICP, MPIW, NPIW = cal_PI(list_upper_02, list_lower_02, actual_price,r)
+    #
+    # firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'QR_005',{'lower_bound':list_lower_02, 'upper_bound':list_upper_02, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
+    #
+    # # fig, ax = subplots()
+    # # ax.plot(list(np.arange(0, 24, 1)), list_upper_02, '-r*', alpha=0.8, label='upper')
+    # # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
+    # # ax.plot(list(np.arange(0, 24, 1)), list_lower_02, '-r*', alpha=0.8, label='lower')
+    # # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_02, list_lower_02, facecolor='magenta', alpha=0.05)
+    # # ax.legend(loc='best')
+    # # ax.set_xlabel('Hours')
+    # # ax.set_ylabel('$/MWhr')
+    # # plt.title('Interval prediction Model-{} using Quantile regression with Quantile at {} to {}'.format(model,q1, 1-q2))
+    # # plt.show()
+    #
+    # a=0.1
+    # q1=0.1
+    # q2=0.9
+    # #mean + std method
+    # list_upper_01=[]
+    # list_lower_01=[]
+    # start_time = time.time()  # taking current time as starting time
+    #
+    # for hour in list(np.arange(0,24,1)):
+    #     print(hour)
+    #     df2 = df1.drop(list(set(np.where(df1['Hour'] != hour)[
+    #                                 0]))).copy()  # drop column which day_type not equal to 0 or select only day_type =0
+    #     df2 = df2.reset_index(drop=True)
+    #     df2 = df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
+    #     df2 = df2.reset_index(drop=True)
+    #     df2 = df2.drop(list(set(np.where(df2['holiday'] != is_holiday)[0])))
+    #     df2 = df2.reset_index(drop=True)
+    #
+    #     input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
+    #                                               df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
+    #     net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
+    #     err = net.train(input1, target1, epochs=500, show=10, goal=0.01)
+    #
+    #     input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
+    #     var_mean, var_std = get_sim_data(net, input2, df2['Zonal Price'].max())
+    #     # a=0.05
+    #     upper, lower = PI_consutruct_mean_var(var_mean, var_std, a)
+    #     list_upper_01.append(upper[0])
+    #     list_lower_01.append(lower[0])
+    # elapsed_time = time.time() - start_time  # again taking current time - starting time
+    # r = get_range_target_value(df2)
+    #
+    # PI_df_01, PICP, MPIW, NPIW = cal_PI(list_upper_01, list_lower_01, actual_price, r)
+    #
+    #
+    # firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'mean_std_01',{'lower_bound':list_lower_01, 'upper_bound':list_upper_01, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
+    #
+    # # fig, ax = subplots()
+    # # ax.plot(list(np.arange(0, 24, 1)), list_upper_01, '-r*', alpha=0.8, label='upper')
+    # # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
+    # # ax.plot(list(np.arange(0, 24, 1)), list_lower_01, '-r*', alpha=0.8, label='lower')
+    # # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_01, list_lower_01, facecolor='magenta', alpha=0.05)
+    # # ax.legend(loc='best')
+    # # ax.set_xlabel('Hours')
+    # # ax.set_ylabel('$/MWhr')
+    # # plt.title('Interval prediction Model-{} using Mean and variance estimation with a at {}'.format(model,a))
+    # #
+    # # plt.show()
+    #
+    # #quantile method
+    # list_upper_02=[]
+    # list_lower_02=[]
+    # start_time = time.time()  # taking current time as starting time
+    #
+    # for hour in list(np.arange(0,24,1)):
+    #     print(hour)
+    #     df2 = df1.drop(list(set(np.where(df1['Hour'] != hour)[
+    #                                 0]))).copy()  # drop column which day_type not equal to 0 or select only day_type =0
+    #     df2 = df2.reset_index(drop=True)
+    #     df2 = df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
+    #     df2 = df2.reset_index(drop=True)
+    #     df2 = df2.drop(list(set(np.where(df2['holiday'] != is_holiday)[0])))
+    #     df2 = df2.reset_index(drop=True)
+    #     input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
+    #                                               df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
+    #     net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
+    #     err = net.train(input1, target2, epochs=500, show=10, goal=0.01)
+    #
+    #     input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
+    #     lower_bound, upper_bound = get_sim_data(net, input2, df2['Zonal Price'].max())
+    #     lower, upper = PI_construct_quantile(lower_bound, upper_bound)
+    #     list_upper_02.append(upper[0])
+    #     list_lower_02.append(lower[0])
+    # elapsed_time = time.time() - start_time  # again taking current time - starting time
+    # r = get_range_target_value(df2)
+    #
+    # PI_df_02, PICP, MPIW, NPIW = cal_PI(list_upper_02, list_lower_02, actual_price,r)
+    #
+    # firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'QR_01',{'lower_bound':list_lower_02, 'upper_bound':list_upper_02, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
+    #
+    # #
+    # # fig, ax = subplots()
+    # # ax.plot(list(np.arange(0, 24, 1)), list_upper_02, '-r*', alpha=0.8, label='upper')
+    # # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
+    # # ax.plot(list(np.arange(0, 24, 1)), list_lower_02, '-r*', alpha=0.8, label='lower')
+    # # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_02, list_lower_02, facecolor='magenta', alpha=0.05)
+    # # ax.legend(loc='best')
+    # # ax.set_xlabel('Hours')
+    # # ax.set_ylabel('$/MWhr')
+    # # plt.title('Interval prediction Model-{} using Quantile regression with Quantile at {} to {}'.format(model,q1, 1-q2))
+    # # plt.show()
+    #
+    #
+    # #model-V
+    # model = 5
+    # a=0.05
+    # q1=0.05
+    # q2=0.95
+    # #mean + std method
+    # list_upper_01=[]
+    # list_lower_01=[]
+    # start_time = time.time()  # taking current time as starting time
+    #
+    # for hour in list(np.arange(0,24,1)):
+    #     print(hour)
+    #     df2=df1.drop(list(set(np.where(df1['Hour']!=hour)[0]))).copy() #drop column which day_type not equal to 0 or select only day_type =0
+    #     df2=df2.reset_index(drop=True)
+    #     df2=df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
+    #     df2=df2.reset_index(drop=True)
+    #     df2=df2.drop(list(set(np.where(df2['holiday']!= is_holiday)[0])))
+    #     df2 = df2.reset_index(drop=True)
+    #     df2=df2.drop(list(set(np.where(df2['season']!= season)[0])))
+    #     df2 = df2.reset_index(drop=True)
+    #
+    #     input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
+    #                                               df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
+    #     net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
+    #     err = net.train(input1, target1, epochs=500, show=10, goal=0.01)
+    #
+    #     input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
+    #     var_mean, var_std = get_sim_data(net, input2, df2['Zonal Price'].max())
+    #     a=0.05
+    #     upper, lower = PI_consutruct_mean_var(var_mean, var_std, a)
+    #     list_upper_01.append(upper[0])
+    #     list_lower_01.append(lower[0])
+    # elapsed_time = time.time() - start_time  # again taking current time - starting time
+    # r = get_range_target_value(df2)
+    # PI_df_01, PICP, MPIW, NPIW = cal_PI(list_upper_01, list_lower_01, actual_price,r)
+    # firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'mean_std_005',{'lower_bound':list_lower_01, 'upper_bound':list_upper_01, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
+    #
+    # # fig, ax = subplots()
+    # # ax.plot(list(np.arange(0, 24, 1)), list_upper_01, '-r*', alpha=0.8, label='upper')
+    # # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
+    # # ax.plot(list(np.arange(0, 24, 1)), list_lower_01, '-r*', alpha=0.8, label='lower')
+    # # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_01, list_lower_01, facecolor='magenta', alpha=0.05)
+    # # ax.legend(loc='best')
+    # # ax.set_xlabel('Hours')
+    # # ax.set_ylabel('$/MWhr')
+    # # plt.title('Interval prediction Model-{} using Mean and variance estimation with a at {}'.format(model,a))
+    # # plt.show()
+    #
+    # #quantile method
+    # list_upper_02=[]
+    # list_lower_02=[]
+    # start_time = time.time()  # taking current time as starting time
+    #
+    # for hour in list(np.arange(0,24,1)):
+    #     print(hour)
+    #     df2 = df1.drop(list(set(np.where(df1['Hour'] != hour)[
+    #                                 0]))).copy()  # drop column which day_type not equal to 0 or select only day_type =0
+    #     df2 = df2.reset_index(drop=True)
+    #     df2 = df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
+    #     df2 = df2.reset_index(drop=True)
+    #     df2 = df2.drop(list(set(np.where(df2['holiday'] != is_holiday)[0])))
+    #     df2 = df2.reset_index(drop=True)
+    #     df2=df2.drop(list(set(np.where(df2['season']!= season)[0])))
+    #     df2 = df2.reset_index(drop=True)
+    #     input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
+    #                                               df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
+    #     net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
+    #     err = net.train(input1, target2, epochs=500, show=10, goal=0.01)
+    #
+    #     input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
+    #     lower_bound, upper_bound = get_sim_data(net, input2, df2['Zonal Price'].max())
+    #     lower, upper = PI_construct_quantile(lower_bound, upper_bound)
+    #     list_upper_02.append(upper[0])
+    #     list_lower_02.append(lower[0])
+    # elapsed_time = time.time() - start_time  # again taking current time - starting time
+    # r = get_range_target_value(df2)
+    #
+    # PI_df_02, PICP, MPIW, NPIW = cal_PI(list_upper_02, list_lower_02, actual_price,r)
+    #
+    # firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'QR_005',{'lower_bound':list_lower_02, 'upper_bound':list_upper_02, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
+    #
+    # # fig, ax = subplots()
+    # # ax.plot(list(np.arange(0, 24, 1)), list_upper_02, '-r*', alpha=0.8, label='upper')
+    # # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
+    # # ax.plot(list(np.arange(0, 24, 1)), list_lower_02, '-r*', alpha=0.8, label='lower')
+    # # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_02, list_lower_02, facecolor='magenta', alpha=0.05)
+    # # ax.legend(loc='best')
+    # # ax.set_xlabel('Hours')
+    # # ax.set_ylabel('$/MWhr')
+    # # plt.title('Interval prediction Model-{} using Quantile regression with Quantile at {} to {}'.format(model,q1, 1-q2))
+    # # plt.show()
+    #
+    # a=0.1
+    # q1=0.1
+    # q2=0.9
+    # #mean + std method
+    # list_upper_01=[]
+    # list_lower_01=[]
+    # start_time = time.time()  # taking current time as starting time
+    #
+    # for hour in list(np.arange(0,24,1)):
+    #     print(hour)
+    #     df2 = df1.drop(list(set(np.where(df1['Hour'] != hour)[
+    #                                 0]))).copy()  # drop column which day_type not equal to 0 or select only day_type =0
+    #     df2 = df2.reset_index(drop=True)
+    #     df2 = df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
+    #     df2 = df2.reset_index(drop=True)
+    #     df2 = df2.drop(list(set(np.where(df2['holiday'] != is_holiday)[0])))
+    #     df2 = df2.reset_index(drop=True)
+    #     df2=df2.drop(list(set(np.where(df2['season']!= season)[0])))
+    #     df2 = df2.reset_index(drop=True)
+    #     input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
+    #                                               df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
+    #     net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
+    #     err = net.train(input1, target1, epochs=500, show=10, goal=0.01)
+    #
+    #     input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
+    #     var_mean, var_std = get_sim_data(net, input2, df2['Zonal Price'].max())
+    #     a=0.05
+    #     upper, lower = PI_consutruct_mean_var(var_mean, var_std, a)
+    #     list_upper_01.append(upper[0])
+    #     list_lower_01.append(lower[0])
+    # elapsed_time = time.time() - start_time  # again taking current time - starting time
+    # r = get_range_target_value(df2)
+    #
+    # PI_df_01, PICP, MPIW, NPIW = cal_PI(list_upper_01, list_lower_01, actual_price, r)
+    #
+    #
+    # firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'mean_std_01',{'lower_bound':list_lower_01, 'upper_bound':list_upper_01, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
+    #
+    # # fig, ax = subplots()
+    # # ax.plot(list(np.arange(0, 24, 1)), list_upper_01, '-r*', alpha=0.8, label='upper')
+    # # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
+    # # ax.plot(list(np.arange(0, 24, 1)), list_lower_01, '-r*', alpha=0.8, label='lower')
+    # # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_01, list_lower_01, facecolor='magenta', alpha=0.05)
+    # # ax.legend(loc='best')
+    # # ax.set_xlabel('Hours')
+    # # ax.set_ylabel('$/MWhr')
+    # # plt.title('Interval prediction Model-{} using Mean and variance estimation with a at {}'.format(model,a))
+    # #
+    # # plt.show()
+    #
+    # #quantile method
+    # list_upper_02=[]
+    # list_lower_02=[]
+    # start_time = time.time()  # taking current time as starting time
+    #
+    # for hour in list(np.arange(0,24,1)):
+    #     print(hour)
+    #     df2 = df1.drop(list(set(np.where(df1['Hour'] != hour)[
+    #                                 0]))).copy()  # drop column which day_type not equal to 0 or select only day_type =0
+    #     df2 = df2.reset_index(drop=True)
+    #     df2 = df2.drop(list(set(np.where(df2['day_type'] != day_type)[0])))
+    #     df2 = df2.reset_index(drop=True)
+    #     df2 = df2.drop(list(set(np.where(df2['holiday'] != is_holiday)[0])))
+    #     df2 = df2.reset_index(drop=True)
+    #     df2=df2.drop(list(set(np.where(df2['season']!= season)[0])))
+    #     df2 = df2.reset_index(drop=True)
+    #     input1, target1, target2 = get_train_data(df2, df2['Forecasted Total Load'].max(),
+    #                                               df2['Forecasted Zonal Load'].max(), df2['Zonal Price'].max(),q1,q2)
+    #     net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
+    #     err = net.train(input1, target2, epochs=500, show=10, goal=0.01)
+    #
+    #     input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df2['Forecasted Total Load'].max(), df2['Forecasted Zonal Load'].max())
+    #     lower_bound, upper_bound = get_sim_data(net, input2, df2['Zonal Price'].max())
+    #     lower, upper = PI_construct_quantile(lower_bound, upper_bound)
+    #     list_upper_02.append(upper[0])
+    #     list_lower_02.append(lower[0])
+    # elapsed_time = time.time() - start_time  # again taking current time - starting time
+    # r = get_range_target_value(df2)
+    #
+    # PI_df_02, PICP, MPIW, NPIW = cal_PI(list_upper_02, list_lower_02, actual_price, r)
+    #
+    # firebase.put('GEFcom2014/{}/results/model-{}'.format(task,model), 'QR_01',{'lower_bound':list_lower_02, 'upper_bound':list_upper_02, 'PICP':PICP, 'MPIW':MPIW, 'NPIW':NPIW, 'training_time':elapsed_time})
+    #
+    #
+    # # fig, ax = subplots()
+    # # ax.plot(list(np.arange(0, 24, 1)), list_upper_02, '-r*', alpha=0.8, label='upper')
+    # # ax.plot(list(np.arange(0, 24, 1)), actual_price, '-b*', alpha=0.8, label='actual price')
+    # # ax.plot(list(np.arange(0, 24, 1)), list_lower_02, '-r*', alpha=0.8, label='lower')
+    # # ax.fill_between(list(np.arange(0, 24, 1)), list_upper_02, list_lower_02, facecolor='magenta', alpha=0.05)
+    # # ax.legend(loc='best')
+    # # ax.set_xlabel('Hours')
+    # # ax.set_ylabel('$/MWhr')
+    # # plt.title('Interval prediction Model-{} using Quantile regression with Quantile at {} to {}'.format(model,q1, 1-q2))
+    # # plt.show()
 
 print('finish')

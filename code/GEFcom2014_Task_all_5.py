@@ -84,7 +84,7 @@ def cal_PI(upper, lower, actual_price,r, mu):
         g = 0
     n=1
     CWC = NPIW*(1 + g * ((math.e)**(-n*(PICP-mu))))
-    return temp_df, PICP, MPIW, NPIW, CWC
+    return temp_df, PICP, MPIW, NcPIW, CWC
 
 
 list_task=['Task_1','Task_2','Task_3','Task_4','Task_5','Task_6','Task_7','Task_8','Task_9','Task_10','Task_11','Task_12','Task_13','Task_14','Task_15']
@@ -95,12 +95,12 @@ list_task_folder=['Task 1','Task 2','Task 3','Task 4','Task 5','Task 6','Task 7'
 # list_task_folder=['Task 4','Task 2','Task 3','Task 4','Task 5','Task 6','Task 7','Task 8','Task 9','Task 10','Task 11','Task 12','Task 13','Task 14','Task 15']
 
 list_model=[2]
-# list_method=['mean_std_005', 'mean_std_01', 'QR_005', 'QR_01']
-# list_method=['QR_01']
-list_method=['mean_std_025']
+# list_method=['mean_std_005', 'mean_std_01', 'mean_std_015', 'mean_std_020', 'mean_std_025', 'QR_005', 'QR_01', 'QR_015', 'QR_020', 'QR_025']
+# list_method=['mean_std_015', 'mean_std_020', 'QR_015', 'QR_020']
+list_method=['mean_std_005']
+
 
 for num_task in list(np.arange(0,len(list_task),1)):
-    print('--------------{}-----------'.format(num_task))
     task=list_task[num_task]
     task_file=list_task_file[num_task]
     task_folder=list_task_folder[num_task]
@@ -187,6 +187,7 @@ for num_task in list(np.arange(0,len(list_task),1)):
 
     for model in list_model:
         if model ==2:
+
             for method in list_method:
                 if method == 'mean_std_005':
                     a = 0.05
@@ -195,7 +196,8 @@ for num_task in list(np.arange(0,len(list_task),1)):
                     list_upper_01 = []
                     list_lower_01 = []
                     for hour in list(np.arange(0, 24, 1)):
-                        print(hour)
+                        print('--------------task {}  hour {}-----------'.format(num_task, hour))
+
                         df2 = df1.drop(list(set(np.where(df1['Hour'] != hour)[
                                                     0]))).copy()  # drop column which day_type not equal to 0 or select only day_type =0
                         df2 = df2.reset_index(drop=True)
@@ -225,7 +227,7 @@ for num_task in list(np.arange(0,len(list_task),1)):
                         upper, lower = PI_consutruct_mean_var(var_mean, var_std, a)
                         list_upper_01.append(upper[0])
                         list_lower_01.append(lower[0])
-                    firebase.put('GEFcom2014_spike/{}/results/model-{}'.format(task, model), 'mean_std_005',
+                    firebase.put('GEFcom2014_spike/{}/results/model-{}'.format(task, model), '{}'.format(method),
                                      {'lower_bound': list_lower_01, 'upper_bound': list_upper_01, 'training_time': elapsed_time})
                 elif method == 'mean_std_01':
                     a = 0.1
@@ -263,7 +265,87 @@ for num_task in list(np.arange(0,len(list_task),1)):
                         upper, lower = PI_consutruct_mean_var(var_mean, var_std, a)
                         list_upper_01.append(upper[0])
                         list_lower_01.append(lower[0])
-                    firebase.put('GEFcom2014_spike/{}/results/model-{}'.format(task, model), 'mean_std_01',
+                    firebase.put('GEFcom2014_spike/{}/results/model-{}'.format(task, model), '{}'.format(),
+                                 {'lower_bound': list_lower_01, 'upper_bound': list_upper_01,
+                                  'training_time': elapsed_time})
+                elif method == 'mean_std_015':
+                    a = 0.15
+                    q1 = 0.15
+                    q2 = 0.85
+                    list_upper_01 = []
+                    list_lower_01 = []
+                    for hour in list(np.arange(0, 24, 1)):
+                        print(hour)
+                        df2 = df1.drop(list(set(np.where(df1['Hour'] != hour)[
+                                                    0]))).copy()  # drop column which day_type not equal to 0 or select only day_type =0
+                        df2 = df2.reset_index(drop=True)
+                        # check forecasted input is normal price
+                        if forecast_df.iloc[hour, 8] == 0:  # 'normal price'
+                            df3 = df2.drop(list(set(np.where(df2['price type'] != 0)[0]))).copy()
+                            df3 = df3.reset_index(drop=True)
+                        elif forecast_df.iloc[hour, 8] == 1:  # 'high price'
+                            df3 = df2.drop(list(set(np.where(df2['price type'] != 1)[0]))).copy()
+                            df3 = df3.reset_index(drop=True)
+                        elif forecast_df.iloc[hour, 8] == 2:  # 'spike price'
+                            df3 = df2.drop(list(set(np.where(df2['price type'] != 2)[0]))).copy()
+                            df3 = df3.reset_index(drop=True)
+
+                        input1, target1, target2 = get_train_data(df3, df3['Forecasted Total Load'].max(),
+                                                                  df3['Forecasted Zonal Load'].max(),
+                                                                  df3['Zonal Price'].max(), q1, q2)
+                        net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
+                        start_time = time.time()
+                        err = net.train(input1, target1, epochs=500, show=10, goal=0.01)
+                        elapsed_time = time.time() - start_time  # again taking current time - starting time
+
+                        input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df3['Forecasted Total Load'].max(),
+                                               df3['Forecasted Zonal Load'].max())
+
+                        var_mean, var_std = get_sim_data(net, input2, df3['Zonal Price'].max())
+                        upper, lower = PI_consutruct_mean_var(var_mean, var_std, a)
+                        list_upper_01.append(upper[0])
+                        list_lower_01.append(lower[0])
+                    firebase.put('GEFcom2014_spike/{}/results/model-{}'.format(task, model), '{}'.format(method),
+                                 {'lower_bound': list_lower_01, 'upper_bound': list_upper_01,
+                                  'training_time': elapsed_time})
+                elif method == 'mean_std_020':
+                    a = 0.20
+                    q1 = 0.20
+                    q2 = 0.80
+                    list_upper_01 = []
+                    list_lower_01 = []
+                    for hour in list(np.arange(0, 24, 1)):
+                        print(hour)
+                        df2 = df1.drop(list(set(np.where(df1['Hour'] != hour)[
+                                                    0]))).copy()  # drop column which day_type not equal to 0 or select only day_type =0
+                        df2 = df2.reset_index(drop=True)
+                        # check forecasted input is normal price
+                        if forecast_df.iloc[hour, 8] == 0:  # 'normal price'
+                            df3 = df2.drop(list(set(np.where(df2['price type'] != 0)[0]))).copy()
+                            df3 = df3.reset_index(drop=True)
+                        elif forecast_df.iloc[hour, 8] == 1:  # 'high price'
+                            df3 = df2.drop(list(set(np.where(df2['price type'] != 1)[0]))).copy()
+                            df3 = df3.reset_index(drop=True)
+                        elif forecast_df.iloc[hour, 8] == 2:  # 'spike price'
+                            df3 = df2.drop(list(set(np.where(df2['price type'] != 2)[0]))).copy()
+                            df3 = df3.reset_index(drop=True)
+
+                        input1, target1, target2 = get_train_data(df3, df3['Forecasted Total Load'].max(),
+                                                                  df3['Forecasted Zonal Load'].max(),
+                                                                  df3['Zonal Price'].max(), q1, q2)
+                        net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
+                        start_time = time.time()
+                        err = net.train(input1, target1, epochs=500, show=10, goal=0.01)
+                        elapsed_time = time.time() - start_time  # again taking current time - starting time
+
+                        input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df3['Forecasted Total Load'].max(),
+                                               df3['Forecasted Zonal Load'].max())
+
+                        var_mean, var_std = get_sim_data(net, input2, df3['Zonal Price'].max())
+                        upper, lower = PI_consutruct_mean_var(var_mean, var_std, a)
+                        list_upper_01.append(upper[0])
+                        list_lower_01.append(lower[0])
+                    firebase.put('GEFcom2014_spike/{}/results/model-{}'.format(task, model), '{}'.format(method),
                                  {'lower_bound': list_lower_01, 'upper_bound': list_upper_01,
                                   'training_time': elapsed_time})
                 elif method == 'mean_std_025':
@@ -303,7 +385,7 @@ for num_task in list(np.arange(0,len(list_task),1)):
                         upper, lower = PI_consutruct_mean_var(var_mean, var_std, a)
                         list_upper_01.append(upper[0])
                         list_lower_01.append(lower[0])
-                    firebase.put('GEFcom2014_spike/{}/results/model-{}'.format(task, model), 'mean_std_025',
+                    firebase.put('GEFcom2014_spike/{}/results/model-{}'.format(task, model), '{}'.format(),
                                  {'lower_bound': list_lower_01, 'upper_bound': list_upper_01,
                                   'training_time': elapsed_time})
 
@@ -343,7 +425,7 @@ for num_task in list(np.arange(0,len(list_task),1)):
                         lower, upper= PI_construct_quantile(lower_bound, upper_bound)
                         list_upper_01.append(upper[0])
                         list_lower_01.append(lower[0])
-                    firebase.put('GEFcom2014_spike/{}/results/model-{}'.format(task, model), 'QR_005',
+                    firebase.put('GEFcom2014_spike/{}/results/model-{}'.format(task, model), '{}'.format(),
                                  {'lower_bound': list_lower_01, 'upper_bound': list_upper_01,
                                   'training_time': elapsed_time})
                 elif method == 'QR_01':
@@ -382,7 +464,85 @@ for num_task in list(np.arange(0,len(list_task),1)):
                         lower, upper = PI_construct_quantile(lower_bound, upper_bound)
                         list_upper_01.append(upper[0])
                         list_lower_01.append(lower[0])
-                    firebase.put('GEFcom2014_spike/{}/results/model-{}'.format(task, model), 'QR_01',
+                    firebase.put('GEFcom2014_spike/{}/results/model-{}'.format(task, model), '{}'.format(),
+                                 {'lower_bound': list_lower_01, 'upper_bound': list_upper_01,
+                                  'training_time': elapsed_time})
+                elif method == 'QR_015':
+                    a = 0.1
+                    q1 = 0.15
+                    q2 = 0.85
+                    list_upper_01 = []
+                    list_lower_01 = []
+                    for hour in list(np.arange(0, 24, 1)):
+                        df2 = df1.drop(list(set(np.where(df1['Hour'] != hour)[
+                                                    0]))).copy()  # drop column which day_type not equal to 0 or select only day_type =0
+                        df2 = df2.reset_index(drop=True)
+                        # check forecasted input is normal price
+                        if forecast_df.iloc[hour, 8] == 0:  # 'normal price'
+                            df3 = df2.drop(list(set(np.where(df2['price type'] != 0)[0]))).copy()
+                            df3 = df3.reset_index(drop=True)
+                        elif forecast_df.iloc[hour, 8] == 1:  # 'high price'
+                            df3 = df2.drop(list(set(np.where(df2['price type'] != 1)[0]))).copy()
+                            df3 = df3.reset_index(drop=True)
+                        elif forecast_df.iloc[hour, 8] == 2:  # 'spike price'
+                            df3 = df2.drop(list(set(np.where(df2['price type'] != 2)[0]))).copy()
+                            df3 = df3.reset_index(drop=True)
+
+                        input1, target1, target2 = get_train_data(df3, df3['Forecasted Total Load'].max(),
+                                                                  df3['Forecasted Zonal Load'].max(),
+                                                                  df3['Zonal Price'].max(), q1, q2)
+                        net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
+                        start_time = time.time()
+                        err = net.train(input1, target2, epochs=500, show=10, goal=0.01)
+                        elapsed_time = time.time() - start_time  # again taking current time - starting time
+
+                        input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df3['Forecasted Total Load'].max(),
+                                               df3['Forecasted Zonal Load'].max())
+
+                        lower_bound, upper_bound = get_sim_data(net, input2, df3['Zonal Price'].max())
+                        lower, upper = PI_construct_quantile(lower_bound, upper_bound)
+                        list_upper_01.append(upper[0])
+                        list_lower_01.append(lower[0])
+                    firebase.put('GEFcom2014_spike/{}/results/model-{}'.format(task, model), '{}'.format(method),
+                                 {'lower_bound': list_lower_01, 'upper_bound': list_upper_01,
+                                  'training_time': elapsed_time})
+                elif method == 'QR_020':
+                    a = 0.1
+                    q1 = 0.2
+                    q2 = 0.8
+                    list_upper_01 = []
+                    list_lower_01 = []
+                    for hour in list(np.arange(0, 24, 1)):
+                        df2 = df1.drop(list(set(np.where(df1['Hour'] != hour)[
+                                                    0]))).copy()  # drop column which day_type not equal to 0 or select only day_type =0
+                        df2 = df2.reset_index(drop=True)
+                        # check forecasted input is normal price
+                        if forecast_df.iloc[hour, 8] == 0:  # 'normal price'
+                            df3 = df2.drop(list(set(np.where(df2['price type'] != 0)[0]))).copy()
+                            df3 = df3.reset_index(drop=True)
+                        elif forecast_df.iloc[hour, 8] == 1:  # 'high price'
+                            df3 = df2.drop(list(set(np.where(df2['price type'] != 1)[0]))).copy()
+                            df3 = df3.reset_index(drop=True)
+                        elif forecast_df.iloc[hour, 8] == 2:  # 'spike price'
+                            df3 = df2.drop(list(set(np.where(df2['price type'] != 2)[0]))).copy()
+                            df3 = df3.reset_index(drop=True)
+
+                        input1, target1, target2 = get_train_data(df3, df3['Forecasted Total Load'].max(),
+                                                                  df3['Forecasted Zonal Load'].max(),
+                                                                  df3['Zonal Price'].max(), q1, q2)
+                        net = nl.net.newff([[0, 1], [0, 1]], [5, 2])
+                        start_time = time.time()
+                        err = net.train(input1, target2, epochs=500, show=10, goal=0.01)
+                        elapsed_time = time.time() - start_time  # again taking current time - starting time
+
+                        input2 = get_test_data(np.asarray(forecast_df.loc[hour]), df3['Forecasted Total Load'].max(),
+                                               df3['Forecasted Zonal Load'].max())
+
+                        lower_bound, upper_bound = get_sim_data(net, input2, df3['Zonal Price'].max())
+                        lower, upper = PI_construct_quantile(lower_bound, upper_bound)
+                        list_upper_01.append(upper[0])
+                        list_lower_01.append(lower[0])
+                    firebase.put('GEFcom2014_spike/{}/results/model-{}'.format(task, model), '{}'.format(method),
                                  {'lower_bound': list_lower_01, 'upper_bound': list_upper_01,
                                   'training_time': elapsed_time})
                 elif method == 'QR_025':
@@ -422,7 +582,7 @@ for num_task in list(np.arange(0,len(list_task),1)):
                         lower, upper = PI_construct_quantile(lower_bound, upper_bound)
                         list_upper_01.append(upper[0])
                         list_lower_01.append(lower[0])
-                    firebase.put('GEFcom2014_spike/{}/results/model-{}'.format(task, model), 'QR_025',
+                    firebase.put('GEFcom2014_spike/{}/results/model-{}'.format(task, model), '{}'.format(),
                                  {'lower_bound': list_lower_01, 'upper_bound': list_upper_01,
                                   'training_time': elapsed_time})
         elif model == 3:

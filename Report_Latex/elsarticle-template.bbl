@@ -16,7 +16,7 @@ D.~He, W.~P. Chen, A real-time electricity price forecasting based on the spike
 D.~Singhal, K.~Swarup,
   \href{http://www.sciencedirect.com/science/article/pii/S0142061510002231}{Electricity
   price forecasting using artificial neural networks}, International Journal of
-  Electrical Power & Energy Systems 33~(3) (2011) 550--555.
+  Electrical Power & Energy Systems 33~(3) (2011) 550 -- 555.
 \newblock \href
   {http://dx.doi.org/https://doi.org/10.1016/j.ijepes.2010.12.009}
   {\path{doi:https://doi.org/10.1016/j.ijepes.2010.12.009}}.
@@ -40,6 +40,15 @@ R.~Weron,
 \newblock \href {http://dx.doi.org/10.1016/J.IJFORECAST.2014.08.008}
   {\path{doi:10.1016/J.IJFORECAST.2014.08.008}}.
 \newline\urlprefix\url{https://www.sciencedirect.com/science/article/pii/S0169207014001083}
+
+\bibitem{Maciejowska2016}
+K.~Maciejowska, J.~Nowotarski,
+  \href{http://dx.doi.org/10.1016/j.ijforecast.2015.11.008}{{A hybrid model for
+  GEFCom2014 probabilistic electricity price forecasting}}, International
+  Journal of Forecasting 32~(3) (2016) 1051--1056.
+\newblock \href {http://dx.doi.org/10.1016/j.ijforecast.2015.11.008}
+  {\path{doi:10.1016/j.ijforecast.2015.11.008}}.
+\newline\urlprefix\url{http://dx.doi.org/10.1016/j.ijforecast.2015.11.008}
 
 \bibitem{Khosravi2010}
 A.~Khosravi, S.~Nahavandi, D.~Creighton, Construction of optimal prediction
@@ -75,14 +84,5 @@ R.~Juban, H.~Ohlsson, M.~Maasoumy, L.~Poirier, J.~Z. Kolter,
   {http://dx.doi.org/10.1016/j.ijforecast.2015.12.002}
   {\path{doi:10.1016/j.ijforecast.2015.12.002}}.
 \newline\urlprefix\url{http://dx.doi.org/10.1016/j.ijforecast.2015.12.002}
-
-\bibitem{Maciejowska2016}
-K.~Maciejowska, J.~Nowotarski,
-  \href{http://dx.doi.org/10.1016/j.ijforecast.2015.11.008}{{A hybrid model for
-  GEFCom2014 probabilistic electricity price forecasting}}, International
-  Journal of Forecasting 32~(3) (2016) 1051--1056.
-\newblock \href {http://dx.doi.org/10.1016/j.ijforecast.2015.11.008}
-  {\path{doi:10.1016/j.ijforecast.2015.11.008}}.
-\newline\urlprefix\url{http://dx.doi.org/10.1016/j.ijforecast.2015.11.008}
 
 \end{thebibliography}
