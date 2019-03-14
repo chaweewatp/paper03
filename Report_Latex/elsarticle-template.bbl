@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{\texttt{#1}}\fi
 \expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
@@ -41,6 +41,30 @@ R.~Weron,
   {\path{doi:10.1016/J.IJFORECAST.2014.08.008}}.
 \newline\urlprefix\url{https://www.sciencedirect.com/science/article/pii/S0169207014001083}
 
+\bibitem{Khosravi2011}
+A.~Khosravi, S.~Nahavandi, D.~Creighton, A.~F. Atiya, {Lower upper bound
+  estimation method for construction of neural network-based prediction
+  intervals}, IEEE Transactions on Neural Networks 22~(3) (2011) 337--346.
+\newblock \href {http://dx.doi.org/10.1109/TNN.2010.2096824}
+  {\path{doi:10.1109/TNN.2010.2096824}}.
+
+\bibitem{KhosraviA2010}
+D.~{Khosravi, A., Nahavandi, S., and Creighton},
+  \href{http://ieeexplore.ieee.org/stamp/stamp.jsp?tp={\&}arnumber=5428779}{{Construction
+  of Optimal Prediction Intervals for Load Forecasting Problems}}, IEEE
+  Transactions on Power Systems 25~(3) (2010) 1496--1503.
+\newblock \href {http://dx.doi.org/10.1111/jog.12095}
+  {\path{doi:10.1111/jog.12095}}.
+\newline\urlprefix\url{http://ieeexplore.ieee.org/stamp/stamp.jsp?tp={\&}arnumber=5428779}
+
+\bibitem{Dudek2016}
+G.~Dudek, \href{http://dx.doi.org/10.1016/j.ijforecast.2015.11.009}{{Multilayer
+  perceptron for GEFCom2014 probabilistic electricity price forecasting}},
+  International Journal of Forecasting 32~(3) (2016) 1057--1060.
+\newblock \href {http://dx.doi.org/10.1016/j.ijforecast.2015.11.009}
+  {\path{doi:10.1016/j.ijforecast.2015.11.009}}.
+\newline\urlprefix\url{http://dx.doi.org/10.1016/j.ijforecast.2015.11.009}
+
 \bibitem{Maciejowska2016}
 K.~Maciejowska, J.~Nowotarski,
   \href{http://dx.doi.org/10.1016/j.ijforecast.2015.11.008}{{A hybrid model for
@@ -65,14 +89,6 @@ T.~Hong, P.~Pinson, S.~Fan, H.~Zareipour, A.~Troccoli, R.~J. Hyndman,
 \newblock \href {http://dx.doi.org/10.1016/j.ijforecast.2016.02.001}
   {\path{doi:10.1016/j.ijforecast.2016.02.001}}.
 \newline\urlprefix\url{http://dx.doi.org/10.1016/j.ijforecast.2016.02.001}
-
-\bibitem{Dudek2016}
-G.~Dudek, \href{http://dx.doi.org/10.1016/j.ijforecast.2015.11.009}{{Multilayer
-  perceptron for GEFCom2014 probabilistic electricity price forecasting}},
-  International Journal of Forecasting 32~(3) (2016) 1057--1060.
-\newblock \href {http://dx.doi.org/10.1016/j.ijforecast.2015.11.009}
-  {\path{doi:10.1016/j.ijforecast.2015.11.009}}.
-\newline\urlprefix\url{http://dx.doi.org/10.1016/j.ijforecast.2015.11.009}
 
 \bibitem{Juban2016}
 R.~Juban, H.~Ohlsson, M.~Maasoumy, L.~Poirier, J.~Z. Kolter,

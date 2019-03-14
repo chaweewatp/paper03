@@ -49,7 +49,7 @@
 
 \begin{frontmatter}
 
-\title{A novel electricity probabilistic price forecasting using deep residual neural networks for GEFCOm2014}
+\title{A novel probabilistical electricity price forecasting using deep residual neural networks (Deep ResNet)}
 \tnotetext[mytitlenote]{Fully documented templates are available in the elsarticle package on \href{http://www.ctan.org/tex-archive/macros/latex/contrib/elsarticle}{CTAN}.}
 
 %% Group authors per affiliation:
@@ -71,11 +71,11 @@
 % \address[mysecondaryaddress]{360 Park Avenue South, New York}
 
 \begin{abstract}
-What we do? - This paper proposes a electricity price forecasting approach based on a novel residual neural network for probabilistic electricity price forecasting under price spike environment for GEFCom2014.
+What we do? - This paper proposes a novel electricity price forecasting method based on a novel Deep Residual Neural Network (Deep ResNet) for probabilistic electricity price forecasting under price spike environment for GEFCom2014.
 
 Why I do this? - The electricity price, in deregulation electricity market, has become more fluctuated and generally unanticipated price spike. The use of prediction interval or probabilistic forecasting has become much more common due to it help market participants to submit effective bid with low risks.
 
-How I do this? - A new model is developed from novel deep residual neural network approach. It consists of two parts. First is spike prediction. Interval's value forecasting is another which is formulated into two methods; upper-lower bounds and mean-variance method. The proposed methodology is test with GEFCom2014 dataset where there are 15 tasks for electricity price forecasting which high and spike price are include. The results are compared with benchmarkes provided by GEFcom2014.
+How I do this? - Both multilayer perceptons neural network (MLP) and a new model is developed from novel Deep ResNet approach. MLP represents forecasting model without spike price pridiction. On the other hand, Deep ResNet represents forecasting model with spike price prediction. Deep ResNet is consisting of two network layers. First neural network laver is spike prediction. Interval's value forecasting is another neural network lavers. The input load and hourly values are fed into Deep ResNet and produce upper and lower bounds of forecasted electricity prices using quantile regression and mean-varience methods. The proposed forecasting model is test with GEFCom2014 dataset where there are 15 tasks for electricity price forecasting which high and spike price are include. The results are compared with benchmarkes provided by GEFcom2014.
 
 What is the result? - The performance of forecasting models is evaluated in accuracy and reliablity metrics using Pinball Loss Function and Coverage Width-baed Criterion (CWC), respectively. The significant outcome of this paper is forecasting method cooperated with price spike prediction imporved the forecasting's performance in term of quaility and quantity. Moreover, increasing confidence level could improve CWC values in order to ensure reliability's satification.
 
@@ -95,41 +95,41 @@ Electricity price forecasting, Residual neural network, GEFCom2014
 
 
 
-  (talk about point of forecating, 1 method, 2 measurement, 3 problems) Over the past few decades, many powerful forecasting algorithms have been developed (for a recent comprehensive review, see \cite{Weron2014}). The majority of emprical studies are on point forecasting (or call expected value of the spot price).
+  % (talk about point of forecating, 1 method, 2 measurement, 3 problems)
+  Over the past few decades, many powerful forecasting algorithms have been developed (for a recent comprehensive review, see \cite{Weron2014}). The majority of emprical studies are on point forecasting (or call expected value of the spot price).
 
-  (mention about problems of poing of forecasting, introduct to interval forecasting)
-
-  (mention on used of deep residual neural network and why we use this method)
-  Deep residual network is modified from deep Feed Forward Neural Networks (FFNNs) with extra connections (or called skip connections), passing input from one layer to a late layer as well as the next layer as shown in figure~\ref{Fig:Basic_DRN}. DRN is widely used in computer vision and pattern reconigtion. There are few used on deep residual neural network.
+  % (mention about problems of poing of forecasting, introduct to interval forecasting)
+  The conventional point predictions produce no information about the sampling erros and the predicition accuracy. This lead to confidence intervals (CIs) and prediction intervals (PIs). CIs and PIs are two well-know toosl for quantifying and representing the uncertainty of predicitons. In literature, several methods have been proposed for construction of PIs and CIs assessment. Lower Upper Bounds Estimation (LUBE) method are formulated using mean and varience estimation is proposed in \cite{Khosravi2011}. Delta technique for PI construction is presented in \cite{KhosraviA2010}.
+  % (mention on used of deep residual neural network and why we use this method)
+  Deep Residual Neural Network (Deep ResNet) is modified from deep Feed Forward Neural Networks (FFNNs) with extra connections (or called skip connections), passing input from one layer to a late layer as well as the next layer as shown in figure~\ref{Fig:Basic_DRNN}. Deep ResNet is widely used in computer vision and pattern reconigtion. There are few used on deep residual neural network in forecasting applications.
 
   \begin{figure}[H]
-    \caption{Basis DRN}
-    \label{Fig:Basic_DRN}
-    \includegraphics[width=5cm]{basic_DRN}
+    \caption{Basis DRNN}
+    \label{Fig:Basic_DRNN}
+    \includegraphics[width=5cm]{basic_DRNN}
     \centering
   \end{figure}
-
-
-  (proposeal) Therefore, this paper seeks to apply
-
-  (structure) The remainder of the paper is organized as follows. First, the problem formulation is presented in brief in section 2. The, the main features of the ANN algorithm are presented in section 3. Next, the results after prediction in different cases of proposed method  are discussed in section 4. Finally, conclusions are drawn in the last section of this paper.
+  % (proposal)
+  Therefore, this paper seeks to apply Deep ResNet in electricity price forecasting. The performance of the Deep ResNet forecasting model is also compared with linear regression and MLP techniques.
+  % (structure)
+  The remainder of the paper is organized as follows. First, the problem formulation is presented in brief in section 2. The, the main features of the ANN algorithm are presented . Next, the results after prediction in different cases of proposed method  are discussed in section 4. Finally, conclusions are drawn in the last section of this paper.
 \section{Problem formulation}
+  This section will descript construction of two proposed method; MLP and Deep ResNet model. The MPL model will represent electricity price forecasting without spike price prediction (see related work in \cite{Dudek2016}) and the Deep ResNet model will represent electricity price forecasting with spike price prediction in the model. Both model will generate upper and lower bounds with respect to given confidence levels (5$\%$, 10$\%$, 15$\%$, 20$\%$, and 25$\%$). The upper and lower bound will generate using quantile regression and mean-varience estimation metod.
 
-  \subsection{Proposed probabilisitic deep residual neural network on interval forecasting}
-
-    As mention eariler,
+  \subsection{Proposed Deep ResNet on interval forecasting}
+    As mention eariler, this paper develop a novel Deep ResNet with spike price prediction.
 
     \begin{figure}[H]
-      \caption{Upper and lower bound and mean and variance estimation}
-      \label{Fig:UB_LB_MV_PDRN}
-      \includegraphics[width=12cm]{UB_LB_MV_PDRN}
+      \caption{Upper and lower bound and mean-variance estimation}
+      \label{Fig:UB_LB_MV_PDRNN}
+      \includegraphics[width=12cm]{UB_LB_MV_PDRNN}
     \centering
     \end{figure}
 
     \begin{figure}[H]
-      \caption{Proposed probabilistic deep residual network}
-      \label{Fig:proposed_PDRN}
-      \includegraphics[width=12cm]{proposed_PDRN}
+      \caption{Proposed probabilistic Deep ResNet}
+      \label{Fig:proposed_PDRNN}
+      \includegraphics[width=12cm]{proposed_PDRNN}
     \centering
     \end{figure}
 
@@ -192,7 +192,6 @@ Electricity price forecasting, Residual neural network, GEFCom2014
 
   \subsection{Data description}
     All data in this paper is provided in Global Energy Forecasting Competition 2014 (see \cite{Hong2016}). The aim of this competition is to forecast 15 tasks of electricity prices in term of probabilistic distribution (in quantiles). Hourly data of locational marginal price (LMP), zonal load forecast and system load forecast are provided. The participants receive historical data and forecast for next day electricty price. In total, the price forecasting track involves about three years of locational marginal price, zonal and system load forecast. The summarized solution data set of 15 tasks is shown in table~\ref{table:price_data_set}.
-
     \begin{table}[H]
       \begin{center}
       \caption{GEFcom2014 task solution}
@@ -224,11 +223,12 @@ Electricity price forecasting, Residual neural network, GEFCom2014
     \end{table}
 
     The participation teams in GEFCom2014 perform electricity price forecasting method i.e.; linear regression (IR)\cite{Dudek2016}, multilayer perceptron (MLP)\cite{Dudek2016},  multiple quantile regression\cite{Juban2016}, hybrid quantile estimation with pre-and-post processes\cite{Maciejowska2016}.
+    These data are fed into the proposed MLP and Deep ResNet models during training section with the Levenberg-Marquardt algorithm to provent overfitting problems.
 
 \section{Results}
-  What is comparision? benchmark is provided from GEFCom2014, task4-\cite{Dudek2016}
+  What is comparision? benchmark is provided from GEFCom2014, task4-\cite{Dudek2016}, \cite{Maciejowska2016}, \cite{Khosravi2011}
 
-
+  The proposed Deep ResNet generates upper and lower bound values using quantile regression and mean-varience method.
   In accuracy point of view, the results are summarized in ~\ref{table:result_pinball}.
 
   \begin{table}[H]
@@ -243,10 +243,10 @@ Electricity price forecasting, Residual neural network, GEFCom2014
           Benchmark 1 \tnote{a} & 4.03 & 7.97 & 5.70 & 22.32 & 38.34 & 44.23 & 18.22 & 31.57 & 42.95 & 2.86 & 3.20 & 22.38\\
           Benchmark 2 \tnote{b} & 1.00 & 1.82 & 1.19 & 2.82 & 7.56 & 4.21 & 2.60 & 1.05 & 1.24 & 4.06 & 1.08 & 3.07 \\
           \hline
-          MV without spike price & 4.19 & 4.33 & 4.18 & 10.48 & 31.57 & 33.35 & 6.28 & 4.28 & 4.25 & 4.06 & 4.05 & 13.02\\
-          QR without spike price & 2.57 & 4.03 & 2.55 & 12.96 & 34.76 & 36.24 & 8.83 & 2.51 & 2.49 & 2.47 & 2.62 & 16.81\\
-          MV with spike price & 2.45 & 3.36 & 2.39 & 5.79 & 8.79 & 6.95 & 5.80 & 2.41 & 2.41 & 2.34 & 2.43 & 11.02 \\
-          QR with spike price & 2.11& 3.47& 1.93 & 6.14 & 9.41 & 7.63 & 6.38 & 1.88 & 1.91 & 2.01 & 2.22 &11.70 \\
+          MLP-MV & 4.19 & 4.33 & 4.18 & 10.48 & 31.57 & 33.35 & 6.28 & 4.28 & 4.25 & 4.06 & 4.05 & 13.02\\
+          MLP-QR & 2.57 & 4.03 & 2.55 & 12.96 & 34.76 & 36.24 & 8.83 & 2.51 & 2.49 & 2.47 & 2.62 & 16.81\\
+          Deep ResNet-MV& 2.45 & 3.36 & 2.39 & 5.79 & 8.79 & 6.95 & 5.80 & 2.41 & 2.41 & 2.34 & 2.43 & 11.02 \\
+          Deep ResNet-QR& 2.11& 3.47& 1.93 & 6.14 & 9.41 & 7.63 & 6.38 & 1.88 & 1.91 & 2.01 & 2.22 &11.70 \\
           \hline
         \end{tabular}
         \begin{tablenotes}
@@ -260,7 +260,7 @@ Electricity price forecasting, Residual neural network, GEFCom2014
     \label{table:result_pinball}
   \end{table}
 
-
+  The figure~\ref{Fig:CWC} illustrates the reliability perspective of MLP and Deep ResNet models. The CWC values are average values of task 1 to 15.
   \begin{figure}[H]
     \includegraphics[width=12cm]{CWC}
     \caption{CWC result}
@@ -268,6 +268,8 @@ Electricity price forecasting, Residual neural network, GEFCom2014
   \centering
   \end{figure}
 
+
+  The results of the proposed MLP and Deep ResNet models using quantile regression are illustrated on Task 9. In Figure~\ref{Fig:compare_spike_and_non_spike_model}, the filled area represent interval prediction of MLP-QR and Deep ResNet-QR with 5$\%$ confidence level. In this task 9, Deep ResNet-QR can handle high price and spike price in observation values where MLP could not handle it. Consequently, the proposed Deep ResNet could imporve reliability of forecasting model.
   \begin{figure}[H]
     \includegraphics[width=12cm]{compare_between_non-spike_and_spike}
     \caption{Task 9 between spike and non spike model}
@@ -277,13 +279,13 @@ Electricity price forecasting, Residual neural network, GEFCom2014
 
   \begin{figure}[H]
     \includegraphics[width=15cm]{All_task_with_spike_price_QR_005}
-    \caption{All task with quantile regression with 5$\%$ confidence level}
+    \caption{All task with Deep ResNet-QR with 5$\%$ confidence level}
     \label{Fig:all_task_QR_005}
   \centering
   \end{figure}
 
 \section{Conclusions}
-  This paper proposes a novel application of residual neural network based approach to probabilistic electricity price forecasting.
+  This paper proposes a novel application of Deep Residual Neural Network (Deep ResNet) based approach to probabilistic electricity price forecasting in term of quaintile regression and mean-varience estimation. The two significatant observation results were: (i)
 
 % \section{The Elsevier article class}
 %
