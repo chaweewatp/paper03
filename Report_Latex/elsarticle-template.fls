@@ -151,9 +151,9 @@ INPUT ./images/UB_LB_MV_PDRNN.png
 INPUT ./images/UB_LB_MV_PDRNN.png
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
-INPUT ./images/CWC.png
-INPUT ./images/CWC.png
-INPUT ./images/CWC.png
+INPUT ./images/boxcompare_MV-QR.png
+INPUT ./images/boxcompare_MV-QR.png
+INPUT ./images/boxcompare_MV-QR.png
 INPUT ./images/Task_9-compare_between_non-spike_and_spike.png
 INPUT ./images/Task_9-compare_between_non-spike_and_spike.png
 INPUT ./images/Task_9-compare_between_non-spike_and_spike.png
@@ -170,6 +170,7 @@ INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.p
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb

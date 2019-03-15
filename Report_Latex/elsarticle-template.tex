@@ -264,27 +264,26 @@
 
     The figure~\ref{Fig:CWC} illustrates the reliability perspective of MLP and Deep ResNet models. The CWC values are average values of task 1 to 15.
     \begin{figure}[H]
-      \includegraphics[width=12cm]{CWC}
-      \caption{CWC result}
-      \label{Fig:CWC}
       \centering
+      \includegraphics[width=12cm]{boxcompare_MV-QR}
+      \caption{The results of reliability aspect are represented in CWC values. The CWC values of MLP and Deep ResNet methods with difference confidence level are shown in upper and lower figure, respectively}
+      \label{Fig:CWC}
     \end{figure}
-
-
     The results of the proposed MLP and Deep ResNet models using quantile regression are illustrated on Task 9. In Figure~\ref{Fig:compare_spike_and_non_spike_model}, the filled area represent interval prediction of MLP-QR and Deep ResNet-QR with 5$\%$ confidence level. In this task 9, Deep ResNet-QR can handle high price and spike price in observation values where MLP could not handle it. Consequently, the proposed Deep ResNet could imporve reliability of forecasting model.
     \begin{figure}[H]
-      \includegraphics[width=12cm]{Task_9-compare_between_non-spike_and_spike}
-      \caption{Task 9 between spike and non spike model}
-      \label{Fig:compare_spike_and_non_spike_model}
       \centering
+      \includegraphics[width=12cm]{Task_9-compare_between_non-spike_and_spike}
+      \caption{The results of MLP (non-spike price detection) model and Deep ResNet (spike price prediction) model with quantile regression method on confidence level ($\alpha$ = 5$\%$ on Task 9}
+      \label{Fig:compare_spike_and_non_spike_model}
     \end{figure}
 
     \begin{figure}[H]
+      \centering
       \includegraphics[width=15cm]{All_task_with_spike_price_QR_005}
       \caption{All task with Deep ResNet-QR with 5$\%$ confidence level}
       \label{Fig:all_task_QR_005}
-      \centering
     \end{figure}
+
   \section{Conclusions}
     This paper proposes a novel application of Deep Residual Neural Network (Deep ResNet) based approach to probabilistic electricity price forecasting in term of quaintile regression and mean-varience estimation. The two significatant observation results were: (i)
   \section*{References}
