@@ -135,7 +135,6 @@ INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmti8.tfm
@@ -144,20 +143,20 @@ INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmss8.tfm
 INPUT ./images/basic_DRNN.png
 INPUT ./images/basic_DRNN.png
 INPUT ./images/basic_DRNN.png
-INPUT ./images/UB_LB_MV_PDRNN.png
-INPUT ./images/UB_LB_MV_PDRNN.png
-INPUT ./images/UB_LB_MV_PDRNN.png
 INPUT ./images/proposed_PDRNN.png
 INPUT ./images/proposed_PDRNN.png
 INPUT ./images/proposed_PDRNN.png
+INPUT ./images/UB_LB_MV_PDRNN.png
+INPUT ./images/UB_LB_MV_PDRNN.png
+INPUT ./images/UB_LB_MV_PDRNN.png
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
 INPUT ./images/CWC.png
 INPUT ./images/CWC.png
 INPUT ./images/CWC.png
-INPUT ./images/compare_between_non-spike_and_spike.png
-INPUT ./images/compare_between_non-spike_and_spike.png
-INPUT ./images/compare_between_non-spike_and_spike.png
+INPUT ./images/Task_9-compare_between_non-spike_and_spike.png
+INPUT ./images/Task_9-compare_between_non-spike_and_spike.png
+INPUT ./images/Task_9-compare_between_non-spike_and_spike.png
 INPUT ./images/All_task_with_spike_price_QR_005.png
 INPUT ./images/All_task_with_spike_price_QR_005.png
 INPUT ./images/All_task_with_spike_price_QR_005.png
@@ -173,6 +172,7 @@ INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.p
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb
@@ -180,4 +180,3 @@ INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.p
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb
