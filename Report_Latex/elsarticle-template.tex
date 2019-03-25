@@ -91,7 +91,7 @@
       % (What is the result?)
       The performances of forecasting models were evaluated in term of accuracy and reliablity metrics by Pinball Loss Function and Coverage Width-baed Criterion (CWC), respectively.
       The significant outcome of this paper was forecasting method cooperated with spike price prediction imporved the forecasting's performance in term of quaility and quantity.
-      Moreover, increasing in confidence level could generates higher CWC values and represent high reliability's satification.
+      Moreover, increasing in confidence level could generates lower CWC values and represent high reliability's satification.
     \end{abstract}
 
     \begin{keyword}
@@ -315,34 +315,57 @@
 
       The participation teams in GEFCom2014 perform electricity price forecasting method i.e.; linear regression (IR)\cite{Dudek2016}, multilayer perceptron (MLP)\cite{Dudek2016},  multiple quantile regression\cite{Juban2016}, hybrid quantile estimation with pre-and-post processes\cite{Maciejowska2016}.
       These data are fed into the proposed MLP and Deep ResNet models during training section with the Levenberg-Marquardt algorithm to provent overfitting problems.
-  \section{Results}
-    What is comparision? benchmark is provided from GEFCom2014, task4-\cite{Dudek2016}, \cite{Maciejowska2016}, \cite{Khosravi2011}
 
-    The proposed Deep ResNet generates upper and lower bound values using quantile regression and mean-varience method.
-    In accuracy point of view, the results are summarized in ~\ref{table:result_pinball}.
+  \section{Results}
+    In accuracy point of view, the results were evaluated with pinball loss function and summarized in Table~\ref{table:result_pinball}.
+    The outcomes of benchmark and proposed approaches indicate that some tasks involves more uncertainty than others day.
+    Benchmark-1, provided by GEFCom2014 data, is very low accuracy level, high value of pinball loss score, in Task7-12 and 15.
+    Benchmark-2 included mixed of ARX model, pre-filtering process, quantile estimation and post-processing in order to accuire more accuracy of competition task.
+    The difficulty of forecasting in mentioned task lied in high forecasting zonal load.
+    It is obvious that high forecasted load may trigger an electricty spike price.
+    The MLP-MV and MPL-QR models were developed to ilustrate simple forecasting model without spike price prediction.
+    The similar work of this appoach is found in \cite{Dudek2016}.
+    The MLP models is unsuitable for task 8-9 since loss score is very high.
+    However, in task without spike price, the models perform quite acceptable comparing to Benchmark-1 model.
+
+    The next result we will discuss is that the proposed Deep ResNet generated upper and lower bound values using quantile regression and mean-varience method.
+    Both Deep ResNet-MV and Deep ResNet-QR model performed excellent work and provide lower losses score comparing to Benchmark-1, MLP-MV and MLP-QR.
+    In addition, both proposed models also provided similar losses score with Benchmark-2 as seen in Table~\ref{table:result_pinball}.
 
     \begin{table}[H]
       \caption{The results of probabilistic electricity price forecasting compared to benchmarks}
       \begin{adjustbox}{width=\textwidth}
       \begin{threeparttable}
         \begin{center}
-          \begin{tabular}{ccccccccccccc}
+          \begin{tabular}{ccccccc}
             \hline
-            Method & Task 4 & Task 5& Task 6 & Task 7& Task 8 & Task 9& Task 10 & Task 11& Task 12 & Task 13 & Task 14 & Task 15\\
+            Method & Task 4 & Task 5& Task 6 & Task 7& Task 8 & Task 9\\
             \hline
-            Benchmark 1 \tnote{a} & 4.03 & 7.97 & 5.70 & 22.32 & 38.34 & 44.23 & 18.22 & 31.57 & 42.95 & 2.86 & 3.20 & 22.38\\
-            Benchmark 2 \tnote{b} & 1.00 & 1.82 & 1.19 & 2.82 & 7.56 & 4.21 & 2.60 & 1.05 & 1.24 & 4.06 & 1.08 & 3.07 \\
+            Benchmark-1 \tnote{a} & 4.03 & 7.97 & 5.70 & 22.32 & 38.34 & 44.23 \\
+            Benchmark-2 \tnote{b} & 1.00 & 1.82 & 1.19 & 2.82 & 7.56 & 4.21 \\
             \hline
-            MLP-MV & 4.19 & 4.33 & 4.18 & 10.48 & 31.57 & 33.35 & 6.28 & 4.28 & 4.25 & 4.06 & 4.05 & 13.02\\
-            MLP-QR & 2.57 & 4.03 & 2.55 & 12.96 & 34.76 & 36.24 & 8.83 & 2.51 & 2.49 & 2.47 & 2.62 & 16.81\\
-            Deep ResNet-MV& 2.45 & 3.36 & 2.39 & 5.79 & 8.79 & 6.95 & 5.80 & 2.41 & 2.41 & 2.34 & 2.43 & 11.02 \\
-            Deep ResNet-QR& 2.11& 3.47& 1.93 & 6.14 & 9.41 & 7.63 & 6.38 & 1.88 & 1.91 & 2.01 & 2.22 &11.70 \\
+            MLP-MV & 4.19 & 4.33 & 4.18 & 10.48 & 31.57 & 33.35 \\
+            MLP-QR & 2.57 & 4.03 & 2.55 & 12.96 & 34.76 & 36.24 \\
+            Deep ResNet-MV& 2.45 & 3.36 & 2.39 & 5.79 & 8.79 & 6.95 \\
+            Deep ResNet-QR& 2.11& 3.47& 1.93 & 6.14 & 9.41 & 7.63 \\
+            \hline
+            \\
+            \hline
+            Method & Task 10 & Task 11& Task 12 & Task 13 & Task 14 & Task 15\\
+            \hline
+            Benchmark-1 \tnote{a} &  18.22 & 31.57 & 42.95 & 2.86 & 3.20 & 22.38\\
+            Benchmark-2 \tnote{b} &  2.60 & 1.05 & 1.24 & 4.06 & 1.08 & 3.07 \\
+            \hline
+            MLP-MV &  6.28 & 4.28 & 4.25 & 4.06 & 4.05 & 13.02\\
+            MLP-QR &  8.83 & 2.51 & 2.49 & 2.47 & 2.62 & 16.81\\
+            Deep ResNet-MV & 5.80 & 2.41 & 2.41 & 2.34 & 2.43 & 11.02 \\
+            Deep ResNet-QR & 6.38 & 1.88 & 1.91 & 2.01 & 2.22 &11.70 \\
             \hline
           \end{tabular}
           \begin{tablenotes}
-            Notes: The numbers are calculated according to the pinball function
-            \item[a] provided by GEFCom2014
-            \item[b] provided in \cite{Maciejowska2016}.
+            Notes: The numbers are calculated according to the pinball loss function
+            \item[a] benchmark data provided by GEFCom2014
+            \item[b] hybrid model extending the Quantile Regression Averaging (QRA) approach provided in \cite{Maciejowska2016}.
           \end{tablenotes}
           \end{center}
       \end{threeparttable}
@@ -350,8 +373,39 @@
       \label{table:result_pinball}
     \end{table}
 
-    The figure~\ref{Fig:CWC} illustrates the reliability perspective of MLP and Deep ResNet models.
-    The CWC values are average values of task 1 to 15.
+    We will discuss more of effect of confidence levels to reliability aspect of proposed model here. First, we will discuss comparision between MLP (non-spike price) and Deep ResNet (spike price) models.
+
+    In Figure~\ref{Fig:compare_spike_and_non_spike_model}, the filled area represent interval prediction of MLP-QR and Deep ResNet-QR with 5$\%$ confidence level.
+    In cleary comarision between MLP and Deep-ResNet models, Fig~\ref{Fig:compare_spike_and_non_spike_model} shows the area covered by upper and lower quantile value, with 5$\%$ confidence level, generated by those models.
+    The Deep ResNet-QR model can forecaste the high and spike prices over task 9 data. On the other hand, MLP-QR model is unsuitable to handle price spike prediction.
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=12cm]{Task_9-compare_between_non-spike_and_spike}
+      \caption{The results of MLP (non-spike price detection) model and Deep ResNet (spike price prediction) model with quantile regression method on confidence level ($\alpha$ = 5$\%$ on Task 9)}
+      \label{Fig:compare_spike_and_non_spike_model}
+    \end{figure}
+
+    Figure~\ref{Fig:all_task_QR_005} represents that Deep ResNet-QR can perform excellent jobs in the interval prediction for non-spike price task 4, 5, 6, 11, 12, 13 and 14.
+    Futhermore, the proposed Deep ResNet-QR model has capability of interval prediction in task 7, 8, 9 and 10.
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=15cm]{All_task_with_spike_price_QR_005}
+      \caption{The results of Deep ResNet-QR with 5$\%$ confidence level in task 4-15.}
+      \label{Fig:all_task_QR_005}
+    \end{figure}
+
+
+
+    Second, we will discuss more of effect of confidence levels to reliability aspect of proposed model here.
+    All CWC values are analysed using distribution characteristic in each model at differenced confidence level.
+    The Figure~\ref{Fig:CWC} illustrateds all CWC value where bold line represents average CWC values, of all task, of particular model and confidence level.
+    The boxes contain 50$\%$ of CWC values.
+    The top and buttom wiskers show highest and lowest CWC values in each box.
+    Since CWC value represents both coverage probility and width perspective, the lower CWC value represents higher reliability.
+    The Figure~\ref{Fig:CWC} shows that while increasing confidence level, the models could perform better in CWC perspective.
+    The averaged CWC value could drop below 15 while increasing confidence level up to 15 $\%$ for Deep ResNet models.
+    Moreover, quantile regression method provides higher reliabaility aspect than mean-variance method as seen in Figure~\ref{Fig:CWC}.
+
     \begin{figure}[H]
       \centering
       \includegraphics[width=12cm]{boxcompare_MV-QR}
@@ -359,23 +413,13 @@
       The CWC values of MLP and Deep ResNet methods with difference confidence level are shown in upper and lower figure, respectively}
       \label{Fig:CWC}
     \end{figure}
-    The results of the proposed MLP and Deep ResNet models using quantile regression are illustrated on Task 9.
-    In Figure~\ref{Fig:compare_spike_and_non_spike_model}, the filled area represent interval prediction of MLP-QR and Deep ResNet-QR with 5$\%$ confidence level.
-    In this task 9, Deep ResNet-QR can handle high price and spike price in observation values where MLP could not handle it.
-    Consequently, the proposed Deep ResNet could imporve reliability of forecasting model.
-    \begin{figure}[H]
-      \centering
-      \includegraphics[width=12cm]{Task_9-compare_between_non-spike_and_spike}
-      \caption{The results of MLP (non-spike price detection) model and Deep ResNet (spike price prediction) model with quantile regression method on confidence level ($\alpha$ = 5$\%$ on Task 9}
-      \label{Fig:compare_spike_and_non_spike_model}
-    \end{figure}
 
-    \begin{figure}[H]
-      \centering
-      \includegraphics[width=15cm]{All_task_with_spike_price_QR_005}
-      \caption{All task with Deep ResNet-QR with 5$\%$ confidence level}
-      \label{Fig:all_task_QR_005}
-    \end{figure}
+    In summary, we consider both accuracy and reliability aspects of proposed Deep ResNet models through pinball losses score and CWC values, respectively.
+
+    Consequently, the proposed Deep ResNet could imporve reliability of forecasting model.
+
+
+
 
   \section{Conclusions}
     This paper proposes a novel application of Deep Residual Neural Network (Deep ResNet) based approach to probabilistic electricity price forecasting in term of quaintile regression and mean-varience estimation. The two significatant observation results were: (i)
