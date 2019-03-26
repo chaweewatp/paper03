@@ -44,6 +44,18 @@ D.~{Khosravi, A., Nahavandi, S., and Creighton},
   Transactions on Power Systems 25~(3) (2010) 1496--1503.
 \newline\urlprefix\url{http://ieeexplore.ieee.org/stamp/stamp.jsp?tp={\&}arnumber=5428779}
 
+\bibitem{DBLP:journals/corr/HeZRS15}
+K.~He, X.~Zhang, S.~Ren, J.~Sun, \href{http://arxiv.org/abs/1512.03385}{Deep
+  residual learning for image recognition}, CoRR abs/1512.03385.
+\newblock \href {http://arxiv.org/abs/1512.03385} {\path{arXiv:1512.03385}}.
+\newline\urlprefix\url{http://arxiv.org/abs/1512.03385}
+
+\bibitem{DBLP:journals/corr/ZagoruykoK16}
+S.~Zagoruyko, N.~Komodakis, \href{http://arxiv.org/abs/1605.07146}{Wide
+  residual networks}, CoRR abs/1605.07146.
+\newblock \href {http://arxiv.org/abs/1605.07146} {\path{arXiv:1605.07146}}.
+\newline\urlprefix\url{http://arxiv.org/abs/1605.07146}
+
 \bibitem{Dudek2016}
 G.~Dudek, \href{http://dx.doi.org/10.1016/j.ijforecast.2015.11.009}{{Multilayer
   perceptron for GEFCom2014 probabilistic electricity price forecasting}},

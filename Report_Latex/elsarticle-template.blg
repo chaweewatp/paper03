@@ -3,44 +3,44 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: elsarticle-template.aux
 The style file: elsarticle-num.bst
 Database file #1: mybibfile.bib
-You've used 11 entries,
+You've used 13 entries,
             2937 wiz_defined-function locations,
-            753 strings with 7787 characters,
-and the built_in function-call counts, 3806 in all, are:
-= -- 381
-> -- 101
+            769 strings with 8179 characters,
+and the built_in function-call counts, 4344 in all, are:
+= -- 439
+> -- 121
 < -- 1
-+ -- 41
-- -- 30
-* -- 330
-:= -- 539
-add.period$ -- 13
-call.type$ -- 11
-change.case$ -- 11
++ -- 49
+- -- 36
+* -- 370
+:= -- 621
+add.period$ -- 17
+call.type$ -- 13
+change.case$ -- 13
 chr.to.int$ -- 0
-cite$ -- 11
-duplicate$ -- 109
-empty$ -- 421
-format.name$ -- 38
-if$ -- 962
+cite$ -- 13
+duplicate$ -- 125
+empty$ -- 475
+format.name$ -- 46
+if$ -- 1104
 int.to.chr$ -- 0
-int.to.str$ -- 11
-missing$ -- 11
-newline$ -- 51
-num.names$ -- 11
-pop$ -- 63
+int.to.str$ -- 13
+missing$ -- 13
+newline$ -- 61
+num.names$ -- 13
+pop$ -- 73
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 187
+skip$ -- 223
 stack$ -- 0
 substring$ -- 294
-swap$ -- 27
+swap$ -- 33
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 29
-width$ -- 13
-write$ -- 108
+while$ -- 31
+width$ -- 15
+write$ -- 130
