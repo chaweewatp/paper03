@@ -1,9 +1,10 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.2}{Problem formulation}{}% 2
-\BOOKMARK [2][-]{subsection.2.1}{Proposed Deep ResNet on interval forecasting}{section.2}% 3
-\BOOKMARK [2][-]{subsection.2.2}{Evaluation metrics}{section.2}% 4
-\BOOKMARK [3][-]{subsubsection.2.2.1}{Accuracy}{subsection.2.2}% 5
-\BOOKMARK [3][-]{subsubsection.2.2.2}{Reliability}{subsection.2.2}% 6
-\BOOKMARK [2][-]{subsection.2.3}{Data description}{section.2}% 7
-\BOOKMARK [1][-]{section.3}{Results}{}% 8
-\BOOKMARK [1][-]{section.4}{Conclusions}{}% 9
+\BOOKMARK [2][-]{subsection.2.1}{Proposed Deep ResNet on interval price forecasting}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{The upper and lower bound generation}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Evaluation metrics}{section.2}% 5
+\BOOKMARK [3][-]{subsubsection.2.3.1}{Accuracy aspect}{subsection.2.3}% 6
+\BOOKMARK [3][-]{subsubsection.2.3.2}{Reliability aspect}{subsection.2.3}% 7
+\BOOKMARK [2][-]{subsection.2.4}{Data description}{section.2}% 8
+\BOOKMARK [1][-]{section.3}{Results}{}% 9
+\BOOKMARK [1][-]{section.4}{Conclusions}{}% 10

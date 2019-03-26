@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex elsarticle-template"] 1553542190 "elsarticle-template.aux" "elsarticle-template.bbl" "elsarticle-template" 1553542192
+["bibtex elsarticle-template"] 1553564794 "elsarticle-template.aux" "elsarticle-template.bbl" "elsarticle-template" 1553564796
   "./elsarticle-num.bst" 1261024540 29353 cbd593ca59c003368735a9d8dbd22298 ""
-  "elsarticle-template.aux" 1553542191 5285 b5eb679602a76ad490a3b7bceab693be ""
+  "elsarticle-template.aux" 1553564796 6005 26c1f181be08c9d6aa346f0db6013b1d ""
   "mybibfile.bib" 1553537456 12658 d13ae867d7b9bcf320fb888e4a182b20 ""
   (generated)
   "elsarticle-template.blg"
   "elsarticle-template.bbl"
-["pdflatex"] 1553542190 "elsarticle-template.tex" "elsarticle-template.pdf" "elsarticle-template" 1553542192
+["pdflatex"] 1553564794 "elsarticle-template.tex" "elsarticle-template.pdf" "elsarticle-template" 1553564796
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/symbol/psyr.tfm" 1480098689 1408 5937f58aa508ea2cea4901c07d10f5fe ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1480098689 1528 f853c4d1b4e0550255e02831fdc8496f ""
@@ -95,11 +95,11 @@
   "/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1495593472 2350277 a699055bee05bf8a40b0504752487295 ""
   "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1495593487 4129592 0e6cfee100d68e6d96b92c0258f2ff73 ""
   "/usr/local/texlive/2017/texmf.cnf" 1495593465 577 2b71d4d888f9e5560b2e99985915a9fa ""
-  "elsarticle-template.aux" 1553542191 5285 b5eb679602a76ad490a3b7bceab693be ""
-  "elsarticle-template.bbl" 1553542190 4129 41526377233fd5a375f7e3468ce4e7fa "bibtex elsarticle-template"
-  "elsarticle-template.out" 1553542191 551 f680e154c01c2e3a7f46833fe1688c79 ""
-  "elsarticle-template.spl" 1553542190 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "elsarticle-template.tex" 1553542182 26984 99cdbfddbf1c6a1a1c6275c721375a46 ""
+  "elsarticle-template.aux" 1553564796 6005 26c1f181be08c9d6aa346f0db6013b1d ""
+  "elsarticle-template.bbl" 1553564794 4129 41526377233fd5a375f7e3468ce4e7fa "bibtex elsarticle-template"
+  "elsarticle-template.out" 1553564796 657 bea87a3de34fbdba8e98668ac752eac1 ""
+  "elsarticle-template.spl" 1553564794 0 d41d8cd98f00b204e9800998ecf8427e ""
+  "elsarticle-template.tex" 1553564779 28282 61ae72d0fc65a2fccf49b036925a7f7f ""
   "images/All_task_with_spike_price_QR_005.png" 1552670878 166929 a7e28c059462f9e94a08cca32c8ea70b ""
   "images/Task_9-compare_between_non-spike_and_spike.png" 1552670873 66864 d32e8aa1524234b468da2ed19fcefac0 ""
   "images/UB_LB_MV_PDRNN.png" 1552595467 305175 9cb6b571f4f580037cf48b2782e3f94e ""
@@ -107,8 +107,8 @@
   "images/boxcompare_MV-QR.png" 1552682467 61076 af927d5923a072ee2bbd29be570de8cd ""
   "images/proposed_PDRNN.png" 1545057662 454306 42f6ca56d579be83bfa02881456f7be6 ""
   (generated)
-  "elsarticle-template.out"
+  "elsarticle-template.log"
   "elsarticle-template.spl"
+  "elsarticle-template.out"
   "elsarticle-template.aux"
   "elsarticle-template.pdf"
-  "elsarticle-template.log"

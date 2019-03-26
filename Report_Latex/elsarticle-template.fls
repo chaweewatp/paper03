@@ -149,6 +149,8 @@ INPUT ./images/proposed_PDRNN.png
 INPUT ./images/UB_LB_MV_PDRNN.png
 INPUT ./images/UB_LB_MV_PDRNN.png
 INPUT ./images/UB_LB_MV_PDRNN.png
+INPUT ./images/UB_LB_MV_PDRNN.png
+INPUT ./images/UB_LB_MV_PDRNN.png
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
 INPUT ./images/Task_9-compare_between_non-spike_and_spike.png
