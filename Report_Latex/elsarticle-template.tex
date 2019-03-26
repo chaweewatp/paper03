@@ -10,6 +10,7 @@
 
 \usepackage{threeparttable}
 \usepackage{amsmath}
+\usepackage[font=small,skip=0pt]{caption}
 
 \journal{International Journal of Forecasting}
 
@@ -49,7 +50,7 @@
 
   \begin{frontmatter}
 
-    \title{A novel interval electricity price forecasting using deep residual neural networks}
+    \title{A novel interval electricity price forecasting using Residual Neural Networks (ResNet)}
     % \tnotetext[mytitlenote]{Fully documented templates are available in the elsarticle package on \href{http://www.ctan.org/tex-archive/macros/latex/contrib/elsarticle}{CTAN}.}
 
     %% Group authors per affiliation:
@@ -89,7 +90,7 @@
     \end{abstract}
 
     \begin{keyword}
-      ResNet, GEFCom2014, interval forecasting, quantile regression, mean and varience estimation
+      GEFCom2014, interval forecasting, quantile regression, mean and varience estimation
     \end{keyword}
 
   \end{frontmatter}
@@ -190,39 +191,36 @@
       Second is regression layer to produce electricity  forecasting value.
       The input data is fed to second layers through short-cut paths.
 
-    \subsection{The upper and lower bound generation}
-
-      The interval electricity price forecasting is formulated from two methods; lower and upper quantile regression, and mean and varianece estimation. Are express in Equation~\ref{eq.QR} and~\ref{eq.MV}.
-
+    \subsection{The lower and upper bound generation}
+      The lower and lupper bounds of interval electricity price forecasting are formulated using two methods; quantile regression, and mean and varianece estimation, respectively.
+      Firstly, QR method represents asymmetrical lower and upper bounds generation with relation with confidence level ($\alpha$) value from quantile function as express in Equation~\ref{eq.QR}.
       \begin{equation}
-        (Here is QR equation)
+        [L_{i}, U_{i}]=
+        \begin{cases}
+        L_{i}=\int_{0}^{a} ppf(x) dx\\
+        U_{i}=\int_{1-a}^{1} ppf(x) dx
+        \end{cases}
         \label{eq.QR}
       \end{equation}
+      The $L_{i}$ and $U_{i}$ are lower and upper value generated from quantile function $\int ppf(x) dx$ with given input $x$.
 
+      Secondaly, MV method represents symmetrical upper and lower bounds generation with relation with confidence level ($\alpha$) value from normal distribution function as express in Equation~\ref{eq.MV}.
       \begin{equation}
-        (Here is MV equation)
+        [L_{i}, U_{i}]=
+        \begin{cases}
+          L_{i}=\bar{x} - z_{\alpha} \times \sqrt{\hat{\sigma}^2}\\
+          U_{i}=\bar{x} + z_{\alpha} \times \sqrt{\hat{\sigma}^2}
+        \end{cases}
         \label{eq.MV}
       \end{equation}
-
-      the figure of QR, MV is shown in Figure~\ref{Fig:QR_MV_picture}.
-
-      \begin{figure}[H]
-        \includegraphics[width=12cm]{UB_LB_MV_PDRNN}
-        \caption{Quantile regression and Mean and Variance estimation picture}
-        \label{Fig:QR_MV_picture}
-        \centering
-      \end{figure}
-
-
+      where $\bar{x}$ and $\hat{\sigma}^2$ is mean and variance values generated from proposed forecasting model. $Z_{\alpha}$ is critical value at confidence level $\alpha$.
       Figure~\ref{Fig:UB_LB_MV_PDRNN} illustrates brief proposed interval electricity price forecasting model based on ResNet with quantile regression and mean and varience method or called ResNet-QR and ResNet-MV.
-
       \begin{figure}[H]
         \includegraphics[width=12cm]{UB_LB_MV_PDRNN}
-        \caption{Upper and lower bound and mean-variance estimation}
+        \caption{The proposed ResNet models with (left) quantile regression method and (right) mean and variance estimation method.}
         \label{Fig:UB_LB_MV_PDRNN}
         \centering
       \end{figure}
-
     \subsection{Evaluation metrics}
       This section will descript evaluation metrics on accuracy and reliable point of view.
       In term of accuracy aspect, the forecasting results will be analysed using pinball loss function.
@@ -256,7 +254,7 @@
         First,  PI converage probility (PICP) refers to the ability of the constructed PIs to capture the actual target variables.
         PICP can be methematically stated as
         \begin{equation}
-          PICP = \frac{1}{N} \sum_{i=1}^{N} C_{i}
+          \text{PICP} = \frac{1}{N} \sum_{i=1}^{N} C_{i}
           \label{eq.PICP}
         \end{equation}
         where
@@ -278,7 +276,7 @@
         Mean PI Width (MPIW) quantifies this aspect of PIs \cite{Khosravi2010}.
 
         \begin{equation}
-          MPIW = \frac{1}{N} \sum_{i=1}^{N} (U_{i}-L_{i})
+          \text{MPIW} = \frac{1}{N} \sum_{i=1}^{N} (U_{i}-L_{i})
           \label{eq.MPIW}
         \end{equation}
 
@@ -286,16 +284,25 @@
         Normalizing MPIW by the range of the underlying target, $R$, allows us to compare PIs constructed for different datasets repectively (the new measure is called NMPIW),
         The $R$ in this paper is 10 $\$$/MWhr.
         \begin{equation}
-          NMPIW = \frac{NMPIW}{R}
+          \text{NMPIW} = \frac{\text{MPIW}}{R}
           \label{eq.NMPIW}
         \end{equation}
         Both PICP and NMPIW, are representing quality and width of PIs, evaluate the quality of PIS from one aspect.
         A combined index is required for the comprehensive assessment of PIs from both coverage probility and width perspectives.
         The new measure should give a higher priority to PICP, as it is the key feature of PIs determining whether constructed PIs are theoretically correcty or not.
-        The Coverage Width-baed Criterion (CWC) evalutes PIs from both coverage probility and width perspectives.
+        The Coverage Width-baed Criterion (CWC) evalutes PIs from both coverage probility and width perspectives which is stated in Equation~\ref{eq.CWC-1}-\ref{eq.CWC-2}.
         \begin{equation}
-          (Here is CWC equation)
-          \label{eq.CWC}
+          \text{CWC}=\text{PINAW} \times (1+\gamma(\text{PICP})e^{(-\eta(\text{PICP}-\mu)})
+          \label{eq.CWC-1}
+        \end{equation}
+        where
+        \begin{equation}
+          \gamma =
+                \begin{cases}
+                  0, \quad \text{PICP $\geq$ $\mu$} \\
+                  1, \quad \text{PICP $<$ $\mu$} \\
+                \end{cases}
+          \label{eq.CWC-2}
         \end{equation}
         Where, $\eta$ and $\mu$ are two hyperparameters controlling the location and amount of CWC jump.
         These measures can be easily determined based on the level of confidence associated with PIs.
