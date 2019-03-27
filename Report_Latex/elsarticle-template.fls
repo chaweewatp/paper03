@@ -170,7 +170,6 @@ INPUT ./images/boxcompare_MV-QR.png
 INPUT ./images/boxcompare_MV-QR.png
 INPUT elsarticle-template.bbl
 INPUT elsarticle-template.bbl
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
 INPUT elsarticle-template.aux
 INPUT ./elsarticle-template.out
 INPUT ./elsarticle-template.out
@@ -190,4 +189,3 @@ INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.p
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb

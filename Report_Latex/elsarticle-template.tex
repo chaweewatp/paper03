@@ -84,7 +84,7 @@
       The proposed forecasting models was demonstrated with GEFCom2014 dataset.
       The dataset is consisting of 15 tasks for electricity price forecasting where high and spike price are included.
       The results were compared with benchmarks as provided by GEFCom2014, Quantile Regression Average (QRA) and multilayer perceptron network (MLP) approaches.
-      The performances of forecasting models were evaluated in term of accuracy and reliablity metrics by Pinball Loss Function and Coverage Width-baed Criterion (CWC), respectively.
+      The performances of forecasting models were evaluated in term of accuracy and reliablity metrics by Pinball Loss Function and Coverage Width-based Criterion (CWC), respectively.
       The significant outcome of this paper was that forecasting model cooperated with spike price prediction imporved the forecasting's performance in term of accuracy and reliability aspects.
       Moreover, increasing in confidence level of ResNet models could generates lower CWC values and represent high reliability's satification.
     \end{abstract}
@@ -193,7 +193,7 @@
 
     \subsection{The lower upper bound estimation}
       The lower upper bound estimation (LUBE) of interval electricity price forecasting are formulated using two methods; quantile regression, and mean and varianece estimation, respectively.
-      Firstly, QR method represents asymmetrical lower and upper bounds generation with relation with confidence level ($\alpha$) value from quantile function as express in Equation~\ref{eq.QR}.
+      Firstly, QR method represents asymmetrical LUBE with relation with confidence level ($\alpha$) value from quantile function as express in Equation~\ref{eq.QR}.
       \begin{equation}
         [L_{i}, U_{i}]=
         \begin{cases}
@@ -202,9 +202,9 @@
         \end{cases}
         \label{eq.QR}
       \end{equation}
-      The $L_{i}$ and $U_{i}$ are lower and upper value generated from quantile function $\int ppf(x) dx$ with given input $x$.
+      The $L_{i}$ and $U_{i}$ are lower and upper bounds generated from quantile function $\int ppf(x) dx$ with given input $x$.
 
-      Secondaly, MV method represents symmetrical upper and lower bounds generation with relation with confidence level ($\alpha$) value from normal distribution function as express in Equation~\ref{eq.MV}.
+      Secondaly, MV method represents symmetrical LUBE with relation with confidence level ($\alpha$) value from normal distribution function as express in Equation~\ref{eq.MV}.
       \begin{equation}
         [L_{i}, U_{i}]=
         \begin{cases}
@@ -217,14 +217,16 @@
       Figure~\ref{Fig:UB_LB_MV_PDRNN} illustrates brief proposed interval electricity price forecasting model based on ResNet with quantile regression and mean and varience method or called ResNet-QR and ResNet-MV.
       \begin{figure}[H]
         \includegraphics[width=12cm]{UB_LB_MV_PDRNN}
-        \caption{The proposed ResNet models with (left) quantile regression method and (right) mean and variance estimation method.}
+        \caption{The proposed ResNet models with LUBE (left) quantile regression and (right) mean and variance estimation.}
         \label{Fig:UB_LB_MV_PDRNN}
         \centering
       \end{figure}
+      In Figure~\ref{Fig:UB_LB_MV_PDRNN}, the proposed ResNet-QR and ResNet-MV model consist of two main block; price spike prediction and price value estimation. $X$ are load value set. In this paper, GEFCom2014 provides total zonal load and total system load. $F()$
+
     \subsection{Evaluation metrics}
       This section will descript evaluation metrics on accuracy and reliable point of view.
       In term of accuracy aspect, the forecasting results will be analysed using pinball loss function.
-      The Coverage Width-baed Criterion (CWC) will take care of reliability aspect.
+      The Coverage Width-based Criterion (CWC) will take care of reliability aspect.
 
       \subsubsection{Accuracy aspect}
         The widely used measurement of forecasting's accuracy is mean absoulute error (MAE) which is simply and generalized method.
@@ -289,7 +291,7 @@
         Both PICP and NMPIW, are representing quality and width of PIs, evaluate the quality of PIS from one aspect.
         A combined index is required for the comprehensive assessment of PIs from both coverage probility and width perspectives.
         The new measure should give a higher priority to PICP, as it is the key feature of PIs determining whether constructed PIs are theoretically correcty or not.
-        The Coverage Width-baed Criterion (CWC) evalutes PIs from both coverage probility and width perspectives which is stated in Equation~\ref{eq.CWC-1}-\ref{eq.CWC-2}.
+        The Coverage Width-based Criterion (CWC) evalutes PIs from both coverage probility and width perspectives which is stated in Equation~\ref{eq.CWC-1}-\ref{eq.CWC-2}.
         \begin{equation}
           \text{CWC}=\text{PINAW} \times (1+\gamma(\text{PICP})e^{(-\eta(\text{PICP}-\mu)})
           \label{eq.CWC-1}
@@ -420,8 +422,11 @@
       \label{Fig:compare_spike_and_non_spike_model}
     \end{figure}
 
-    Figure~\ref{Fig:all_task_QR_005} represents that ResNet-QR can perform excellent jobs in the interval prediction for non-spike price task 4, 5, 6, 11, 12, 13 and 14.
-    Furthermore, the proposed ResNet-QR model has capability of interval prediction in task 7, 8, 9 and 10.
+    Figure~\ref{Fig:all_task_QR_005} presents overall results of interval electricity price prediction of ResNet-QR model with 5$\%$ confidence level.
+    In task 4, 5, 6, 11, 12, 13 and 14, there is no number of spike price in the system.
+    The proposed ResNet-QR can predict lower and upper electricity price bound and cover the fluctuated real prices in these task.
+    Furthermore, the proposed ResNet-QR model has capability of interval prediction of spike price occured in task 7, 8, 9 and 10.
+
     \begin{figure}[H]
       \centering
       \includegraphics[width=15cm]{All_task_with_spike_price_QR_005}
@@ -442,8 +447,7 @@
     \begin{figure}[H]
       \centering
       \includegraphics[width=12cm]{boxcompare_MV-QR}
-      \caption{The results of reliability aspect are represented in CWC values.
-      The CWC values of MLP and ResNet methods with difference confidence level are shown in upper and lower Figure, respectively}
+      \caption{The results of reliability aspect are represented in CWC values (upper) MLP model, (lower) ResNet model.}
       \label{Fig:CWC}
     \end{figure}
 
@@ -457,12 +461,15 @@
 
   \section{Conclusions}
     This paper proposes a novel application of Residual Neural Network (ResNet) based approach to probabilistic electricity price forecasting in term of quaintile regression and mean-varience estimation as lower and upper bound construction.
+    The proposed models are demonstrated with GEFCom2014's electricity price forcasting tasks. The results of proposed and benchmark models are evaluated in accuracy and reliability point of view through pinball loss function and coveraged width-based criterion (CWC).
+
     The two significatant observation results were:
     (i) the electricity price forecasting model, the proposed ResNet model, with high and spike price prediciton capability can performe better than simply plain model, MLP model,
     (ii) the lower and upper bound of interval prediction using the asymmetrical model (quantile regression) could perform better than the symmetrical model (mean and varience estimation) since it could reduce width of interval prediction.
     To improve the quality of the forecasting model in the future studies, the proposed ResNet model should cooperate with other LUBE method.
     The other LUBE has its characteristics which may provide better CWC values.
-    The second way to improve the performance of the proposed ResNet forecasting model is to increase the layers with in the model. The fined tuning forecasting deep ResNet model may performe excellent job on electricity price forecasting task.
+    The second way to improve the performance of the proposed ResNet forecasting model is to increase the layers with in the model.
+    The fined tuning forecasting deep ResNet model may performe excellent job on electricity price forecasting task.
 
   \section*{References}
   \bibliography{mybibfile}

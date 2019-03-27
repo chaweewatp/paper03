@@ -11,26 +11,19 @@ D.~He, W.~P. Chen, A real-time electricity price forecasting based on the spike
   Conference and Exposition (T D), 2016, pp. 1--5.
 
 \bibitem{SINGHAL2011550}
-D.~Singhal, K.~Swarup,
-  \href{http://www.sciencedirect.com/science/article/pii/S0142061510002231}{Electricity
-  price forecasting using artificial neural networks}, International Journal of
-  Electrical Power & Energy Systems 33~(3) (2011) 550 -- 555.
-\newline\urlprefix\url{http://www.sciencedirect.com/science/article/pii/S0142061510002231}
+D.~Singhal, K.~Swarup, Electricity price forecasting using artificial neural
+  networks, International Journal of Electrical Power & Energy Systems 33~(3)
+  (2011) 550 -- 555.
 
 \bibitem{GONZALEZSOTRES2017338}
-L.~González-Sotres, P.~Frías, C.~Mateo,
-  \href{http://www.sciencedirect.com/science/article/pii/S0378779617302419}{Techno-economic
-  assessment of forecasting and communication on centralized voltage control
-  with high pv penetration}, Electric Power Systems Research 151 (2017) 338 --
-  347.
-\newline\urlprefix\url{http://www.sciencedirect.com/science/article/pii/S0378779617302419}
+L.~González-Sotres, P.~Frías, C.~Mateo, Techno-economic assessment of
+  forecasting and communication on centralized voltage control with high pv
+  penetration, Electric Power Systems Research 151 (2017) 338 -- 347.
 
 \bibitem{Weron2014}
-R.~Weron,
-  \href{https://www.sciencedirect.com/science/article/pii/S0169207014001083}{{Electricity
-  price forecasting: A review of the state-of-the-art with a look into the
-  future}}, International Journal of Forecasting 30~(4) (2014) 1030--1081.
-\newline\urlprefix\url{https://www.sciencedirect.com/science/article/pii/S0169207014001083}
+R.~Weron, {Electricity price forecasting: A review of the state-of-the-art with
+  a look into the future}, International Journal of Forecasting 30~(4) (2014)
+  1030--1081.
 
 \bibitem{Khosravi2011}
 A.~Khosravi, S.~Nahavandi, D.~Creighton, A.~F. Atiya, {Lower upper bound
@@ -38,58 +31,39 @@ A.~Khosravi, S.~Nahavandi, D.~Creighton, A.~F. Atiya, {Lower upper bound
   intervals}, IEEE Transactions on Neural Networks 22~(3) (2011) 337--346.
 
 \bibitem{KhosraviA2010}
-D.~{Khosravi, A., Nahavandi, S., and Creighton},
-  \href{http://ieeexplore.ieee.org/stamp/stamp.jsp?tp={\&}arnumber=5428779}{{Construction
-  of Optimal Prediction Intervals for Load Forecasting Problems}}, IEEE
-  Transactions on Power Systems 25~(3) (2010) 1496--1503.
-\newline\urlprefix\url{http://ieeexplore.ieee.org/stamp/stamp.jsp?tp={\&}arnumber=5428779}
+D.~{Khosravi, A., Nahavandi, S., and Creighton}, {Construction of Optimal
+  Prediction Intervals for Load Forecasting Problems}, IEEE Transactions on
+  Power Systems 25~(3) (2010) 1496--1503.
 
 \bibitem{DBLP:journals/corr/HeZRS15}
-K.~He, X.~Zhang, S.~Ren, J.~Sun, \href{http://arxiv.org/abs/1512.03385}{Deep
-  residual learning for image recognition}, CoRR abs/1512.03385.
-\newblock \href {http://arxiv.org/abs/1512.03385} {\path{arXiv:1512.03385}}.
-\newline\urlprefix\url{http://arxiv.org/abs/1512.03385}
+K.~He, X.~Zhang, S.~Ren, J.~Sun, Deep residual learning for image recognition,
+  CoRR abs/1512.03385.
 
 \bibitem{DBLP:journals/corr/ZagoruykoK16}
-S.~Zagoruyko, N.~Komodakis, \href{http://arxiv.org/abs/1605.07146}{Wide
-  residual networks}, CoRR abs/1605.07146.
-\newblock \href {http://arxiv.org/abs/1605.07146} {\path{arXiv:1605.07146}}.
-\newline\urlprefix\url{http://arxiv.org/abs/1605.07146}
+S.~Zagoruyko, N.~Komodakis, Wide residual networks, CoRR abs/1605.07146.
 
 \bibitem{Dudek2016}
-G.~Dudek, \href{http://dx.doi.org/10.1016/j.ijforecast.2015.11.009}{{Multilayer
-  perceptron for GEFCom2014 probabilistic electricity price forecasting}},
-  International Journal of Forecasting 32~(3) (2016) 1057--1060.
-\newline\urlprefix\url{http://dx.doi.org/10.1016/j.ijforecast.2015.11.009}
+G.~Dudek, {Multilayer perceptron for GEFCom2014 probabilistic electricity price
+  forecasting}, International Journal of Forecasting 32~(3) (2016) 1057--1060.
 
 \bibitem{Maciejowska2016}
-K.~Maciejowska, J.~Nowotarski,
-  \href{http://dx.doi.org/10.1016/j.ijforecast.2015.11.008}{{A hybrid model for
-  GEFCom2014 probabilistic electricity price forecasting}}, International
-  Journal of Forecasting 32~(3) (2016) 1051--1056.
-\newline\urlprefix\url{http://dx.doi.org/10.1016/j.ijforecast.2015.11.008}
+K.~Maciejowska, J.~Nowotarski, {A hybrid model for GEFCom2014 probabilistic
+  electricity price forecasting}, International Journal of Forecasting 32~(3)
+  (2016) 1051--1056.
 
 \bibitem{Khosravi2010}
 A.~Khosravi, S.~Nahavandi, D.~Creighton, Construction of optimal prediction
   intervals for load forecasting problems, IEEE Transactions on Power Systems
   25~(3) (2010) 1496--1503.
-\newblock \href {http://dx.doi.org/10.1109/TPWRS.2010.2042309}
-  {\path{doi:10.1109/TPWRS.2010.2042309}}.
 
 \bibitem{Hong2016}
 T.~Hong, P.~Pinson, S.~Fan, H.~Zareipour, A.~Troccoli, R.~J. Hyndman,
-  \href{http://dx.doi.org/10.1016/j.ijforecast.2016.02.001}{{Probabilistic
-  energy forecasting: Global Energy Forecasting Competition 2014 and beyond}},
-  International Journal of Forecasting 32~(3) (2016) 896--913.
-\newline\urlprefix\url{http://dx.doi.org/10.1016/j.ijforecast.2016.02.001}
+  {Probabilistic energy forecasting: Global Energy Forecasting Competition 2014
+  and beyond}, International Journal of Forecasting 32~(3) (2016) 896--913.
 
 \bibitem{Juban2016}
-R.~Juban, H.~Ohlsson, M.~Maasoumy, L.~Poirier, J.~Z. Kolter,
-  \href{http://dx.doi.org/10.1016/j.ijforecast.2015.12.002}{{A multiple
+R.~Juban, H.~Ohlsson, M.~Maasoumy, L.~Poirier, J.~Z. Kolter, {A multiple
   quantile regression approach to the wind, solar, and price tracks of
-  GEFCom2014}}, International Journal of Forecasting 32~(3) (2016) 1094--1102.
-\newblock \href {http://dx.doi.org/10.1016/j.ijforecast.2015.12.002}
-  {\path{doi:10.1016/j.ijforecast.2015.12.002}}.
-\newline\urlprefix\url{http://dx.doi.org/10.1016/j.ijforecast.2015.12.002}
+  GEFCom2014}, International Journal of Forecasting 32~(3) (2016) 1094--1102.
 
 \end{thebibliography}
