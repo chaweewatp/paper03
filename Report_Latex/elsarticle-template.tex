@@ -50,7 +50,7 @@
 
   \begin{frontmatter}
 
-    \title{A novel interval electricity price forecasting using Residual Neural Networks (ResNet)}
+    \title{A novel interval electricity prices forecasting using Residual Neural Networks (ResNet)}
     % \tnotetext[mytitlenote]{Fully documented templates are available in the elsarticle package on \href{http://www.ctan.org/tex-archive/macros/latex/contrib/elsarticle}{CTAN}.}
 
     %% Group authors per affiliation:
@@ -74,24 +74,22 @@
     % \address[mysecondaryaddress]{360 Park Avenue South, New York}
 
     \begin{abstract}
-      This paper proposed a novel electricity price forecasting method based on a novel Residual Neural Network (ResNet) for probabilistic electricity price forecasting under spike price environment.
-      The modern electricity price became more fluctuated and generally unanticipated spike price.
-      The use of prediction interval or probabilistic forecasting was interested due to it help market participants to submit effective bids with low risks.
-      A proposed new model was developed from ResNet approach which it capable of spike price and interval price value prediction.
+      This paper proposed a novel electricity prices forecasting method based on a novel Residual Neural Network (ResNet) for probabilistic electricity prices forecasting.
+      A proposed new model was developed from a ResNet approach which is capable of spike prices and interval prices value forecasting.
       The proposed ResNet was consisting of two network layers.
-      First neural network layers was spike prediction part.
-      The output of second neural network layers is formulated to interval price forecasting by lower and upper bound estimation (LUBE).
-      The LUBE in this study includes quantile regression (QR) and mean and variance (MV) estimation.
-      The proposed forecasting models was demonstrated with GEFCom2014 dataset.
-      The dataset is consisting of 15 tasks for electricity price forecasting where high and spike price are included.
-      The results were compared with benchmarks as provided by GEFCom2014, Quantile Regression Average (QRA) and multilayer perceptron network (MLP) approaches.
-      The performances of forecasting models were evaluated in term of accuracy and reliablity metrics by Pinball Loss Function and Coverage Width-based Criterion (CWC), respectively.
-      The significant outcome of this paper was that forecasting model, ResNet, cooperated with spike price prediction imporved the forecasting's performance in term of accuracy and reliability aspects.
-      Moreover, increasing in confidence level of ResNet models could generates lower CWC values and represent high reliability's satification.
+      The first neural network layers were probabilistic spike prices prediction part.
+      The output of second neural network layers was formulated to interval prices forecasting by Lower and Upper Bound Estimation (LUBE) methods.
+      The LUBE methods included quantile regression (QR) and Mean and Variance (MV) estimation.
+      The proposed forecasting models were demonstrated with GEFCom2014 dataset.
+      The dataset was consisting of 15 tasks for electricity prices forecasting.
+      The results were compared with GEFCom2014's benchmarks, Quantile Regression Average (QRA) and Multilayer Perceptron Network (MLP) approaches.
+      The performances of forecasting models were evaluated in term of accuracy and reliability metrics by Pinball Loss Function and Coverage Width-based Criterion (CWC), respectively.
+      The significant outcome of this paper was that the forecasting model, ResNet, cooperated with spike prices prediction improved the forecasting's performance in term of accuracy and reliability aspects.
+      Moreover, increasing in confidence level could generate lower CWC values and represent high reliability's satisfaction.
     \end{abstract}
 
     \begin{keyword}
-      GEFCom2014, interval forecasting, LUBE, quantile regression, mean and varience estimation
+      GEFCom2014, interval forecasting, LUBE, quantile regression, mean and varience estimation, pinball loss function, coverage width-based criterion
     \end{keyword}
 
   \end{frontmatter}
@@ -100,41 +98,41 @@
 
   \section{Introduction}
 
-    Since the transformation of the deregulation of modern power systems, electricty price forecasting has become more important process to energy market's participants at planning and operation levels.
-    As a result of higher number of fluctuated electricity price as well as the number of the spike price occurences.
-    The occurrences of spike price can cause financial damage to both customers and producers.
-    The spike prices can be reach several times to thousand times of the normal price.
-    Spike price appears due to increasing intermittent electricity production makes electricity prices more volatile, with spikes appearing either as very high prices (due to sudden lack of available generation) or as negative prices (due to excess of renewable generation).
-    Several evidences shows that the spike prices are around 100$\$$/MWhr may simply resulted from normal congestion or unexpected overload, while spike price around $\$$500/MWhr led by lacking of reserve.
-    This case the day ahead clearing price was the dominant feature what indicate insufficient reserve. The spike price aboved $\$$1,000/MWhr should be the consequence of the outage or breakdown of the generation or transmission system.
-    Such outage or breakdown many could came from many factors, like weather, load profile, etc  \cite{He2016}.
-    \cite{SINGHAL2011550} provided fundamental reasons of spike price which are volatility of fuel price, load uncertainty, fluctuation in hydroelectricity production, generation outage, transmission congestion, behavior of market participation and market manipulation.
-    \cite{GONZALEZSOTRES2017338} studied on technique and economical of on centralized voltage control with high PV penetration in Portuguese network.
-    These results illustrated that improvement in both forecasting tools and communication systems have significant impact on dedicate resources and voltage control.
+  Since the transformation of the deregulation of modern power systems, electricity prices forecasting has become a more critical process to energy market's participants at planning and operation levels.
+  As a result of a higher number of fluctuated electricity prices as well as the number of unanticipated spike prices occurrences, the occurrences of spike prices can cause financial damage to both customers and producers.
+  The spike prices can reach several times to thousand times of the regular price.
+  Spike prices appear due to increasing intermittent electricity production makes electricity prices more volatile, with spikes appearing either as very high prices (due to sudden lack of available generation) or as negative prices (due to excess of renewable generation).
+  Several pieces of evidence show that the spike prices are around 100$\$$/MWhr may result from usual congestion or unexpected overload, while spiking prices around $\$$500/MWhr led by lacking reserve.
+  This case the day ahead clearing prices was the dominant feature what indicate insufficient reserve. The spike prices above $\$$1,000/MWhr should be the consequence of the outage or breakdown of the generation or transmission system.
+  Such outage or breakdown many could come from many factors, like weather, load profile, etc. \cite{He2016}.
+  \cite{SINGHAL2011550} provided fundamental reasons for spike prices which are volatility of fuel price, load uncertainty, fluctuation in hydroelectricity production, generation outage, transmission congestion, a behavior of market participation and market manipulation.
+  \cite{GONZALEZSOTRES2017338} studied on technique and economical of on centralized voltage control with high PV penetration in Portuguese network.
+  These results illustrated that improvement in both forecasting tools and communication systems have a significant impact on dedicate resources and voltage control.
 
     % (talk about point of forecating, 1 method, 2 measurement, 3 problems)    % (mention about problems of poing of forecasting, introduct to interval forecasting)
 
-    In literatures, over the past few decades, many powerful forecasting algorithms have been developed (for a recent comprehensive review, see \cite{Weron2014}).
-    The commonly forecast electricity prices models are classified into two primary categories; time-series models and soft computing model which is non-time series model.
-    The traditional time-series model such as autoregressive integrated moving average (ARIMA)\cite{1216141}, Autoregressive Moving Average eXogenous (ARMAX)\cite{7917305} and generalized autoregressive conditional heteroscedasticity (GARCH)\cite{4344162},\cite{1627232}, have been frequently applied to forecast electricity prices.
+    In works of literature, over the past few decades, many powerful forecasting algorithms have been developed (for a recent comprehensive review, see \cite{Weron2014}).
+    The commonly forecast electricity prices models are classified into two primary categories; time-series models and soft computing models which is non-time series models.
+    The traditional time-series model have been frequently applied to forecast electricity prices. Examples are autoregressive integrated moving average (ARIMA)\cite{1216141}, Autoregressive Moving Average eXogenous (ARMAX)\cite{7917305} and generalized autoregressive conditional heteroscedasticity (GARCH)\cite{4344162},\cite{1627232},
     The hybrid time-series models were proposed such as autoregressive-GARCH\cite{Girish2016} and wavelet-ARIMA\cite{1425601}.
-    Despite of time-series model, in recent literatures, the concept of applying of artificial neural network (ANN) in forecast future electricity prices was proposed in \cite{Catalao2007}.
-    Moreover, electricity prices forecasting based deep neural network was developed in \cite{Kuo2018}.
-    The hybrid ANN models was proposed such as ANN-ABC\cite{Chaweewat2017}, wavelet-ANN\cite{Bento2018} and wavelet-SOM-ANN\cite{NAZAR2018214}.
-    The result of previous electricity prices forecasting studies show that the electricity prices forecasting based on ANN model performed better than time-series models, such as ARIMA models \cite{Keles2016}.
-    The elecitricity prices is frequently changed and not in weekly pattern as a result of problem in time-series techniques (AR, ARIMA, GARCH)\cite{4077090}.
+    Despite the time-series model, in recent pieces of literature, the concept of applying of artificial neural network (ANN) in forecast future electricity prices was proposed in \cite{Catalao2007}.
+    Recently, electricity prices forecasting based deep neural network was developed in \cite{Kuo2018}.
+    The hybrid ANN models were proposed such as ANN-ABC\cite{Chaweewat2017}, wavelet-ANN\cite{Bento2018}, and wavelet-SOM-ANN\cite{NAZAR2018214}.
+    The result of previous electricity prices forecasting studies shows that the electricity prices forecasting based on the ANN model performed better than time-series models, such as ARIMA models \cite{Keles2016}.
+    The electricity prices are frequently changed and not in a weekly pattern as a result of the problem in time-series techniques (AR, ARIMA, GARCH)\cite{4077090}.
 
-    The majority of emprical studies was on point forecasting (or call expected value of the spot price).
-    The conventional point predictions produced no information about the sampling erros and the predicition accuracy.
+    The majority of empirical studies was on point forecasting (or call expected value of the spot price).
+    The general point predictions produced no information about sampling errors and prediction accuracy.
     This lead to confidence intervals (CIs) and prediction intervals (PIs) \cite{Weron2014}.
-    CIs and PIs were two well-know toosl for quantifying and representing the uncertainty of predicitons.
+    CIs and PIs were two popular tools for quantifying and representing the uncertainty of predictions.
+    Consequently, the use of prediction interval or probabilistic forecasting was interested due to it help market participants to submit effective bids with low risks.
     In literature, several methods have been proposed for construction of PIs and CIs assessment.
-    Lower Upper Bounds Estimation (LUBE) method were formulated using mean and varience estimation which was proposed in \cite{Khosravi2011}.
-    In addition, delta technique for PI construction was presented in \cite{KhosraviA2010}.
+    Lower Upper Bounds Estimation (LUBE) method was formulated using mean and variance estimation which was proposed in \cite{Khosravi2011}.
+    Besides, delta technique for PI construction was presented in \cite{KhosraviA2010}.
 
     % (mention on used of deep residual neural network and why we use this method)
     In computaional intelligent area, Residual neural network (ResNet) was widely used in computer vision and pattern reconigtion \cite{DBLP:journals/corr/HeZRS15}, \cite{DBLP:journals/corr/ZagoruykoK16}.
-    ResNet was modified from deep Feed Forward Neural Networks (FFNNs) with extra connections (or called skip connections), passing input from one layer to a late layer as well as the next layer as shown in Figure~\ref{Fig:Basic_DRNN}.
+    ResNet was modified from deep Feed Forward Neural Networks (FFNNs) with extra connections (or called skip connections). The input is passing from one layer to a late layer as well as the next layer as shown in Figure~\ref{Fig:Basic_DRNN}.
     However, there were no used of ResNet in forecasting applications.
 
     \begin{figure}[H]
@@ -145,41 +143,41 @@
     \end{figure}
 
     % (proposal)
-    Therefore, this paper seek to utilize ResNet in electricity price forecasting.
-    The performance results of the ResNet forecasting model were also compared with quantile regression average (QRA) and MLP techniques.
+    Therefore, this paper seeks to utilize ResNet in electricity prices forecasting.
+    The performance results of the ResNet forecasting model were compared with quantile regression average (QRA) and MLP techniques.
 
     The novelty of this study is twofold.
-    First, ResNet is first used in field of electricty price forecasting. Using this approach, the probabilistic electricity price forecasting can sastified both accuracy and reliability aspects.
-    Second, the use of Coverage Width-based Criterion (CWC) value evaluates interval electricity price forecasting. The CWC value tests efficiency of forecasting model in term of reliability point of view.
+    First, ResNet is first used in the field of probabilistic electricity prices forecasting. As a result of the ResNet forecasting model, the probabilistic electricity prices forecasting can satisfy both accuracy and reliability aspects.
+    Second, the use of Coverage Width-based Criterion (CWC) value evaluates interval electricity prices forecasting. The CWC value tests efficiency of forecasting model in term of reliability point of view.
 
     % (structure)
     The remainder of the paper is organized as follows.
     First, the problem formulation is presented in brief in section 2.
-    Then, the main concept of the ResNet with LUBE algorithm in interval forecasting model are descripted.
+    Then, the central concept of the ResNet with LUBE algorithm in interval forecasting model is described.
     Next, the results after prediction processes of different tasks of proposed forecasting models are discussed in section 3.
     Finally, conclusions are drawn in the last section of this paper.
 
   \section{Problem formulation}
-    This section will descript construction of two proposed forecasting models; Multilayer Percepton (MLP) and Residual Neural Network (ResNet) model.
-    The MPL model will represent electricity price forecasting without spike price prediction (see related work in \cite{Dudek2016}) and the ResNet model will represent electricity price forecasting with spike price prediction within the model.
-    Both model will generate upper and lower bounds with respect to given confidence levels (5$\%$, 10$\%$, 15$\%$, 20$\%$, and 25$\%$).
-    The upper and lower bound will be generated using quantile regression and mean and varience estimation metod.
+    This section will descript the construction of two proposed forecasting models; Multilayer Perceptron (MLP) and Residual Neural Network (ResNet) model.
+    The MPL model will represent electricity prices forecasting without spike prices prediction (see related work in \cite{Dudek2016}), and the ResNet model will represent electricity prices forecasting with spike prices prediction within the model.
+    Both models will generate upper and lower bounds with respect to given confidence levels (5$\%$, 10$\%$, 15$\%$, 20$\%$, and 25$\%$).
+    The upper and lower bound will be generated using quantile regression and mean and variance estimation method.
 
-    \subsection{Proposed ResNet on interval price forecasting}
-      Here is description of structure of a proposed ResNet for interval electricity price forecasting.
-      As mention eariler, ResNet is constructed with plain layers and skip connections or called 'short-cut' to jump over some layers.
-      The plain layers in this study consisted of probability spike price layers and price value layers.
-      Firure~\ref{Fig:proposed_ResNet} illustrates a proposed novel ResNet for interval electricity price forecasting.
+    \subsection{Proposed ResNet on interval prices forecasting}
+      Here is a description of the structure of a proposed ResNet for interval electricity prices forecasting.
+      As mention earlier, ResNet is constructed with plain layers and skip connections or called 'short-cut' to jump over some layers.
+      The plain layers in this study consisted of probability spike prices layers and prices value layers.
+      Firure~\ref{Fig:proposed_ResNet} illustrates a proposed novel ResNet for interval electricity prices forecasting.
       \begin{figure}[H]
         \includegraphics[width=12cm]{proposed_PDRNN}
-        \caption{A proposed novel ResNet for interval electricty price forecasting application.}
+        \caption{A proposed novel ResNet for interval electricty prices forecasting application.}
         \label{Fig:proposed_ResNet}
         \centering
       \end{figure}
-      The input data, forecasted system load and forecasted zonal load data , are fed to probabilistic spike price layer and price value layer.
-      The output of probability spike price layer is normal, high and spike price probabilistic value $P(A|X)$, $P(B|X)$, $P(C|X)$ at a set of given load values, $X$, respectively.
-      Then, it multiplies with fed input value to become inputs of price value layers.
-      The result of the ResNet is two values of forecasted upper and lower bound ($U_{i}$, $L_{i}$)of electricty price at hour $i$ which will be descript in next section.
+      The input data forecasted system load and forecasted zonal load data, are fed to probabilistic spike prices layer, and prices value layer.
+      The output of probability spike prices layer is regular, high and spike prices probabilistic value $P(A|X)$, $P(B|X)$, $P(C|X)$ at a set of given load values, $X$, respectively.
+      Then, it multiplies with the fed input value to become inputs of prices value layers.
+      The result of the ResNet is two values of forecasted upper and lower bound ($U_{i}$, $L_{i}$)of electricity prices at hour $i$ which will be descript in the next section.
 
       \begin{figure}[H]
         \includegraphics[width=12cm]{UB_LB_MV_PDRNN}
@@ -188,14 +186,14 @@
         \centering
       \end{figure}
 
-      In brief, the proposed ResNet consist of two network leyers.
-      First is classification layer of normal, high and spike price probability.
-      Second is regression layer to produce electricity  forecasting value.
+      In brief, the proposed ResNet consists of two network layers.
+      First is the classification layer of regular, high and spike prices probability.
+      Second is the regression layer to produce electricity forecasting value.
       The input data is fed to second layers through short-cut paths.
 
     \subsection{The lower upper bound estimation}
-      The lower upper bound estimation (LUBE) of interval electricity price forecasting are formulated using two methods; quantile regression (QR), and mean and varianece estimation (MV), respectively.
-      Firstly, QR method represents asymmetrical LUBE with relation with confidence level ($\alpha$) value from quantile function as express in Equation~\ref{eq.QR}.
+      The lower upper bound estimation (LUBE) of interval electricity prices forecasting are formulated using two methods; quantile regression (QR), and mean and variance estimation (MV), respectively.
+      Firstly, the QR method represents asymmetrical LUBE with relation with confidence level ($\alpha$) value from quantile function as express in Equation~\ref{eq.QR}.
       \begin{equation}
         [L_{i}, U_{i}]=
         \begin{cases}
@@ -206,7 +204,7 @@
       \end{equation}
       The $L_{i}$ and $U_{i}$ are lower and upper bounds generated from quantile function $\int ppf(x) dx$ with given input $x$.
 
-      Secondaly, MV method represents symmetrical LUBE with relation with confidence level ($\alpha$) value from normal distribution function as express in Equation~\ref{eq.MV}.
+      Secondly, MV method represents symmetrical LUBE with relation with confidence level ($\alpha$) value from normal distribution function as express in Equation~\ref{eq.MV}.
       \begin{equation}
         [L_{i}, U_{i}]=
         \begin{cases}
@@ -218,9 +216,9 @@
       where $\bar{x}$ and $\hat{\sigma}^2$ is mean and variance values generated from proposed forecasting model. $z_{\alpha}$ is critical value at confidence level $\alpha$.
 
 
-      Figure~\ref{Fig:UB_LB_MV_PDRNN} illustrates brief proposed interval electricity price forecasting model based on ResNet with quantile regression and mean and varience method or called ResNet-QR and ResNet-MV models.
-      $X$ are set of load values which is total zonal load and total system load as provided in GEFCom2014 provides.
-      $P(Y|X)$ is propability function generated from probabilistic of spike price part, the first part of ResNet.
+      Figure~\ref{Fig:UB_LB_MV_PDRNN} illustrates a brief proposed probabilistic electricity prices forecasting model based on ResNet with quantile regression and mean and variance method or called ResNet-QR and ResNet-MV models.
+      The set of load values, $X$, which is a total zonal load and a total system load as provided in GEFCom2014 provides.
+      $P(Y|X)$ is a probability function generated from probabilistic of spike prices part, the first part of ResNet.
       The $L{i}$ and $U_{i}$ values are lower and upper bound of interval forecasting at time $i$.
 
 
@@ -245,13 +243,13 @@
           \end{cases}
           \label{eq.pinball}
         \end{equation}
-        where $L_{\tau}(y,z)$ is pinball loss function at $\tau$ confidence level, $y$ is forecasted electricity price and $z$ is actual electricty price.
+        where $L_{\tau}(y,z)$ is pinball loss function at $\tau$ confidence level, $y$ is forecasted electricity prices and $z$ is actual electricty price.
         The final score of pinball loss function was computed as average $L_{\tau}$ across 24 hours for each task.
         The $\tau$ in this paper is 0.05, 0.10, 0.15, 0.20 and 0.25 which are represent 5$\%$, 10$\%$, 15$\%$, 20$\%$ and 25$\%$ confidence levels.
         The important results of pinball loss function is that the lower pinball loss, the more accurate forecasting model.
 
       \subsubsection{Reliability aspect}
-        In term of reliability measurement, the performances of forecasting model are measured to ensure that the ranges of interval electricity price forecasting can cover the observation values both quality and quantity.
+        In term of reliability measurement, the performances of forecasting model are measured to ensure that the ranges of interval electricity prices forecasting can cover the observation values both quality and quantity.
 
         First,  PI converage probility (PICP) refers to the ability of the constructed PIs to capture the actual target variables.
         PICP can be methematically stated as
@@ -320,17 +318,17 @@
     \subsection{Data description}
       All data in this paper is provided in Global Energy Forecasting Competition 2014 (see \cite{Hong2016}).
       The aim of this competition is to forecast 15 tasks of electricity prices in term of probabilistic distribution (in quantiles).
-      Hourly data of locational marginal price (LMP), zonal load forecast and system load forecast are provided.
+      Hourly data of locational marginal prices (LMP), zonal load forecast and system load forecast are provided.
       The participants receive historical data and forecast for next day electricty price.
-      In total, the price forecasting track involves about three years of locational marginal price, zonal and system load forecast.
+      In total, the prices forecasting track involves about three years of locational marginal price, zonal and system load forecast.
       The summarized solution data set of 15 tasks is shown in Table~\ref{table:price_data_set}.
       \begin{table}[H]
         \begin{center}
-        \caption{Summary of GEFCom2014 electricity price forecasting tasks}
+        \caption{Summary of GEFCom2014 electricity prices forecasting tasks}
         \begin{adjustbox}{width=\textwidth}
           \begin{tabular}{|c|c|c|c|c|c|c|}
             \hline
-            Task & Day & Holiday & Season & Normal price & High price & Spike price\\
+            Task & Day & Holiday & Season & Normal prices & High prices & Spike price\\
             \hline
             1 & Sun & Yes & Summer & 24 & - & -\\
             2 & Mon & No & Summer & 24 & - & -\\
@@ -354,7 +352,7 @@
         \end{center}
       \end{table}
 
-      The participation teams in GEFCom2014 perform electricity price forecasting method i.e.; linear regression (IR)\cite{Dudek2016}, multilayer perceptron (MLP)\cite{Dudek2016},  multiple quantile regression\cite{Juban2016}, hybrid quantile regression average (QRA) with pre-and-post processes\cite{Maciejowska2016}.
+      The participation teams in GEFCom2014 perform electricity prices forecasting method i.e.; linear regression (IR)\cite{Dudek2016}, multilayer perceptron (MLP)\cite{Dudek2016},  multiple quantile regression\cite{Juban2016}, hybrid quantile regression average (QRA) with pre-and-post processes\cite{Maciejowska2016}.
 
   \section{Results}
     In accuracy point of view, the results were evaluated with pinball loss function and summarized in Table~\ref{table:result_pinball}.
@@ -363,7 +361,7 @@
     Benchmark-2 included mixed of ARX model, pre-filtering process, quantile estimation and post-processing in order to accuire more accuracy of competition task.
     The difficulty of forecasting in mentioned task lied in high forecasting zonal load.
     It is obvious that high forecasted load may trigger an electricty spike price.
-    The MLP-MV and MPL-QR models were developed to ilustrate simple forecasting model without spike price prediction.
+    The MLP-MV and MPL-QR models were developed to ilustrate simple forecasting model without spike prices prediction.
     The similar work of this appoach is found in \cite{Dudek2016}.
     The MLP models is unsuitable for task 8-9 since loss score is very high.
     However, in task without spike price, the models perform quite acceptable comparing to Benchmark-1 model.
@@ -373,7 +371,7 @@
     In addition, both proposed models also provided similar losses score with Benchmark-2 as seen in Table~\ref{table:result_pinball}.
 
     \begin{table}[H]
-      \caption{The results of probabilistic electricity price forecasting compared to benchmarks}
+      \caption{The results of probabilistic electricity prices forecasting compared to benchmarks}
       \begin{adjustbox}{width=\textwidth}
       \begin{threeparttable}
         \begin{center}
@@ -415,7 +413,7 @@
 
     In Figure~\ref{Fig:compare_spike_and_non_spike_model}, the filled area represent interval prediction of MLP-QR and ResNet-QR with 5$\%$ confidence level.
     In cleary comarision between MLP and ResNet models, Figure~\ref{Fig:compare_spike_and_non_spike_model} shows the area covered by upper and lower quantile value, with 5$\%$ confidence level, generated by those models.
-    The ResNet-QR model can forecaste the high and spike prices over task 9 data. On the other hand, MLP-QR model is unsuitable to handle price spike prediction.
+    The ResNet-QR model can forecaste the high and spike prices over task 9 data. On the other hand, MLP-QR model is unsuitable to handle prices spike prediction.
     \begin{figure}[H]
       \centering
       \includegraphics[width=12cm]{Task_9-compare_between_non-spike_and_spike}
@@ -423,10 +421,10 @@
       \label{Fig:compare_spike_and_non_spike_model}
     \end{figure}
 
-    Figure~\ref{Fig:all_task_QR_005} presents overall results of interval electricity price prediction of ResNet-QR model with 5$\%$ confidence level.
-    In task 4, 5, 6, 11, 12, 13 and 14, there is no number of spike price in the system.
-    The proposed ResNet-QR can predict lower and upper electricity price bound and cover the fluctuated real prices in these task.
-    Furthermore, the proposed ResNet-QR model has capability of interval prediction of spike price occured in task 7, 8, 9 and 10.
+    Figure~\ref{Fig:all_task_QR_005} presents overall results of interval electricity prices prediction of ResNet-QR model with 5$\%$ confidence level.
+    In task 4, 5, 6, 11, 12, 13 and 14, there is no number of spike prices in the system.
+    The proposed ResNet-QR can predict lower and upper electricity prices bound and cover the fluctuated real prices in these task.
+    Furthermore, the proposed ResNet-QR model has capability of interval prediction of spike prices occured in task 7, 8, 9 and 10.
 
     \begin{figure}[H]
       \centering
@@ -454,23 +452,22 @@
 
     In summary, we've already considered both accuracy and reliability aspects of proposed ResNet models through pinball losses score and CWC values, respectively.
     The MLP models has low performance on task 8 and 9 where spike prices occures in the tasks.
-    In addition, the MLP models could not predict the range of electricity price during high forecasted system and zonal load.
-    On the other hand, ResNet model can covered forecast interval of electricity price in mostly tasks where MLP could not.
+    In addition, the MLP models could not predict the range of electricity prices during high forecasted system and zonal load.
+    On the other hand, ResNet model can covered forecast interval of electricity prices in mostly tasks where MLP could not.
     Lastly, quantile regression method performs similar pinball loss score results comparing to mean and variance estimation method in accuracy aspect.
     However, quantile regression method provider better CWC values.
     Consequently, the proposed ResNet with quantile regression could perform best in both accuracy and reliability aspect of forecasting model.
 
   \section{Conclusions}
-    This paper proposes a novel application of Residual Neural Network (ResNet) based approach to probabilistic electricity price forecasting in term of quaintile regression and mean-varience estimation as lower and upper bound construction.
-    The proposed models are demonstrated with GEFCom2014's electricity price forcasting tasks. The results of proposed and benchmark models are evaluated in accuracy and reliability point of view through pinball loss function and Coverage Width-based Criterion (CWC).
-
-    The two significatant observation results were:
-    (i) the electricity price forecasting model, the proposed ResNet model, with high and spike price prediciton capability can performe better than simply plain model, MLP model,
-    (ii) the lower and upper bound of interval prediction using the asymmetrical model (quantile regression) could perform better than the symmetrical model (mean and varience estimation) since it could reduce width of interval prediction.
-    To improve the quality of the forecasting model in the future studies, the proposed ResNet model should cooperate with other LUBE method.
-    The other LUBE has its characteristics which may provide better CWC values.
-    The second way to improve the performance of the proposed ResNet forecasting model is to increase the layers with in the model.
-    The fined tuning forecasting deep ResNet model may perform excellent job on electricity price forecasting task.
+  This paper proposes a novel application of Residual Neural Network (ResNet) based approach to probabilistic electricity prices forecasting in term of Quantile Regression and Mean and Variance Estimation as lower and upper bound estimation (LUBE).
+  The proposed models are demonstrated with GEFCom2014's electricity prices forecasting tasks. The results of proposed and benchmark models are evaluated in accuracy and reliability point of view through pinball loss function and Coverage Width-based Criterion (CWC).
+  The two significant observation results were:
+  (i) the electricity prices forecasting model, the proposed ResNet model, with high and spike prices prediction capability can perform better than a simple plain model, MLP model,
+  (ii) the lower and upper bound of interval prediction using the asymmetrical model (quantile regression) could perform better than the symmetrical model (mean and variance estimation) since it could reduce the width of interval prediction.
+  To improve the quality of the forecasting model in future studies, the proposed ResNet model should cooperate with other LUBE methods.
+  The other LUBE has its characteristics which may provide better CWC values.
+  The second way to improve the performance of the proposed ResNet forecasting model is to increase the layers within the model.
+  The fined tuning forecasting deep ResNet model may perform an excellent job on electricity prices forecasting tasks.
 
   \section*{References}
   \bibliography{mybibfile}
