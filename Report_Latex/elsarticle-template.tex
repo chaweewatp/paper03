@@ -89,7 +89,7 @@
     \end{abstract}
 
     \begin{keyword}
-      GEFCom2014, interval forecasting, LUBE, quantile regression, mean and varience estimation, pinball loss function, coverage width-based criterion
+      GEFCom2014, interval forecasting, LUBE, quantile regression, mean and variance estimation, pinball loss function, coverage width-based criterion
     \end{keyword}
 
   \end{frontmatter}
@@ -124,21 +124,21 @@
     The majority of empirical studies was on point forecasting (or call expected value of the spot price).
     The general point predictions produced no information about sampling errors and prediction accuracy.
     This lead to confidence intervals (CIs) and prediction intervals (PIs) \cite{Weron2014}.
-    CIs and PIs were two popular tools for quantifying and representing the uncertainty of predictions.
+    CIs and PIs were two favorite tools for quantifying and representing the uncertainty of predictions.
     Consequently, the use of prediction interval or probabilistic forecasting was interested due to it help market participants to submit effective bids with low risks.
     In literature, several methods have been proposed for construction of PIs and CIs assessment.
     Lower Upper Bounds Estimation (LUBE) method was formulated using mean and variance estimation which was proposed in \cite{Khosravi2011}.
     Besides, delta technique for PI construction was presented in \cite{KhosraviA2010}.
 
     % (mention on used of deep residual neural network and why we use this method)
-    In computaional intelligent area, Residual neural network (ResNet) was widely used in computer vision and pattern reconigtion \cite{DBLP:journals/corr/HeZRS15}, \cite{DBLP:journals/corr/ZagoruykoK16}.
+    In computational intelligent area, Residual neural network (ResNet) was widely used in computer vision and pattern recognition \cite{DBLP:journals/corr/HeZRS15}, \cite{DBLP:journals/corr/ZagoruykoK16}.
     ResNet was modified from deep Feed Forward Neural Networks (FFNNs) with extra connections (or called skip connections). The input is passing from one layer to a late layer as well as the next layer as shown in Figure~\ref{Fig:Basic_DRNN}.
     However, there were no used of ResNet in forecasting applications.
 
     \begin{figure}[H]
       \centering
       \includegraphics[width=5cm]{basic_DRNN}
-      \caption{Basis concept of Residual Neural Network (ResNet)}
+      \caption{Basis concept of Residual Neural Network (ResNet).}
       \label{Fig:Basic_DRNN}
     \end{figure}
 
@@ -160,7 +160,7 @@
   \section{Problem formulation}
     This section will descript the construction of two proposed forecasting models; Multilayer Perceptron (MLP) and Residual Neural Network (ResNet) model.
     The MPL model will represent electricity prices forecasting without spike prices prediction (see related work in \cite{Dudek2016}), and the ResNet model will represent electricity prices forecasting with spike prices prediction within the model.
-    Both models will generate upper and lower bounds with respect to given confidence levels (5$\%$, 10$\%$, 15$\%$, 20$\%$, and 25$\%$).
+    Both models will generate upper and lower bounds concerning given confidence levels (5$\%$, 10$\%$, 15$\%$, 20$\%$, and 25$\%$).
     The upper and lower bound will be generated using quantile regression and mean and variance estimation method.
 
     \subsection{Proposed ResNet on interval prices forecasting}
@@ -170,7 +170,7 @@
       Firure~\ref{Fig:proposed_ResNet} illustrates a proposed novel ResNet for interval electricity prices forecasting.
       \begin{figure}[H]
         \includegraphics[width=12cm]{proposed_PDRNN}
-        \caption{A proposed novel ResNet for interval electricty prices forecasting application.}
+        \caption{A proposed novel ResNet for interval electricity prices forecasting application.}
         \label{Fig:proposed_ResNet}
         \centering
       \end{figure}
@@ -222,109 +222,109 @@
       The $L{i}$ and $U_{i}$ values are lower and upper bound of interval forecasting at time $i$.
 
 
-    \subsection{Evaluation metrics}
-      This section will descript evaluation metrics on accuracy and reliable point of view.
-      In term of accuracy aspect, the forecasting results will be analysed using pinball loss function.
-      The Coverage Width-based Criterion (CWC) will take care of reliability aspect.
+      \subsection{Evaluation metrics}
+        This section will descript evaluation metrics on accuracy and reliable point of view.
+        In term of accuracy aspect, the forecasting results will be analyzed using pinball loss function.
+        The Coverage Width-based Criterion (CWC) will take care of the reliability aspect.
 
-      \subsubsection{Accuracy aspect}
-        The widely used measurement of forecasting's accuracy is mean absoulute error (MAE) which is simply and generalized method.
-        MAE work well of point of forecasting (single value).
-        However, this problem is to formulate upper and lower bound of forecasting which is cooperated with confidence value.
-        Hence, general MAE is not satisfied in this case.
-        Pinball loss function are proposed in \cite{Maciejowska2016}, also be benchmark of this paper, which returns the values or called loss values that can be interpreted as accuracy of mean-varience and quantile regression forecasting models.
-        The pinball loss function is formulated in Equation~\ref{eq.pinball}.
+        \subsubsection{Accuracy aspect}
+          The widely used measurement of forecasting's accuracy is mean absolute error (MAE) which is the generalized and straightforward method.
+          MAE work well of a point of forecasting (single value).
+          However, this problem leads to the upper and lower bound of forecasting which it cooperates with a confidence value.
+          Hence, general MAE is not satisfied in this case.
+          The pinball loss function is proposed in \cite{Maciejowska2016}, also be the benchmark of this paper, which returns the values or called loss values that can be interpreted as the accuracy of mean and variance and quantile regression forecasting models.
+          The pinball loss function is formulated in Equation~\ref{eq.pinball}.
 
-        \begin{equation}
-          L_{\tau}(y,z) =
-          \begin{cases}
-            (y-z)\tau & \text{if  $y>=z$} \\
-            (z-y)(1-\tau) & \text{if  $z>y$}
-          \end{cases}
-          \label{eq.pinball}
-        \end{equation}
-        where $L_{\tau}(y,z)$ is pinball loss function at $\tau$ confidence level, $y$ is forecasted electricity prices and $z$ is actual electricty price.
-        The final score of pinball loss function was computed as average $L_{\tau}$ across 24 hours for each task.
-        The $\tau$ in this paper is 0.05, 0.10, 0.15, 0.20 and 0.25 which are represent 5$\%$, 10$\%$, 15$\%$, 20$\%$ and 25$\%$ confidence levels.
-        The important results of pinball loss function is that the lower pinball loss, the more accurate forecasting model.
+          \begin{equation}
+            L_{\tau}(y,z) =
+            \begin{cases}
+              (y-z)\tau & \text{if  $y>=z$} \\
+              (z-y)(1-\tau) & \text{if  $z>y$}
+            \end{cases}
+            \label{eq.pinball}
+          \end{equation}
+          where $L_{\tau}(y,z)$ is pinball loss function at $\tau$ confidence level, $y$ is forecasted electricity prices and $z$ is actual electricty price.
+          The final score of pinball loss function was computed as average $L_{\tau}$ across 24 hours for each task.
+          The $\tau$ in this paper is 0.05, 0.10, 0.15, 0.20 and 0.25 which are represent 5$\%$, 10$\%$, 15$\%$, 20$\%$ and 25$\%$ confidence levels.
+          The essential results of the pinball loss function are that the lower pinball loss, the more accurate forecasting model.
 
-      \subsubsection{Reliability aspect}
-        In term of reliability measurement, the performances of forecasting model are measured to ensure that the ranges of interval electricity prices forecasting can cover the observation values both quality and quantity.
+        \subsubsection{Reliability aspect}
+          In term of reliability measurement, the performances of the forecasting model can ensure that the ranges of interval electricity prices forecasting are covering the observation values both quality and quantity.
 
-        First,  PI converage probility (PICP) refers to the ability of the constructed PIs to capture the actual target variables.
-        PICP can be methematically stated as
-        \begin{equation}
-          \text{PICP} = \frac{1}{N} \sum_{i=1}^{N} C_{i}
-          \label{eq.PICP}
-        \end{equation}
-        where
-        \begin{equation}
-          C_{i} =
-          \begin{cases}
-            1, & \text{if  $t_{i} \in [L_{i},U_{i}]$} \\
-            0, & \text{if  $t_{i} \not\in [L_{i},U_{i}]$}
-          \end{cases}
-          \label{eq.Ci}
-        \end{equation}
-        where $N$ is the number of samples in the test set, $t_{i}$ represents the actual target, and $L_{i}$ and $U_{i}$ are lower and upper bounds of hte $i$th PI, repestively.
-        The range of PICP lies between 0$\%$ (wher none of hte targets are enclosed by PI) to 100$\%$ (when all targets are enclosed by PI).
-        Ideally, PICP should be very close or larger than the norminal confidence level associated to the PIs.
-        PICP has a direct relationship with the width of PIs.
-        A satisfactorily large PICP can be easily achieved by widening PIs from either side.
-        However, such PIs are too conservative and less useful in practice, as they do not show the variation of the targetes.
-        Therefore, a measure is resquired to check how wide the PIs are.
-        Mean PI Width (MPIW) quantifies this aspect of PIs \cite{Khosravi2010}.
+          First,  PI coverage probability (PICP) refers to the ability of the constructed PIs to capture the actual target variables.
+          PICP can be mathematically stated as
+          \begin{equation}
+            \text{PICP} = \frac{1}{N} \sum_{i=1}^{N} C_{i}
+            \label{eq.PICP}
+          \end{equation}
+          where
+          \begin{equation}
+            C_{i} =
+            \begin{cases}
+              1, & \text{if  $t_{i} \in [L_{i},U_{i}]$} \\
+              0, & \text{if  $t_{i} \not\in [L_{i},U_{i}]$}
+            \end{cases}
+            \label{eq.Ci}
+          \end{equation}
+          where $N$ is the number of samples in the test set, $t_{i}$ represents the actual target, and $L_{i}$ and $U_{i}$ are lower and upper bounds of the $i$th PI, respestively.
+          The range of PICP lies between 0$\%$ (when none of the targets are enclosed by PI) to 100$\%$ (when all targets are enclosed by PI).
+          Ideally, PICP should be very close or more significant than the nominal confidence level associated with the PIs.
+          PICP has a direct relationship with the width of PIs.
+          A satisfactorily large PICP can be easily achieved by extending PIs from either side.
+          However, such PIs are too conservative and less useful in practice, as they do not show the variation of the targets.
+          Therefore, a measure is required to check how full the PIs are.
+          Mean PI Width (MPIW) quantifies this aspect of PIs \cite{Khosravi2010}.
 
-        \begin{equation}
-          \text{MPIW} = \frac{1}{N} \sum_{i=1}^{N} (U_{i}-L_{i})
-          \label{eq.MPIW}
-        \end{equation}
+          \begin{equation}
+            \text{MPIW} = \frac{1}{N} \sum_{i=1}^{N} (U_{i}-L_{i})
+            \label{eq.MPIW}
+          \end{equation}
 
-        Secondaly, MPIW shows the average width of PIs.
-        Normalizing MPIW by the range of the underlying target, $R$, allows us to compare PIs constructed for different datasets repectively (the new measure is called NMPIW),
-        The $R$ in this paper is 10 $\$$/MWhr.
-        \begin{equation}
-          \text{NMPIW} = \frac{\text{MPIW}}{R}
-          \label{eq.NMPIW}
-        \end{equation}
-        Both PICP and NMPIW, are representing quality and width of PIs, evaluate the quality of PIS from one aspect.
-        A combined index is required for the comprehensive assessment of PIs from both coverage probility and width perspectives.
-        The new measure should give a higher priority to PICP, as it is the key feature of PIs determining whether constructed PIs are theoretically correcty or not.
-        The Coverage Width-based Criterion (CWC) evalutes PIs from both coverage probility and width perspectives which is stated in Equation~\ref{eq.CWC-1}-\ref{eq.CWC-2}.
-        \begin{equation}
-          \text{CWC}=\text{PINAW} \times (1+\gamma(\text{PICP})e^{(-\eta(\text{PICP}-\mu)})
-          \label{eq.CWC-1}
-        \end{equation}
-        where
-        \begin{equation}
-          \gamma =
-                \begin{cases}
-                  0, \quad \text{PICP $\geq$ $\mu$} \\
-                  1, \quad \text{PICP $<$ $\mu$} \\
-                \end{cases}
-          \label{eq.CWC-2}
-        \end{equation}
-        Where, $\eta$ and $\mu$ are two hyperparameters controlling the location and amount of CWC jump.
-        These measures can be easily determined based on the level of confidence associated with PIs.
-        $\mu$ correspomds to the nominal confidence level associated with PIs and can be set to 1-$\alpha$.
-        The design of CWC is based on two principles:
+          Secondly, MPIW shows the average width of PIs.
+          Normalizing MPIW by the range of the underlying target, $R$, allows us to compare PIs constructed for different datasets respectively (the new measure is called NMPIW),
+          The $R$ in this paper is 10 $\$$/MWhr.
+          \begin{equation}
+            \text{NMPIW} = \frac{\text{MPIW}}{R}
+            \label{eq.NMPIW}
+          \end{equation}
+          Both PICP and NMPIW, are representing the quality and width of PIs, evaluate the quality of PIS from one aspect.
+          A combined index is required for the comprehensive assessment of PIs from both coverage probability and width perspectives.
+          The new measure should give a higher priority to PICP, as it is the crucial feature of PIs determining whether constructed PIs are theoretically correctly or not.
+          The Coverage Width-based Criterion (CWC) evalutes PIs from both coverage probility and width perspectives which is stated in Equation~\ref{eq.CWC-1}-\ref{eq.CWC-2}.
+          \begin{equation}
+            \text{CWC}=\text{PINAW} \times (1+\gamma(\text{PICP})e^{(-\eta(\text{PICP}-\mu)})
+            \label{eq.CWC-1}
+          \end{equation}
+          where
+          \begin{equation}
+            \gamma =
+                  \begin{cases}
+                    0, \quad \text{PICP $\geq$ $\mu$} \\
+                    1, \quad \text{PICP $<$ $\mu$} \\
+                  \end{cases}
+            \label{eq.CWC-2}
+          \end{equation}
+          Where $\eta$ and $\mu$ are two hyperparameters controlling the location and amount of CWC jump.
+          These measures can be readily determined based on the level of confidence associated with PIs.
+          $\mu$ corresponds to the nominal confidence level associated with PIs and can be set to 1-$\alpha$.
+          The design of CWC is based on two principles:
 
-        \begin{itemize}
-          \item if PICP is less than the nominal confidence level, (1-$\alpha$)$\%$, CWC should be large regardless of the width of PIs (measures by NMIPW),
-          \item if PICP is greater than or equal to its corresponding confidence level, then NMPIW should be the influential factor.
-          $\gamma$(PICP), eliminates the exponential term of CWC when PICP is greater or equal to the nominal confidence level.
-        \end{itemize}
+          \begin{itemize}
+            \item if PICP is less than the nominal confidence level, (1-$\alpha$)$\%$, CWC should be large regardless of the width of PIs (measures by NMIPW),
+            \item if PICP is greater than or equal to its corresponding confidence level, then NMPIW should be the influential factor.
+            $\gamma$(PICP), eliminates the exponential term of CWC when PICP is greater or equal to the nominal confidence level.
+          \end{itemize}
 
     \subsection{Data description}
       All data in this paper is provided in Global Energy Forecasting Competition 2014 (see \cite{Hong2016}).
-      The aim of this competition is to forecast 15 tasks of electricity prices in term of probabilistic distribution (in quantiles).
+      This competition aims to forecast 15 tasks of electricity prices in term of probabilistic distribution (in quantiles).
       Hourly data of locational marginal prices (LMP), zonal load forecast and system load forecast are provided.
-      The participants receive historical data and forecast for next day electricty price.
+      The participants receive historical data and forecast for next day electricity price.
       In total, the prices forecasting track involves about three years of locational marginal price, zonal and system load forecast.
       The summarized solution data set of 15 tasks is shown in Table~\ref{table:price_data_set}.
       \begin{table}[H]
         \begin{center}
-        \caption{Summary of GEFCom2014 electricity prices forecasting tasks}
+        \caption{Summary of GEFCom2014 electricity prices forecasting tasks.}
         \begin{adjustbox}{width=\textwidth}
           \begin{tabular}{|c|c|c|c|c|c|c|}
             \hline
@@ -355,23 +355,23 @@
       The participation teams in GEFCom2014 perform electricity prices forecasting method i.e.; linear regression (IR)\cite{Dudek2016}, multilayer perceptron (MLP)\cite{Dudek2016},  multiple quantile regression\cite{Juban2016}, hybrid quantile regression average (QRA) with pre-and-post processes\cite{Maciejowska2016}.
 
   \section{Results}
-    In accuracy point of view, the results were evaluated with pinball loss function and summarized in Table~\ref{table:result_pinball}.
-    The outcomes of benchmark and proposed approaches indicate that some tasks involves more uncertainty than others day.
-    Benchmark-1, provided by GEFCom2014 data, is very low accuracy level, high value of pinball loss score, in Task7-12 and 15.
-    Benchmark-2 included mixed of ARX model, pre-filtering process, quantile estimation and post-processing in order to accuire more accuracy of competition task.
-    The difficulty of forecasting in mentioned task lied in high forecasting zonal load.
-    It is obvious that high forecasted load may trigger an electricty spike price.
-    The MLP-MV and MPL-QR models were developed to ilustrate simple forecasting model without spike prices prediction.
-    The similar work of this appoach is found in \cite{Dudek2016}.
-    The MLP models is unsuitable for task 8-9 since loss score is very high.
-    However, in task without spike price, the models perform quite acceptable comparing to Benchmark-1 model.
+    In the accuracy point of view, the results were evaluated with pinball loss function and summarized in Table~\ref{table:result_pinball}.
+    The outcomes of the benchmarks and proposed ResNet electricity prices forecasting models indicate that some tasks involve more uncertainty than others day.
+    Benchmark-1, provided by GEFCom2014 data, is shallow accuracy level, a high value of pinball loss score, in Task7-12 and 15.
+    Benchmark-2 included mixed of ARX model, pre-filtering process, quantile estimation, and post-processing in order to acquire more accuracy of competition task.
+    The difficulty of forecasting in the mentioned task lied in high forecasting zonal load.
+    It was evident that high forecasted load may trigger an electricity spike price.
+    The MLP-MV and MPL-QR models were developed to illustrate a simple forecasting model without spike prices prediction.
+    The similar work of this approach is found in \cite{Dudek2016}.
+    The MLP models are unsuitable for task 8-9 since loss score is very high.
+    However, in the task without spike price, the models perform quite acceptable comparing to Benchmark-1 model.
 
-    The next result we will discuss is that the proposed ResNet generated upper and lower bound values using quantile regression and mean-varience method.
-    Both ResNet-MV and ResNet-QR model performed excellent work and provide lower losses score comparing to Benchmark-1, MLP-MV and MLP-QR.
-    In addition, both proposed models also provided similar losses score with Benchmark-2 as seen in Table~\ref{table:result_pinball}.
+    The next result we will discuss is that the proposed ResNet generated upper and lower bound values using quantile regression and mean-variance method.
+    Both ResNet-MV and ResNet-QR model performed excellent work and provide lower losses score comparing to Benchmark-1, MLP-MV, and MLP-QR.
+    Besides, both proposed models also provided similar losses score with Benchmark-2 as seen in Table~\ref{table:result_pinball}.
 
     \begin{table}[H]
-      \caption{The results of probabilistic electricity prices forecasting compared to benchmarks}
+      \caption{The results of probabilistic electricity prices forecasting compared to benchmarks.}
       \begin{adjustbox}{width=\textwidth}
       \begin{threeparttable}
         \begin{center}
@@ -412,19 +412,19 @@
     \end{table}
 
     In Figure~\ref{Fig:compare_spike_and_non_spike_model}, the filled area represent interval prediction of MLP-QR and ResNet-QR with 5$\%$ confidence level.
-    In cleary comarision between MLP and ResNet models, Figure~\ref{Fig:compare_spike_and_non_spike_model} shows the area covered by upper and lower quantile value, with 5$\%$ confidence level, generated by those models.
-    The ResNet-QR model can forecaste the high and spike prices over task 9 data. On the other hand, MLP-QR model is unsuitable to handle prices spike prediction.
+    In cleary comparison between MLP and ResNet models, Figure~\ref{Fig:compare_spike_and_non_spike_model} shows the area covered by upper and lower quantile value, with 5$\%$ confidence level, generated by those models.
+    The ResNet-QR model can forecast the high and spike prices over task 9 data. On the other hand, MLP-QR model is unsuitable for handling prices spike prediction.
     \begin{figure}[H]
       \centering
       \includegraphics[width=12cm]{Task_9-compare_between_non-spike_and_spike}
-      \caption{The task 9 results of non-spike price, MLP-QR, forecasting model and spike price, ResNet-QR, forecasting model with quantile regression method on 5$\%$ confidence level ($\alpha$).}
+      \caption{The task 9 results of non-spike price, MLP-QR, forecasting model and spike price, ResNet-QR, forecasting model with quantile regression method with 5$\%$ confidence level ($\alpha$).}
       \label{Fig:compare_spike_and_non_spike_model}
     \end{figure}
 
-    Figure~\ref{Fig:all_task_QR_005} presents overall results of interval electricity prices prediction of ResNet-QR model with 5$\%$ confidence level.
+    Figure~\ref{Fig:all_task_QR_005} presents the overall results of interval electricity prices prediction of ResNet-QR model with 5$\%$ confidence level.
     In task 4, 5, 6, 11, 12, 13 and 14, there is no number of spike prices in the system.
-    The proposed ResNet-QR can predict lower and upper electricity prices bound and cover the fluctuated real prices in these task.
-    Furthermore, the proposed ResNet-QR model has capability of interval prediction of spike prices occured in task 7, 8, 9 and 10.
+    The proposed ResNet-QR can predict lower and upper electricity prices bound and cover the fluctuated real prices in these tasks.
+    Furthermore, the proposed ResNet-QR model has the capability of interval prediction of spike prices occurred in task 7, 8, 9 and 10.
 
     \begin{figure}[H]
       \centering
@@ -433,30 +433,30 @@
       \label{Fig:all_task_QR_005}
     \end{figure}
 
-    Second, we will discuss more on the effect of confidence levels ($\alpha$) to reliability aspect of proposed model here.
-    All CWC values are analysed using distribution characteristic in each model at differenced confidence level (5$\%$, 10$\%$, 15$\%$, 20$\%$ and 25$\%$).
-    The Figure~\ref{Fig:CWC} illustrateds all CWC value where bold line represents averaged CWC values, of all task, of particular model and confidence level.
+    Second, we will discuss more on the effect of confidence levels ($\alpha$) to the reliability aspect of the proposed model here.
+    All CWC values are analyzed using distribution characteristic in each model at differenced confidence level (5$\%$, 10$\%$, 15$\%$, 20$\%$ and 25$\%$).
+    The Figure~\ref{Fig:CWC} illustrates all CWC value where bold line represents averaged CWC values, of all task, of particular model and confidence level.
     The boxes contain 50$\%$ (at quantile 25$\%$ to 75$\%$) of result CWC values.
-    The top and buttom wiskers show highest and lowest CWC values in each box.
-    Since CWC value represents both coverage probility and width perspective, the lower CWC value represents higher reliability.
+    The top and bottom whiskers show the highest and lowest CWC values in each box.
+    Since CWC value represents both coverage probability and width perspective, the lower CWC value represents higher reliability.
     The Figure~\ref{Fig:CWC} shows that while increasing confidence level, the models could perform better in CWC perspective.
     The averaged CWC value could drop below 15 while increasing confidence level up to 15 $\%$ for ResNet models.
-    Moreover, quantile regression method provides higher reliabaility aspect than mean-variance method as seen in Figure~\ref{Fig:CWC}.
+    Moreover, the quantile regression method provides higher reliability aspect than the mean-variance method as seen in Figure~\ref{Fig:CWC}.
 
     \begin{figure}[H]
       \centering
       \includegraphics[width=12cm]{boxcompare_MV-QR}
-      \caption{The results of reliability aspect are represented in CWC values (upper) MLP model, (lower) ResNet model.}
+      \caption{The results of the reliability aspect are represented in CWC values (upper) MLP model, (lower) ResNet model.}
       \label{Fig:CWC}
     \end{figure}
 
-    In summary, we've already considered both accuracy and reliability aspects of proposed ResNet models through pinball losses score and CWC values, respectively.
-    The MLP models has low performance on task 8 and 9 where spike prices occures in the tasks.
-    In addition, the MLP models could not predict the range of electricity prices during high forecasted system and zonal load.
-    On the other hand, ResNet model can covered forecast interval of electricity prices in mostly tasks where MLP could not.
-    Lastly, quantile regression method performs similar pinball loss score results comparing to mean and variance estimation method in accuracy aspect.
-    However, quantile regression method provider better CWC values.
-    Consequently, the proposed ResNet with quantile regression could perform best in both accuracy and reliability aspect of forecasting model.
+    In summary, we have already considered both accuracy and reliability aspects of proposed ResNet models through pinball losses score and CWC values, respectively.
+    The MLP models have low performance on task 8 and 9 where spike prices occurred in the tasks.
+    Besides, the MLP models could not predict the range of electricity prices during the high forecasted system and zonal load.
+    On the other hand, ResNet model can cover forecast interval of electricity prices in mostly tasks where MLP could not.
+    Lastly, the quantile regression method performs similar pinball loss score results comparing to mean and variance estimation method in accuracy aspect.
+    However, the quantile regression method provider better CWC values.
+    Consequently, the proposed ResNet with quantile regression could perform best in both accuracy and reliability aspect of the forecasting model.
 
   \section{Conclusions}
   This paper proposes a novel application of Residual Neural Network (ResNet) based approach to probabilistic electricity prices forecasting in term of Quantile Regression and Mean and Variance Estimation as lower and upper bound estimation (LUBE).
