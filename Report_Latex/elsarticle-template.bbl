@@ -29,58 +29,41 @@ R.~Weron, {Electricity price forecasting: A review of the state-of-the-art with
 J.~{Contreras}, R.~{Espinola}, F.~J. {Nogales}, A.~J. {Conejo}, Arima models to
   predict next-day electricity prices, IEEE Transactions on Power Systems
   18~(3) (2003) 1014--1020.
-\newblock \href {http://dx.doi.org/10.1109/TPWRS.2002.804943}
-  {\path{doi:10.1109/TPWRS.2002.804943}}.
 
 \bibitem{7917305}
 J.~P. {González}, A.~M.~S. {Roque}, E.~A. {Pérez}, Forecasting functional
   time series with a new hilbertian armax model: Application to electricity
   price forecasting, IEEE Transactions on Power Systems 33~(1) (2018) 545--556.
-\newblock \href {http://dx.doi.org/10.1109/TPWRS.2017.2700287}
-  {\path{doi:10.1109/TPWRS.2017.2700287}}.
 
 \bibitem{4344162}
 C.~{Li}, M.~{Zhang}, Application of garch model in the forecasting of day-ahead
   electricity prices, in: Third International Conference on Natural Computation
   (ICNC 2007), Vol.~1, 2007, pp. 99--103.
-\newblock \href {http://dx.doi.org/10.1109/ICNC.2007.252}
-  {\path{doi:10.1109/ICNC.2007.252}}.
 
 \bibitem{1627232}
 and and, Electricity price forecasting based on garch model in deregulated
   market, in: 2005 International Power Engineering Conference, 2005, pp.
   1--410.
-\newblock \href {http://dx.doi.org/10.1109/IPEC.2005.206943}
-  {\path{doi:10.1109/IPEC.2005.206943}}.
 
 \bibitem{Girish2016}
-G.~P. Girish, \href{http://dx.doi.org/10.1016/j.esr.2016.06.005}{{Spot
-  electricity price forecasting in Indian electricity market using
-  autoregressive-GARCH models}}, Energy Strategy Reviews 11-12 (2016) 52--57.
-\newblock \href {http://dx.doi.org/10.1016/j.esr.2016.06.005}
-  {\path{doi:10.1016/j.esr.2016.06.005}}.
-\newline\urlprefix\url{http://dx.doi.org/10.1016/j.esr.2016.06.005}
+G.~P. Girish, {Spot electricity price forecasting in Indian electricity market
+  using autoregressive-GARCH models}, Energy Strategy Reviews 11-12 (2016)
+  52--57.
 
 \bibitem{1425601}
 A.~J. {Conejo}, M.~A. {Plazas}, R.~{Espinola}, A.~B. {Molina}, Day-ahead
   electricity price forecasting using the wavelet transform and arima models,
   IEEE Transactions on Power Systems 20~(2) (2005) 1035--1042.
-\newblock \href {http://dx.doi.org/10.1109/TPWRS.2005.846054}
-  {\path{doi:10.1109/TPWRS.2005.846054}}.
 
 \bibitem{Catalao2007}
 J.~P. Catal{\~{a}}o, S.~J. Mariano, V.~M. Mendes, L.~A. Ferreira, {Short-term
   electricity prices forecasting in a competitive market: A neural network
   approach}, Electric Power Systems Research 77~(10) (2007) 1297--1304.
-\newblock \href {http://dx.doi.org/10.1016/j.epsr.2006.09.022}
-  {\path{doi:10.1016/j.epsr.2006.09.022}}.
 
 \bibitem{Kuo2018}
 P.~H. Kuo, C.~J. Huang, {An electricity price forecasting model by hybrid
   structured deep neural networks}, Sustainability (Switzerland) 10~(4) (2018)
   1--17.
-\newblock \href {http://dx.doi.org/10.3390/su10041280}
-  {\path{doi:10.3390/su10041280}}.
 
 \bibitem{Chaweewat2017}
 P.~Chaweewat, J.~G. Singh, {Effects of High Penetration of Solar Rooftop PV on
@@ -90,37 +73,25 @@ P.~Chaweewat, J.~G. Singh, {Effects of High Penetration of Solar Rooftop PV on
   2017.
 
 \bibitem{Bento2018}
-P.~M. Bento, J.~A. Pombo, M.~R. Calado, S.~J. Mariano,
-  \href{https://doi.org/10.1016/j.apenergy.2017.10.058}{{A bat optimized neural
-  network and wavelet transform approach for short-term price forecasting}},
+P.~M. Bento, J.~A. Pombo, M.~R. Calado, S.~J. Mariano, {A bat optimized neural
+  network and wavelet transform approach for short-term price forecasting},
   Applied Energy 210~(October 2017) (2018) 88--97.
-\newblock \href {http://dx.doi.org/10.1016/j.apenergy.2017.10.058}
-  {\path{doi:10.1016/j.apenergy.2017.10.058}}.
-\newline\urlprefix\url{https://doi.org/10.1016/j.apenergy.2017.10.058}
 
 \bibitem{NAZAR2018214}
 M.~S. Nazar, A.~E. Fard, A.~Heidari, M.~Shafie-khah, J.~P. CatalÃ£o,
   \href{http://www.sciencedirect.com/science/article/pii/S0378779618302979}{Hybrid
   model using three-stage algorithm for simultaneous load and price
   forecasting}, Electric Power Systems Research 165 (2018) 214 -- 228.
-\newblock \href {http://dx.doi.org/https://doi.org/10.1016/j.epsr.2018.09.004}
-  {\path{doi:https://doi.org/10.1016/j.epsr.2018.09.004}}.
 \newline\urlprefix\url{http://www.sciencedirect.com/science/article/pii/S0378779618302979}
 
 \bibitem{Keles2016}
-D.~Keles, J.~Scelle, F.~Paraschiv, W.~Fichtner,
-  \href{http://dx.doi.org/10.1016/j.apenergy.2015.09.087}{{Extended forecast
-  methods for day-ahead electricity spot prices applying artificial neural
-  networks}}, Applied Energy 162 (2016) 218--230.
-\newblock \href {http://dx.doi.org/10.1016/j.apenergy.2015.09.087}
-  {\path{doi:10.1016/j.apenergy.2015.09.087}}.
-\newline\urlprefix\url{http://dx.doi.org/10.1016/j.apenergy.2015.09.087}
+D.~Keles, J.~Scelle, F.~Paraschiv, W.~Fichtner, {Extended forecast methods for
+  day-ahead electricity spot prices applying artificial neural networks},
+  Applied Energy 162 (2016) 218--230.
 
 \bibitem{4077090}
 N.~{Amjady}, Short-term bus load forecasting of power systems by a new hybrid
   method, IEEE Transactions on Power Systems 22~(1) (2007) 333--341.
-\newblock \href {http://dx.doi.org/10.1109/TPWRS.2006.889130}
-  {\path{doi:10.1109/TPWRS.2006.889130}}.
 
 \bibitem{Khosravi2011}
 A.~Khosravi, S.~Nahavandi, D.~Creighton, A.~F. Atiya, {Lower upper bound
@@ -139,14 +110,14 @@ K.~He, X.~Zhang, S.~Ren, J.~Sun, Deep residual learning for image recognition,
 \bibitem{DBLP:journals/corr/ZagoruykoK16}
 S.~Zagoruyko, N.~Komodakis, Wide residual networks, CoRR abs/1605.07146.
 
-\bibitem{Dudek2016}
-G.~Dudek, {Multilayer perceptron for GEFCom2014 probabilistic electricity price
-  forecasting}, International Journal of Forecasting 32~(3) (2016) 1057--1060.
-
 \bibitem{Maciejowska2016}
 K.~Maciejowska, J.~Nowotarski, {A hybrid model for GEFCom2014 probabilistic
   electricity price forecasting}, International Journal of Forecasting 32~(3)
   (2016) 1051--1056.
+
+\bibitem{Dudek2016}
+G.~Dudek, {Multilayer perceptron for GEFCom2014 probabilistic electricity price
+  forecasting}, International Journal of Forecasting 32~(3) (2016) 1057--1060.
 
 \bibitem{Khosravi2010}
 A.~Khosravi, S.~Nahavandi, D.~Creighton, Construction of optimal prediction
