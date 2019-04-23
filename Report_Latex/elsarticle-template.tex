@@ -98,27 +98,28 @@
 
   \section{Introduction}
 
-  Since the transformation of the deregulation of modern power systems, electricity prices forecasting has become a more critical process to energy market's participants at planning and operation levels.
-  As a result of a higher number of fluctuated electricity prices as well as the number of unanticipated spike prices occurrences, the occurrences of spike prices can cause financial damage to both customers and producers.
-  The sudden lack of available generations or disconnected of transmission lines exponentially accelerates of electricity prices volatility and causes either very high and spike prices.
-  The spike prices can reach several times to thousand times of the regular price.
-  In different circumstances, negative prices occur when there is an excess of renewable generation.
-  Several pieces of evidence show that the spike prices are around 100$\$$/MWhr may result from usual congestion or unexpected overload, while spiking prices around $\$$500/MWhr led by lacking reserve.
+    Since the transformation of the deregulation of modern power systems, electricity prices forecasting has become a more critical process to energy market's participants at planning and operation levels.
+    As a result of a higher number of fluctuated electricity prices as well as the number of unanticipated spike prices occurrences, the occurrences of spike prices can cause financial damage to both customers and producers.
+    The sudden lack of available generations or disconnected of transmission lines exponentially accelerates of electricity prices volatility and causes either very high and spike prices.
+    The spike prices can reach several times to thousand times of the regular price.
+    In different circumstances, negative prices occur when there is an excess of renewable generation.
+    Several pieces of evidence show that the spike prices are around 100$\$$/MWhr may result from usual congestion or unexpected overload, while spiking prices around $\$$500/MWhr led by lacking reserve.
 
-  This case the day ahead clearing prices was the dominant feature what indicate insufficient reserve.
-  The spike prices above $\$$1,000/MWhr should be the consequence of the outage or breakdown of the generation or transmission system.
+    \cite{He2016} proposed that insufficient reserves influence the spike price in the day ahead clearing market.
+    On the other hand, real-time spike price is influenced by the outage or interrupted of the generation or transmission system.
+    It can cause higher than $\$$1,000/MWhr in electricity price.
 
-  Such outage or breakdown many could come from many factors, like weather, load profile, etc. \cite{He2016}.
-  \cite{SINGHAL2011550} provided fundamental reasons for spike prices which are volatility of fuel price, load uncertainty, fluctuation in hydroelectricity production, generation outage, transmission congestion, a behavior of market participation and market manipulation.
-  \cite{GONZALEZSOTRES2017338} studied on technique and economical of on centralized voltage control with high PV penetration in Portuguese network.
-  These results illustrated that improvement in both forecasting tools and communication systems have a significant impact on dedicate resources and voltage control.
+    \cite{SINGHAL2011550} provided fundamental reasons for spike prices which are volatility of fuel price, load uncertainty, fluctuation in hydroelectricity production, generation outage, transmission congestion, a behavior of market participation and market manipulation.
+    \cite{GONZALEZSOTRES2017338} studied on technique and economical of on centralized voltage control with high PV penetration in Portuguese network.
+    These results illustrated that improvement in both forecasting tools and communication systems have a significant impact on dedicate resources and voltage control.
 
-    % (talk about point of forecating, 1 method, 2 measurement, 3 problems)    % (mention about problems of poing of forecasting, introduct to interval forecasting)
 
     In works of literature, over the past few decades, many powerful forecasting algorithms have been developed (for a recent comprehensive review, see \cite{Weron2014}).
     The commonly forecast electricity prices models are classified into two primary categories; time-series models and soft computing models which is non-time series models.
-    The traditional time-series model have been frequently applied to forecast electricity prices. Examples are autoregressive integrated moving average (ARIMA)\cite{1216141}, Autoregressive Moving Average eXogenous (ARMAX)\cite{7917305} and generalized autoregressive conditional heteroscedasticity (GARCH)\cite{4344162},\cite{1627232},
+    The regular time-series model have been habitually applied to electricity price forecasting model.
+    Examples of time-series forecasgting models are autoregressive integrated moving average (ARIMA)\cite{1216141}, Autoregressive Moving Average eXogenous (ARMAX)\cite{7917305} and generalized autoregressive conditional heteroscedasticity (GARCH)\cite{4344162},\cite{1627232},
     The hybrid time-series models were proposed such as autoregressive-GARCH\cite{Girish2016} and wavelet-ARIMA\cite{1425601}.
+
     Despite the time-series model, in recent pieces of literature, the concept of applying of artificial neural network (ANN) in forecast future electricity prices was proposed in \cite{Catalao2007}.
     Recently, electricity prices forecasting based deep neural network was developed in \cite{Kuo2018}.
     The hybrid ANN models were proposed such as ANN-ABC\cite{Chaweewat2017}, wavelet-ANN\cite{Bento2018}, and wavelet-SOM-ANN\cite{NAZAR2018214}.
@@ -253,71 +254,72 @@
           The essential results of the pinball loss function are that the lower pinball loss, the more accurate forecasting model.
 
         \subsubsection{Reliability aspect}
-          In term of reliability measurement, the performances of the forecasting model can ensure that the ranges of interval electricity prices forecasting are covering the observation values both quality and quantity.
+        In term of reliability measurement, the performances of the forecasting model can ensure that the ranges of interval electricity prices forecasting are covering the observation values both quality and quantity.
 
-          First,  PI coverage probability (PICP) refers to the ability of the constructed PIs to capture the actual target variables.
-          PICP can be mathematically stated as
-          \begin{equation}
-            \text{PICP} = \frac{1}{N} \sum_{i=1}^{N} C_{i}
-            \label{eq.PICP}
-          \end{equation}
-          where
-          \begin{equation}
-            C_{i} =
-            \begin{cases}
-              1, & \text{if  $t_{i} \in [L_{i},U_{i}]$} \\
-              0, & \text{if  $t_{i} \not\in [L_{i},U_{i}]$}
-            \end{cases}
-            \label{eq.Ci}
-          \end{equation}
-          where $N$ is the number of samples in the test set, $t_{i}$ represents the actual target, and $L_{i}$ and $U_{i}$ are lower and upper bounds of the $i$th PI, respestively.
-          The range of PICP lies between 0$\%$ (when none of the targets are enclosed by PI) to 100$\%$ (when all targets are enclosed by PI).
-          Ideally, PICP should be very close or more significant than the nominal confidence level associated with the PIs.
-          PICP has a direct relationship with the width of PIs.
-          A satisfactorily large PICP can be easily achieved by extending PIs from either side.
-          However, such PIs are too conservative and less useful in practice, as they do not show the variation of the targets.
-          Therefore, a measure is required to check how full the PIs are.
-          Mean PI Width (MPIW) quantifies this aspect of PIs \cite{Khosravi2010}.
+        Firstly, the forecasting model can construct prediction intervals (PIs), upper and lower bound values, which able to cover the actual target values within the range. The number of covered actual target values over every target values is called prediction interval coverage probability (PICP).
+        PICP can be mathematically stated as
+        \begin{equation}
+          \text{PICP} = \frac{1}{N} \sum_{i=1}^{N} C_{i}
+          \label{eq.PICP}
+        \end{equation}
+        where
+        \begin{equation}
+          C_{i} =
+          \begin{cases}
+            1, & \text{if  $t_{i} \in [L_{i},U_{i}]$} \\
+            0, & \text{if  $t_{i} \not\in [L_{i},U_{i}]$}
+          \end{cases}
+          \label{eq.Ci}
+        \end{equation}
+        where $N$ is the number of forecasted electricity price set, $t_{i}$ represents the actual electricity price, and $L_{i}$ and $U_{i}$ are lower and upper bounds of electricity price interval forecasting in hour $i$th, respestively.
+        When the PIs can enclose all actual electricity price for all period, the PICP of the forecasting model is 1.
+        The PICP is decreased when actual electricity prices lie outside the PIs and become 0 when none of the actual electricity prices lie outside the PIs.
+        The PICP has a direct relationship with the width of PIs.
+        Since the width of PIs is large, the PICP is higher.
+        As a result of increasing of the PICP is achieved by extending the width of PIs.
+        The PICP should be more significant than the nominal confidence level associated with the PIs.
+        Secondly, the widths of PIs are too varied in each period.
+        Therefore, it can be analyzed to averaged value as Mean PI Width (MPIW) \cite{Khosravi2010} as shown in equation~\ref{eq.MPIW}.
 
-          \begin{equation}
-            \text{MPIW} = \frac{1}{N} \sum_{i=1}^{N} (U_{i}-L_{i})
-            \label{eq.MPIW}
-          \end{equation}
+        \begin{equation}
+          \text{MPIW} = \frac{1}{N} \sum_{i=1}^{N} (U_{i}-L_{i})
+          \label{eq.MPIW}
+        \end{equation}
 
-          Secondly, MPIW shows the average width of PIs.
-          Normalizing MPIW by the range of the underlying target, $R$, allows us to compare PIs constructed for different datasets respectively (the new measure is called NMPIW),
-          The $R$ in this paper is 10 $\$$/MWhr.
-          \begin{equation}
-            \text{NMPIW} = \frac{\text{MPIW}}{R}
-            \label{eq.NMPIW}
-          \end{equation}
-          Both PICP and NMPIW, are representing the quality and width of PIs, evaluate the quality of PIS from one aspect.
-          A combined index is required for the comprehensive assessment of PIs from both coverage probability and width perspectives.
-          The new measure should give a higher priority to PICP, as it is the crucial feature of PIs determining whether constructed PIs are theoretically correctly or not.
-          The Coverage Width-based Criterion (CWC) evalutes PIs from both coverage probility and width perspectives which is stated in Equation~\ref{eq.CWC-1}-\ref{eq.CWC-2}.
-          \begin{equation}
-            \text{CWC}=\text{PINAW} \times (1+\gamma(\text{PICP})e^{(-\eta(\text{PICP}-\mu)})
-            \label{eq.CWC-1}
-          \end{equation}
-          where
-          \begin{equation}
-            \gamma =
-                  \begin{cases}
-                    0, \quad \text{PICP $\geq$ $\mu$} \\
-                    1, \quad \text{PICP $<$ $\mu$} \\
-                  \end{cases}
-            \label{eq.CWC-2}
-          \end{equation}
-          Where $\eta$ and $\mu$ are two hyperparameters controlling the location and amount of CWC jump.
-          These measures can be readily determined based on the level of confidence associated with PIs.
-          $\mu$ corresponds to the nominal confidence level associated with PIs and can be set to 1-$\alpha$.
-          The design of CWC is based on two principles:
+        MPIW can be formed as a nominal value by the range of the underlying target, $R$.
+        This new value is called NMPIW.
+        NMPIW can be used to compare with results of other PIs forecasting model and different datasets.
+        The $R$ in this paper is 10 $\$$/MWhr.
 
-          \begin{itemize}
-            \item if PICP is less than the nominal confidence level, (1-$\alpha$)$\%$, CWC should be large regardless of the width of PIs (measures by NMIPW),
-            \item if PICP is greater than or equal to its corresponding confidence level, then NMPIW should be the influential factor.
-            $\gamma$(PICP), eliminates the exponential term of CWC when PICP is greater or equal to the nominal confidence level.
-          \end{itemize}
+        \begin{equation}
+          \text{NMPIW} = \frac{\text{MPIW}}{R}
+          \label{eq.NMPIW}
+        \end{equation}
+
+        Both PICP and NMPIW, are representing the probability (actual electricity underlined prediction interval) and width of PIs, evaluate the quality of PIs from each aspect, respectively.
+        The PICP and NMPIW can be combined into one index which represents a comprehensive assessment of PIs performances, both coverage probability, and width perspectives.
+        The new index represents norminal width of PIs with penalties of low coverage probability as called Coverage Width-based Criterion (CWC) which is stated in Equation~\ref{eq.CWC-1}-\ref{eq.CWC-2}.
+
+        \begin{equation}
+          \text{CWC}=\text{NMPIW} \times (1+\gamma(\text{PICP})e^{(-\eta(\text{PICP}-\mu)})
+          \label{eq.CWC-1}
+        \end{equation}
+        where
+        \begin{equation}
+          \gamma =
+                \begin{cases}
+                  0, \quad \text{PICP $\geq$ $\mu$} \\
+                  1, \quad \text{PICP $<$ $\mu$} \\
+                \end{cases}
+          \label{eq.CWC-2}
+        \end{equation}
+        Where $\eta$ and $\mu$ are two hyperparameters controlling the location and amount of CWC jump.
+        These measures can be readily determined based on the level of confidence associated with PIs.
+        $\mu$ corresponds to the nominal confidence level associated with PIs and can be set to 1-$\alpha$.
+
+        The CWC values are designed as the comparison between PICP and confidence level (1-$\alpha$)$\%$.
+        If PICP is less than the confidence level, CWC value will be influenced by the exponential term of CWC.
+        In the opposite site, CWC will be equal to NMPIW since $\gamma$ is eliminated when PICP is equal or larger than confidence level.
 
     \subsection{Data description}
       All data in this paper is provided in Global Energy Forecasting Competition 2014 (see \cite{Hong2016}).
