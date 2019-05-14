@@ -41,9 +41,11 @@ C.~{Li}, M.~{Zhang}, Application of garch model in the forecasting of day-ahead
   (ICNC 2007), Vol.~1, 2007, pp. 99--103.
 
 \bibitem{1627232}
-and and, Electricity price forecasting based on garch model in deregulated
-  market, in: 2005 International Power Engineering Conference, 2005, pp.
-  1--410.
+{Zheng Hua}, {Xie Li}, {Zhang Li-zi}, Electricity price forecasting based on
+  garch model in deregulated market, in: 2005 International Power Engineering
+  Conference, 2005, pp. 1--410.
+\newblock \href {http://dx.doi.org/10.1109/IPEC.2005.206943}
+  {\path{doi:10.1109/IPEC.2005.206943}}.
 
 \bibitem{Girish2016}
 G.~P. Girish, {Spot electricity price forecasting in Indian electricity market

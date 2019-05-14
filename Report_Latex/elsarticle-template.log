@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  22 APR 2019 16:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  12 MAY 2019 19:47
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -408,17 +408,17 @@ Package caption Info: End \AtBeginDocument code.
  [1
 
 
-{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] <./images/basic_DRNN.png, id=110, 390.45876pt x 488.82625pt>
+{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] <./images/basic_DRNN.png, id=108, 390.45876pt x 488.82625pt>
 File: ./images/basic_DRNN.png Graphic file (type png)
  <use ./images/basic_DRNN.png>
 Package pdftex.def Info: ./images/basic_DRNN.png used on input line 145.
 (pdftex.def)             Requested size: 142.26378pt x 178.10309pt.
- [4 <./images/basic_DRNN.png>] <./images/proposed_PDRNN.png, id=125, 954.56625pt x 585.18625pt>
+ [4 <./images/basic_DRNN.png>] <./images/proposed_PDRNN.png, id=120, 954.56625pt x 585.18625pt>
 File: ./images/proposed_PDRNN.png Graphic file (type png)
  <use ./images/proposed_PDRNN.png>
 Package pdftex.def Info: ./images/proposed_PDRNN.png used on input line 177.
 (pdftex.def)             Requested size: 341.43306pt x 209.30965pt.
- [5] <./images/UB_LB_MV_PDRNN.png, id=132, 699.61375pt x 544.0325pt>
+ [5] <./images/UB_LB_MV_PDRNN.png, id=127, 699.61375pt x 544.0325pt>
 File: ./images/UB_LB_MV_PDRNN.png Graphic file (type png)
  <use ./images/UB_LB_MV_PDRNN.png>
 Package pdftex.def Info: ./images/UB_LB_MV_PDRNN.png used on input line 188.
@@ -436,12 +436,12 @@ l.411               \item[a]
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-[13] <./images/Task_9-compare_between_non-spike_and_spike.png, id=212, 578.16pt x 505.89pt>
+[13] <./images/Task_9-compare_between_non-spike_and_spike.png, id=208, 578.16pt x 505.89pt>
 File: ./images/Task_9-compare_between_non-spike_and_spike.png Graphic file (type png)
  <use ./images/Task_9-compare_between_non-spike_and_spike.png>
 Package pdftex.def Info: ./images/Task_9-compare_between_non-spike_and_spike.png used on input line 425.
 (pdftex.def)             Requested size: 341.43306pt x 298.7504pt.
- [14] <./images/All_task_with_spike_price_QR_005.png, id=220, 722.7pt x 867.24pt>
+ [14] <./images/All_task_with_spike_price_QR_005.png, id=216, 722.7pt x 867.24pt>
 File: ./images/All_task_with_spike_price_QR_005.png Graphic file (type png)
  <use ./images/All_task_with_spike_price_QR_005.png>
 Package pdftex.def Info: ./images/All_task_with_spike_price_QR_005.png used on input line 437.
@@ -451,7 +451,7 @@ Overfull \hbox (81.79134pt too wide) in paragraph at lines 437--438
  [][] 
  []
 
-[15 <./images/Task_9-compare_between_non-spike_and_spike.png>] [16 <./images/All_task_with_spike_price_QR_005.png>] <./images/boxcompare_MV-QR.png, id=236, 722.7pt x 722.7pt>
+[15 <./images/Task_9-compare_between_non-spike_and_spike.png>] [16 <./images/All_task_with_spike_price_QR_005.png>] <./images/boxcompare_MV-QR.png, id=232, 722.7pt x 722.7pt>
 File: ./images/boxcompare_MV-QR.png Graphic file (type png)
  <use ./images/boxcompare_MV-QR.png>
 Package pdftex.def Info: ./images/boxcompare_MV-QR.png used on input line 454.
@@ -487,12 +487,12 @@ Missing character: There is no ƒ in font cmr10!
 Missing character: There is no Â in font cmr10!
 Missing character: There is no £ in font cmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 81--86
+Underfull \hbox (badness 10000) in paragraph at lines 83--88
 \OT1/cmr/m/n/10 URL []$\OT1/cmtt/m/n/10 http : / / www . sciencedirect . com / science / article / pii /
  []
 
 [21]
-Underfull \hbox (badness 10000) in paragraph at lines 111--112
+Underfull \hbox (badness 10000) in paragraph at lines 113--114
 []\OT1/cmr/m/n/10 S. Zagoruyko, N. Ko-modakis, Wide resid-ual net-works, CoRR
  []
 
@@ -508,19 +508,19 @@ Package rerunfilecheck Info: File `elsarticle-template.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 480.
  ) 
 Here is how much of TeX's memory you used:
- 8597 strings out of 492995
- 129724 string characters out of 6132704
- 240284 words of memory out of 5000000
- 11942 multiletter control sequences out of 15000+600000
- 9966 words of font info for 36 fonts, out of 8000000 for 9000
+ 8585 strings out of 492995
+ 129605 string characters out of 6132704
+ 240278 words of memory out of 5000000
+ 11935 multiletter control sequences out of 15000+600000
+ 9130 words of font info for 33 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  53i,14n,92p,363b,504s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.p
-fb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on elsarticle-template.pdf (22 pages, 1069245 bytes).
+</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti1
+0.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on elsarticle-template.pdf (22 pages, 1050259 bytes).
 PDF statistics:
- 347 PDF objects out of 1000 (max. 8388607)
- 291 compressed objects within 3 object streams
- 80 named destinations out of 1000 (max. 500000)
+ 337 PDF objects out of 1000 (max. 8388607)
+ 283 compressed objects within 3 object streams
+ 78 named destinations out of 1000 (max. 500000)
  111 words of extra memory for PDF output out of 10000 (max. 10000000)
 

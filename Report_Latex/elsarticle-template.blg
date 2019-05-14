@@ -6,37 +6,37 @@ Database file #1: mybibfile.bib
 Warning--empty pages in Chaweewat2017
 You've used 26 entries,
             2937 wiz_defined-function locations,
-            838 strings with 10126 characters,
-and the built_in function-call counts, 7969 in all, are:
-= -- 764
-> -- 245
+            839 strings with 10185 characters,
+and the built_in function-call counts, 8033 in all, are:
+= -- 771
+> -- 251
 < -- 4
-+ -- 99
-- -- 73
-* -- 583
-:= -- 1101
-add.period$ -- 26
++ -- 101
+- -- 75
+* -- 594
+:= -- 1110
+add.period$ -- 27
 call.type$ -- 26
 change.case$ -- 26
 chr.to.int$ -- 0
 cite$ -- 27
-duplicate$ -- 229
-empty$ -- 895
-format.name$ -- 93
-if$ -- 2056
+duplicate$ -- 230
+empty$ -- 897
+format.name$ -- 96
+if$ -- 2069
 int.to.chr$ -- 0
 int.to.str$ -- 26
 missing$ -- 26
-newline$ -- 87
+newline$ -- 88
 num.names$ -- 26
 pop$ -- 146
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 487
+skip$ -- 489
 stack$ -- 0
 substring$ -- 568
-swap$ -- 39
+swap$ -- 41
 text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
@@ -44,5 +44,5 @@ type$ -- 0
 warning$ -- 1
 while$ -- 63
 width$ -- 28
-write$ -- 220
+write$ -- 222
 (There was 1 warning)
